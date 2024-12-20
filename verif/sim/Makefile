@@ -1,0 +1,317 @@
+# Copyright 2021 Thales DIS design services SAS
+#
+# Licensed under the Solderpad Hardware Licence, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# SPDX-License-Identifier: Apache-2.0 WITH SHL-2.0
+# You may obtain a copy of the License at https://solderpad.org/licenses/
+#
+# Original Author: Jean-Roch COULON - Thales
+
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+root-dir    := $(dir $(mkfile_path))
+
+ifndef CVA6_REPO_DIR
+$(warning must set CVA6_REPO_DIR to point at the root of CVA6 sources and CVA6_TB_DIR to point here -- doing it for you...)
+export CVA6_REPO_DIR = $(abspath $(root-dir)../..)
+export CVA6_TB_DIR   = $(root-dir)/../tb/core
+export CORE_V_VERIF  = $(root-dir)/../core-v-verif
+endif
+ifndef TARGET_CFG
+export TARGET_CFG = $(target)
+endif
+
+HPDCACHE_DIR ?= $(CVA6_REPO_DIR)/core/cache_subsystem/hpdcache
+export HPDCACHE_DIR
+HPDCACHE_TARGET_CFG ?= ${CVA6_REPO_DIR}/core/include/cva6_hpdcache_default_config_pkg.sv
+export HPDCACHE_TARGET_CFG
+
+.DEFAULT_GOAL := help
+
+FLIST_TB   := $(CVA6_TB_DIR)/Flist.cva6_tb
+
+# target takes one of the following cva6 hardware configuration:
+# cv64a6_imafdc_sv39, cv32a6_imac_sv0, cv32a6_imac_sv32, cv32a6_imafc_sv32
+target     ?= cv64a6_imafdc_sv39
+FLIST_CORE := $(if $(gate), $(CVA6_REPO_DIR)/core/Flist.cva6_gate,$(CVA6_REPO_DIR)/core/Flist.cva6)
+
+TRACE_FAST      ?=
+TRACE_COMPACT   ?=
+VERDI           ?=
+path-var        ?=
+tool_path       ?=
+isscomp_opts    ?= -sverilog
+issrun_opts     ?=
+isspostrun_opts ?=
+log             ?=
+variant         ?=
+
+# Spike tandem mode: default to environment setting (DISABLED if envariable SPIKE_TANDEM is not set).
+export spike-tandem ?= $(SPIKE_TANDEM)
+
+# Set Spike step count limit if the caller provided a step count value in variable 'steps'.
+ifneq ($(steps),)
+  spike_stepout = --steps=$(steps)
+endif
+
+# TRACE_FAST, TRACE_COMPACT and VERDI are mutually exclusive and imply non-empty DEBUG.
+ifneq ($(TRACE_FAST),)
+ifneq ($(TRACE_COMPACT),)
+$(error Variables TRACE_FAST and TRACE_COMPACT are mutually exclusive, please unset one of them)
+endif
+ifneq ($(VERDI),)
+$(error Variables TRACE_FAST and VERDI are mutually exclusive, please unset one of them)
+endif
+DEBUG=1
+endif
+
+ifneq ($(TRACE_COMPACT),)
+ifneq ($(TRACE_FAST),)
+$(error Variables TRACE_COMPACT and TRACE_FAST are mutually exclusive, please unset one of them)
+endif
+ifneq ($(VERDI),)
+$(error Variables TRACE_COMPACT and VERDI are mutually exclusive, please unset one of them)
+endif
+DEBUG=1
+endif
+
+ifneq ($(VERDI),)
+ifneq ($(TRACE_COMPACT),)
+$(error Variables VERDI and TRACE_COMPACT are mutually exclusive, please unset one of them)
+endif
+ifneq ($(TRACE_FAST),)
+$(error Variables VERDI and TRACE_FAST are mutually exclusive, please unset one of them)
+endif
+DEBUG=1
+endif
+
+# Make these variables available to sub-Makefiles.
+export DEBUG TRACE_FAST TRACE_COMPACT
+
+TESTNAME := $(shell basename -s .o $(elf))
+
+ifeq ($(isspostrun_opts), "")
+grep_address:
+	grep $(isspostrun_opts) ./trace_rvfi_hart_00.dasm
+else
+grep_address:
+endif
+
+#######################################################################################
+#                   Code Coverage
+#######################################################################################
+#code coverage is deactivated by default
+#To activate the code coverage: define the env variable cov with: (export cov=value) , to deactivate it: (unset cov) OR (export cov= )
+cov-exclude-list ?= $(root-dir)/cov-exclude-mod.lst
+
+ifdef cov
+	cov-comp-opt = -cm line+cond+tgl -cm_hier $(cov-exclude-list)
+	export cov-run-opt  = -cm line+cond+tgl -cm_name $(TESTNAME)
+else
+	cov-comp-opt =
+	export cov-run-opt  =
+endif
+
+ifdef cvxif
+	spike_extension = --extension=cvxif
+endif
+
+###############################################################################
+# Spike specific commands, variables
+###############################################################################
+spike:
+	LD_LIBRARY_PATH="$$(realpath $${SPIKE_INSTALL_DIR}/lib):$$LD_LIBRARY_PATH" \
+		$(tool_path)/spike $(spike_stepout) $(spike_extension) --log-commits --isa=$(variant) -l $(elf)
+	cp $(log).iss $(log)
+
+###############################################################################
+# testharness specific commands, variables
+###############################################################################
+vcs-testharness:
+	make -C $(path_var) work-dpi/ariane_dpi.so
+	make -C $(path_var) vcs_build target=$(target) defines=$(subst +define+,,$(isscomp_opts))$(if $(spike-tandem),SPIKE_TANDEM=1)
+	$(path_var)/work-vcs/simv $(if $(VERDI), -verdi -do $(path_var)/init_testharness.do,) +permissive \
+	  +tohost_addr=$(shell $$RISCV/bin/${CV_SW_PREFIX}nm -B $(elf) | grep -w tohost | cut -d' ' -f1) \
+	  +elf_file=$(elf) +permissive-off ++$(elf) $(issrun_opts) $(if $(spike-tandem),-sv_lib $(SPIKE_INSTALL_DIR)/lib/libriscv) \
+	  -sv_lib $(SPIKE_INSTALL_DIR)/lib/libfesvr
+	$(tool_path)/spike-dasm --isa=$(variant) < ./trace_rvfi_hart_00.dasm > $(log)
+	grep $(isspostrun_opts) ./trace_rvfi_hart_00.dasm
+
+veri-testharness:
+	make -C $(path_var) verilate verilator="verilator --no-timing" target=$(target) defines=$(subst +define+,,$(isscomp_opts))
+	$(path_var)/work-ver/Variane_testharness $(if $(TRACE_COMPACT), -f verilator.fst) $(if $(TRACE_FAST), -v verilator.vcd) $(elf) $(issrun_opts) \
+	  +elf_file=$(elf) +tohost_addr=$(shell $$RISCV/bin/${CV_SW_PREFIX}nm -B $(elf) | grep -w tohost | cut -d' ' -f1)
+	$(tool_path)/spike-dasm --isa=$(variant) < ./trace_rvfi_hart_00.dasm > $(log)
+	# If present, move default trace files to per-test directory.
+	[ ! -f verilator.fst ] || mv verilator.fst `dirname $(log)`/`basename $(log) .log`.$(target).fst
+	[ ! -f verilator.vcd ] || mv verilator.vcd `dirname $(log)`/`basename $(log) .log`.$(target).vcd
+	grep $(isspostrun_opts) ./trace_rvfi_hart_00.dasm
+
+questa-testharness:
+	mkdir -p $(path_var)/tmp
+	make -C $(path_var) sim target=$(target) defines=$(subst +define+,,$(isscomp_opts)) batch-mode=1 $(issrun_opts)
+	$(tool_path)/spike-dasm --isa=$(variant) < $(path_var)/trace_rvfi_hart_00.dasm > $(log)
+	grep $(isspostrun_opts) $(path_var)/trace_rvfi_hart_00.dasm
+
+###############################################################################
+# FSIM specific commands, variables
+###############################################################################
+
+export CVA6_FSIM_SRC_PATH	  = $(CVA6_REPO_DIR)/fmeda/fsim/src
+export CVA6_FSIM_COL_PATH	  = $(CVA6_REPO_DIR)/fmeda/fsim/collateral
+# export FSDB_FAULT_DUMP_MODE=fm
+# export VERDI_FUSA_DEBUG=1
+
+###############################################################################
+# UVM specific commands, variables
+###############################################################################
+ALL_VCS_FLAGS           = $(if $(VERDI) || $(FSIM), -kdb -debug_access+all -lca,) -sverilog -full64 -timescale=1ps/1ps $(if $(FSIM), $(CVA6_FSIM_SRC_PATH)/strobe.sv -fsim -fsim=dut:uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.ex_stage_i.alu_i -fsim=portfaults +vcs+fsdbon ,) $(if $(SAFE), +nospecify, ) 
+export VCS_WORK_DIR            = $(CVA6_REPO_DIR)/verif/sim/vcs_results/default/vcs.d
+SIMV                    = $(VCS_WORK_DIR)/simv
+
+SUPPRESS				= -suppress=SVA-SONS -suppress=TFIPC -suppress=INAV -suppress=ICPSD_W -suppress=PCTI-L -suppress=PCTIO-L -suppress=ENUMASSIGN -suppress=IBMAMS -suppress=NZIR -suppress=PCSRMIO -suppress=SIOB -suppress=IAVCVF-W -suppress=UII-L -suppress=PCWM-W -suppress=SV-CEBS -suppress=SV-ANDNMD -suppress=TMPO -suppress=AOUP -suppress=TMBIN +lint=none
+
+export CVA6_UVMT_DIR          = $(CVA6_REPO_DIR)/verif/tb/uvmt
+export CVA6_UVMT_PATH         = $(CVA6_REPO_DIR)/verif/tb/uvmt
+export CVA6_UVME_PATH         = $(CVA6_REPO_DIR)/verif/env/uvme
+export CV_CORE_LC             = cva6
+export CV_CORE_UC             = CVA6
+export DV_UVMT_PATH           = $(CVA6_REPO_DIR)/verif/tb/uvmt
+export DV_UVME_PATH           = $(CVA6_REPO_DIR)/verif/env/uvme
+export DV_UVML_HRTBT_PATH     = $(CORE_V_VERIF)/lib/uvm_libs/uvml_hrtbt
+export DV_UVMA_CORE_CNTRL_PATH = $(CORE_V_VERIF)/lib/uvm_agents/uvma_core_cntrl
+export DV_UVMA_RVFI_PATH      = $(CORE_V_VERIF)/lib/uvm_agents/uvma_rvfi
+export DV_UVMA_ISACOV_PATH    = $(CORE_V_VERIF)/lib/uvm_agents/uvma_isacov
+export DV_UVMA_CLKNRST_PATH   = $(CORE_V_VERIF)/lib/uvm_agents/uvma_clknrst
+export DV_UVMA_CVXIF_PATH     = $(CORE_V_VERIF)/lib/uvm_agents/uvma_cvxif
+export DV_UVMA_AXI_PATH       = $(CORE_V_VERIF)/lib/uvm_agents/uvma_axi
+export DV_UVMA_INTERRUPT_PATH = $(CORE_V_VERIF)/lib/uvm_agents/uvma_interrupt
+export DV_UVMA_DEBUG_PATH     = $(CORE_V_VERIF)/lib/uvm_agents/uvma_debug
+export DV_UVMA_OBI_PATH       = $(CORE_V_VERIF)/lib/uvm_agents/uvma_obi
+export DV_UVMC_RVFI_SB_PATH   = $(CORE_V_VERIF)/lib/uvm_components/uvmc_rvfi_scoreboard/
+export DV_UVMC_RVFI_REFERENCE_MODEL_PATH = $(CORE_V_VERIF)/lib/uvm_components/uvmc_rvfi_reference_model/
+export DV_UVML_TRN_PATH       = $(CORE_V_VERIF)/lib/uvm_libs/uvml_trn
+export DV_UVML_MEM_PATH       = $(CORE_V_VERIF)/lib/uvm_libs/uvml_mem
+export DV_UVML_LOGS_PATH      = $(CORE_V_VERIF)/lib/uvm_libs/uvml_logs
+export DV_UVML_SB_PATH        = $(CORE_V_VERIF)/lib/uvm_libs/uvml_sb
+export CV_CORE_PKG            = $(CORE_V_VERIF)/core-v-cores/$(CV_CORE_LC)
+export DESIGN_RTL_DIR         = $(CV_CORE_PKG)/rtl
+
+export TBSRC_HOME             = $(CVA6_REPO_DIR)/verif/tb
+export DV_OVPM_HOME           = $(CORE_V_VERIF)/$(CV_CORE_LC)/vendor_lib/imperas
+export DV_OVPM_MODEL          = $(DV_OVPM_HOME)/riscv_$(CV_CORE_UC)_OVPsim
+export DV_OVPM_DESIGN         = $(DV_OVPM_HOME)/design
+
+ALL_UVM_FLAGS           = -lca -sverilog +incdir+$(VCS_HOME)/etc/uvm/src \
+	  $(VCS_HOME)/etc/uvm/src/uvm_pkg.sv +UVM_VERBOSITY=UVM_MEDIUM -ntb_opts uvm-1.2 -timescale=1ps/1ps $(SUPPRESS) \
+	  -assert svaext -race=all -ignore unique_checks -full64 -q +incdir+$(VCS_HOME)/etc/uvm/src \
+	  +incdir+$(CVA6_REPO_DIR)/verif/env/uvme +incdir+$(CVA6_REPO_DIR)/verif/tb/uvmt \
+	  $(if $(DEBUG), -debug_access+all $(if $(VERDI), -kdb) $(if $(TRACE_COMPACT),+vcs+fsdbon)) \
+	  -cm_seqnoconst -diag noconst \
+	  $(if $(spike-tandem), +define+SPIKE_TANDEM=1)
+
+export ALL_SIMV_UVM_FLAGS      = +vcs+lic+wait $(issrun_opts) \
+		-sv_lib $(SPIKE_INSTALL_DIR)/lib/libdisasm \
+		+signature=I-ADD-01.signature_output  +UVM_TESTNAME=uvmt_cva6_firmware_test_c
+
+ifneq ($(DEBUG),)               # If RTL DEBUG support requested
+  ifneq ($(VERDI),)             #   If VERDI interactive mode requested, use GUI and do not run simulation
+  	ifeq ($(FSIM),)
+  		ALL_SIMV_UVM_FLAGS       += \
+                		-gui -do $(CVA6_REPO_DIR)/verif/sim/init_uvm.do
+	endif
+  else                          #   else: *not* VERDI, use CLI mode and appropriate batch dump controls
+    ifneq ($(TRACE_FAST),)      #     TRACE_FAST: Generate waveform trace in VPD format
+      ALL_SIMV_UVM_FLAGS   += \
+                 -ucli -do $(CVA6_REPO_DIR)/verif/sim/init_run_uvm_vpd.do
+      SIMV_TRACE_EXTN      = vpd
+    endif
+    ifneq ($(TRACE_COMPACT),)   #     TRACE_COMPACT: Generate waveform trace in FSDB format
+      ALL_SIMV_UVM_FLAGS   += \
+                 -ucli -do $(CVA6_REPO_DIR)/verif/sim/init_run_uvm_fsdb.do
+      SIMV_TRACE_EXTN      = fsdb
+    endif
+  endif
+endif
+
+ifneq ($(SPIKE_TANDEM),)
+ALL_SIMV_UVM_FLAGS += +scoreboard_enabled=1
+else
+ALL_SIMV_UVM_FLAGS += +scoreboard_enabled=0
+endif
+
+vcs_uvm_comp:
+	@echo "[VCS] Building Model"
+	mkdir -p $(VCS_WORK_DIR)
+	cd $(VCS_WORK_DIR) && vcs $(ALL_UVM_FLAGS)  \
+	  $(if $(gate), -v $(CVA6_REPO_DIR)/pd/synth/tech/NangateOpenCellLibrary_fixed.v) \
+	  -f $(FLIST_CORE) -f $(FLIST_TB) \
+	  -f $(CVA6_UVMT_DIR)/uvmt_cva6.flist \
+	  $(cov-comp-opt) +define+UNSUPPORTED_WITH+ $(isscomp_opts)\
+	  -top uvmt_cva6_tb $(if $(FSIM), -top strobe) $(ALL_VCS_FLAGS)\
+	#   $(if $(gate), -sdf typ:uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6:$(CVA6_REPO_DIR)/pd/synth/cva6_cv64a6_imafdc_sv39_synth.v.sdf)
+#$(if $(gate), -v $(SAED32_PATH)/lib/stdcell_rvt/verilog/saed32nm.v -v $(SAED32_PATH)/lib/stdcell_lvt/verilog/saed32nm_lvt.v -v $(SAED32_PATH)/lib/stdcell_hvt/verilog/saed32nm_hvt.v) \
+	  
+vcs_uvm_run:
+	$(if $(TRACE_FAST), unset VERDI_HOME ;) \
+	cd $(VCS_WORK_DIR)/ && \
+	$(VCS_WORK_DIR)/simv \
+	-sv_lib $(SPIKE_INSTALL_DIR)/lib/libriscv \
+	-sv_lib $(SPIKE_INSTALL_DIR)/lib/libfesvr \
+	${ALL_SIMV_UVM_FLAGS} \
+	++$(elf) \
+	+elf_file=$(elf) \
+	+tohost_addr=$(shell $$RISCV/bin/$(CV_SW_PREFIX)nm -B $(elf) | grep -w tohost | cut -d' ' -f1) \
+	$(cov-run-opt) $(issrun_opts)
+
+vcs-uvm:
+	make vcs_uvm_comp
+	$(if $(FSIM), export to_host_address=$(shell $$RISCV/bin/riscv64-unknown-elf-nm -B $(elf) | grep -w tohost | cut -d' ' -f1) &&\
+	make fsim, \
+	make vcs_uvm_run && \
+	$(tool_path)/spike-dasm --isa=$(variant) < $(VCS_WORK_DIR)/trace_rvfi_hart_00.dasm > $(log))
+	
+
+vc_fcc:
+	vc_fcc -full64 -daidir $(VCS_WORK_DIR)/simv.daidir \
+		-sff $(CVA6_FSIM_COL_PATH)/sff/config.sff,$(CVA6_FSIM_COL_PATH)/sff/faults.sff \
+		-campaign cva6 -overwrite
+
+vc_fcm:
+	vc_fcm -connect -campaign cva6 \
+		-tcl_script $(CVA6_FSIM_COL_PATH)/fcm/fcm.tcl 
+
+fsim_clean:
+	rm -rf fcm_tsim_fsdb fdb* fcm.dir vc_fcc.log vc_fdb_report.log
+
+fsim: fsim_clean
+	make vc_fcc && \
+	make vc_fcm $(if $(VERDI), &&\
+	verdi -fdb_path $(CVA6_REPO_DIR)/verif/sim/fdb -fdb_project default -campaign cva6 )
+
+generate_cov_dash:
+	urg -hvp_proj cva6_embedded -format both -group instcov_for_score -hvp_attributes description -dir vcs_results/default/vcs.d/simv.vdb -plan cva6.hvp -mod modifier_embedded.hvp -tgl portsonly
+
+vcs_clean_all: fsim_clean
+	@echo "[VCS] Cleanup (entire vcs_work dir)"
+	rm -rf $(CVA6_REPO_DIR)/verif/sim/vcs_results/ verdiLog/ simv* *.daidir *.vpd *.fsdb *.db csrc ucli.key vc_hdrs.h novas* inter.fsdb uart
+
+###############################################################################
+# Common targets and rules
+###############################################################################
+
+clean_all: vcs_clean_all
+	rm -f *.txt
+	rm -f trace*.log
+	rm -f trace*.dasm
+	rm -f *.vpd *.fsdb *.vcd *.fst
+
+help:
+	@echo "Shell environment:"
+	@echo "   CVA6_REPO_DIR    : $(CVA6_REPO_DIR)"
+	@echo "   CVA6_TB_DIR      : $(CVA6_TB_DIR)"
+	@echo "VCS targets:"
+	@echo "   make vcs_uvm_comp    : Compiles with VCS"
+	@echo "   make vcs_uvm_run     : Runs with VCS"
+	@echo "Clean-up targets:"
+	@echo "   make clean_all   : Deletes ALL generated files"
+	@echo "Support for other simulators on the ToDo list..."
