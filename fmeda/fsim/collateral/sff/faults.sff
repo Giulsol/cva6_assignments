@@ -1,0 +1,6 @@
+FaultGenerate
+{
+    # NA [0,1] { PORT "uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.**" }
+    # NA [0,1] { PORT "uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.ex_stage_i.**" }
+    NA [0,1] { PORT "uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.ex_stage_i.alu_i.**" }
+}

@@ -1,0 +1,11 @@
+work
+netlist
+reports
+alib-52
+command.tcl
+command_read.tcl
+default.svf
+ariane
+*_synth.v
+cva6_cv64a6_imafdc_sv39
+Flist.cva6_synth
