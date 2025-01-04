@@ -41,7 +41,6 @@ tests/riscv-tests/
 tests/riscv-isa-sim/
 sim/vcs_results
 sim/verilator_work
-sim/out_*
 sim/Mem_init.txt
 sim/*.txt
 sim/trace*
