@@ -1,0 +1,23 @@
+#ifndef _MISR_CONTROL_REG_DEFS_
+#define _MISR_CONTROL_REG_DEFS_
+
+// Register width
+#define MISR_CONTROL_REG_WIDTH 32
+
+// MISR main control register
+#define MISR_CONTROL_CONTROL_REG_OFFSET 0x0
+#define MISR_CONTROL_CONTROL_ENABLE_BIT 0
+#define MISR_CONTROL_CONTROL_RESET_BIT 1
+
+// MISR coefficient register
+#define MISR_CONTROL_COEFFICIENTS_REG_OFFSET 0x4
+
+// MISR signature value
+#define MISR_CONTROL_SIGNATURE_REG_OFFSET 0x8
+
+// MISR peripheral start address
+#define MISR_1_PERIPH_START_ADDRESS 0x7E0
+#define MISR_2_PERIPH_START_ADDRESS 0x840
+#define MISR_3_PERIPH_START_ADDRESS 0x8A0
+
+#endif  //_MISR_CONTROL_REG_DEFS_
