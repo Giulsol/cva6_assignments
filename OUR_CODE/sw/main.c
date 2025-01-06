@@ -1,12 +1,12 @@
-#include "driver_misr.h"
-#include "MISR_csr.h"
+#include "./drivers_misr.h"
+#include "./MISR_csr.h"
 
 #include <stdio.h>
 
 int main(int argc, char const *argv[])
 {	
-	uint32_t rst, en, coeff, coeff_test, sign;
-	uint32_t start_address_misr1 = MISR_1_PERIPH_START_ADDRESS;
+	int rst, en, coeff, coeff_test, sign;
+	int start_address_misr1 = MISR_1_PERIPH_START_ADDRESS;
 
 	// TEST RESET FUNCTIONS
 	MISR_reset(start_address_misr1);

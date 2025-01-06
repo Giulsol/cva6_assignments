@@ -42,7 +42,7 @@ tests/riscv-isa-sim/
 sim/vcs_results
 sim/verilator_work
 sim/Mem_init.txt
-sim/*.txt
+
 sim/trace*
 sim/simv*
 sim/ucli.key
