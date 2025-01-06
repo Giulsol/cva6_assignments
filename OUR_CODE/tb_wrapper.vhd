@@ -12,12 +12,12 @@ architecture TEST of tb_wrapper is
     component wrapper_MISR is 
         generic (N: integer := 32);
         port (
-            clk             : in std_logic;
-            rst_n           : in std_logic;
-            datain          : in std_logic_vector(N-1 downto 0);
-            coeff_reg       : in std_logic_vector(31 downto 0);
-            control_reg     : in std_logic_vector(31 downto 0);
-            output_sig      : out std_logic_vector(31 downto 0)
+            clk                 : in std_logic;
+            rst_n               : in std_logic;
+            datain              : in std_logic_vector(N-1 downto 0);
+            coeff_reg_in        : in std_logic_vector(31 downto 0);
+            control_reg_in      : in std_logic_vector(31 downto 0);
+            output_sig          : out std_logic_vector(31 downto 0)
         );
     end component wrapper_MISR;
 
@@ -39,8 +39,8 @@ begin
                 clk => clk_i,
                 rst_n => rst_n_i,
                 datain => OP1_data,
-                coeff_reg => OP2_coeff,
-                control_reg => ctrl_sig,
+                coeff_reg_in => OP2_coeff,
+                control_reg_in => ctrl_sig,
                 output_sig => SIGNATURE
     );
   
@@ -55,7 +55,7 @@ begin
         wait for 3ns;
 
         rst_n_i <= '1'; 
-        ctrl_sig <= "00000000000000000000000000000001";
+        ctrl_sig <= "00000000000000000000000000000011";
         OP1_data  <= "00000000000000000000000000001111";
         --in teoria il polinomio è x^8 + x^4 + x^3 + x^2 + 1 
         OP2_coeff <= "00000000000000000000000010001110"; --non sono sicura di questa assegnazione però speriamo

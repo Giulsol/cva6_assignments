@@ -7,21 +7,22 @@ use ieee.math_real.all;
 entity wrapper_MISR is 
     generic (N: integer := 32);
     port (
-        clk             : in std_logic;
-        rst_n           : in std_logic;
-        datain          : in std_logic_vector(N-1 downto 0);
-        coeff_reg       : in std_logic_vector(N-1 downto 0);
-        control_reg     : in std_logic_vector(N-1 downto 0);
-        output_sig      : out std_logic_vector(N-1 downto 0)
+        clk                 : in std_logic;
+        rst_n               : in std_logic;
+        datain              : in std_logic_vector(N-1 downto 0);
+        coeff_reg_in        : in std_logic_vector(31 downto 0);
+        control_reg_in      : in std_logic_vector(31 downto 0);
+        output_sig          : out std_logic_vector(31 downto 0)
     );
 
 end entity wrapper_MISR;
 
 architecture behavioral of wrapper_MISR is
     signal enable : std_logic;
-    signal control_register : std_logic_vector(N-1 downto 0);
-    signal coeff_reg_i : std_logic_vector(N-1 downto 0);
+    signal control_register : std_logic_vector(N-1 downto 0); 
+    signal coeff_reg : std_logic_vector(N-1 downto 0);
     signal out_signal : std_logic_vector(N-1 downto 0);
+    signal rst_MISR : std_logic;
 
     component reg_32bit is
         port (
@@ -48,12 +49,13 @@ architecture behavioral of wrapper_MISR is
 begin
 
     enable <= control_register(0);
+    rst_MISR <= rst_n and control_register(1);
 
     ctr_reg: reg_32bit 
         port map (
             clk => clk,
             rst_n => rst_n,
-            d => control_reg,
+            d => control_reg_in,
             q => control_register
     );
 
@@ -61,15 +63,15 @@ begin
     coefficient_reg: reg_32bit
         port map( 
             clk => clk,
-            rst_n => rst_n,
-            d => coeff_reg,
-            q => coeff_reg_i
+            rst_n => rst_MISR,
+            d => coeff_reg_in,
+            q => coeff_reg
     );
 
     sig_reg: reg_32bit
         port map(
             clk => clk,
-            rst_n => rst_n,
+            rst_n => rst_MISR,
             d => out_signal,
             q => output_sig
     );
@@ -78,10 +80,10 @@ begin
         generic map (N => N)
         port map (
             clk => clk,
-            rst_n => rst_n,
+            rst_n => rst_MISR,
             datain => datain,
             en => enable,
-            coeff => coeff_reg_i,
+            coeff => coeff_reg,
             out_sig => out_signal
     );
 
