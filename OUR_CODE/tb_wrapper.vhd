@@ -15,19 +15,21 @@ architecture TEST of tb_wrapper is
             clk                 : in std_logic;
             rst_n               : in std_logic;
             datain              : in std_logic_vector(N-1 downto 0);
-            coeff_reg_in        : in std_logic_vector(31 downto 0);
-            control_reg_in      : in std_logic_vector(31 downto 0);
-            output_sig          : out std_logic_vector(31 downto 0)
+            coeff_reg_in        : in std_logic_vector(N-1 downto 0);
+            control_reg_in      : in std_logic_vector(N-1 downto 0);
+            output_sig          : out std_logic_vector(N-1 downto 0);
+            done_bit            : out std_logic
         );
     end component wrapper_MISR;
 
-    constant N 		    : integer := 32;
+    constant N          : integer := 32;
     signal OP1_data     : std_logic_vector(N-1 downto 0);
-    signal OP2_coeff  	: std_logic_vector(N-1 downto 0);
+    signal OP2_coeff    : std_logic_vector(N-1 downto 0);
     signal ctrl_sig     : std_logic_vector(N-1 downto 0);
-    signal clk_i 		: std_logic := '0';
-    signal rst_n_i 		: std_logic := '1';
-    signal SIGNATURE 	: std_logic_vector(N-1 downto 0);
+    signal clk_i        : std_logic := '0';
+    signal rst_n_i      : std_logic := '1';
+    signal SIGNATURE    : std_logic_vector(N-1 downto 0);
+    signal done         : std_logic;
 
 begin 
 
@@ -41,7 +43,8 @@ begin
                 datain => OP1_data,
                 coeff_reg_in => OP2_coeff,
                 control_reg_in => ctrl_sig,
-                output_sig => SIGNATURE
+                output_sig => SIGNATURE,
+                done_bit => done
     );
   
 
@@ -65,11 +68,13 @@ begin
         wait for 4ns;
 
         OP1_data  <= "00000000000000000000000001000101";
-        ctrl_sig <= (others => '0');
         wait for 4ns;
 
         OP1_data  <= "00000000000000000000000001010001";
         wait for 4ns;
+        wait for 1ns;
+        wait for 50ns;
+        ctrl_sig <= "00000000000000000000000000000111";
 
         wait;
 
