@@ -1,5 +1,5 @@
-#include "drivers_misr.h"
-#include "MISR_csr.h"
+#include "./drivers_misr.h"
+#include "./MISR_csr.h"
 
 //Set the coefficients of the MISR's polynomial
 //Attributes: start address of the peripheral and coefficients to set
@@ -18,7 +18,7 @@ void MISR_start(int periph_start_addr) {
 }
 
 //Get the value of the ENABLE bit of the MISR, to check if it was set or cleared properly
-int MISR_get_enable(int periph_start_addr) {
+int MISR_get_enable_value(int periph_start_addr) {
 	return (*(volatile int *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET)) & (1 << MISR_CONTROL_CONTROL_ENABLE_BIT);
 }
 
