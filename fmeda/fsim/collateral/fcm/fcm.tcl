@@ -17,4 +17,4 @@ create_testcases -name {"test1"} \
 fsim -verbose
 
 ### Write results' report
-report -campaign cva6 -report fsim_v.rpt -overwrite
+report -campaign cva6 -report fsim_v.txt -overwrite
