@@ -24,6 +24,7 @@ architecture structural of generic_MISR is
     signal d_i  : std_logic_vector(N-1 downto 0); --inputs of the registers
     signal q_i  : std_logic_vector(N-1 downto 0); --output of the registers
     signal and_i: std_logic_vector(N-1 downto 0); --contains the coefficients of the polynomial
+    signal done : std_logic; 
     
     component and_1bit is 
         port (  
@@ -66,7 +67,7 @@ begin
 
     in_d <= (others => '0') when rst_n = '0' else datain;
     c_i <= (others => '0') when rst_n = '0' else coeff;
-
+    done_out <= done;
     misr: process(clk, rst_n, en)
     begin 
     
@@ -74,20 +75,22 @@ begin
         q_i <= (others => '0');
         q_i(N-1) <= '1';
         out_sig <= (others => '0');
-        done_out <= '0';
+        done <= '0';
     elsif Clk'event and Clk = '1' then --pos edge of the clock
-        if (en = '1') and (done_in = '0') then
+        if (en = '1') and (done = '0') then
             for i in 0 to N-1 loop
                 q_i(i) <= d_i(i); 
             end loop;
             counter <= counter + 1;
-            done_out <= '0';
             if (counter = 31) then
                 counter <= 0;
-                done_out <= '1';
+                done <= '1';
                 out_sig <= q_i;
             end if;
         end if;
+        if done_in = '1' then
+            done <= '0';
+        end if; 
     end if;
     end process;
 

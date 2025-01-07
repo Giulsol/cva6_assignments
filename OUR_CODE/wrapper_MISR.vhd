@@ -12,8 +12,8 @@ entity wrapper_MISR is
         datain              : in std_logic_vector(N-1 downto 0);
         coeff_reg_in        : in std_logic_vector(N-1 downto 0);
         control_reg_in      : in std_logic_vector(N-1 downto 0);
-        output_sig          : out std_logic_vector(N-1 downto 0);
-        done_bit            : out std_logic
+        output_sig          : out std_logic_vector(N-1 downto 0); 
+        done_bit            : out std_logic_vector(N-1 downto 0)
     );
 
 end entity wrapper_MISR;
@@ -24,6 +24,7 @@ architecture behavioral of wrapper_MISR is
     signal coeff_reg : std_logic_vector(N-1 downto 0);
     signal out_signal : std_logic_vector(N-1 downto 0);
     signal rst_MISR : std_logic;
+    signal done_register : std_logic_vector(N-1 downto 0);
 
     component reg_32bit is
         port (
@@ -53,7 +54,18 @@ begin
 
     enable <= control_register(0);
     rst_MISR <= rst_n and control_register(1);
+    done_reg <= (others => '0') & done_out; --extend the bit to 32bits  
 
+    --done bit register (32bits register due to byte alignment)
+    done_register: reg_32bit
+        port map (
+            clk => clk,
+            rst_n => rst_MISR,
+            d => done_reg,
+            q => done_bit
+    );
+
+    --control register    
     ctr_reg: reg_32bit 
         port map (
             clk => clk,
@@ -62,7 +74,7 @@ begin
             q => control_register
     );
 
-    
+    --coefficients register     
     coefficient_reg: reg_32bit
         port map( 
             clk => clk,
@@ -71,6 +83,7 @@ begin
             q => coeff_reg
     );
 
+    --signature register 
     sig_reg: reg_32bit
         port map(
             clk => clk,

@@ -72,7 +72,6 @@ begin
 
         OP1_data  <= "00000000000000000000000001010001";
         wait for 4ns;
-        wait for 1ns;
         wait for 50ns;
         ctrl_sig <= "00000000000000000000000000000111";
 
