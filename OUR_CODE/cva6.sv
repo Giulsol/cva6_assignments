@@ -134,7 +134,13 @@ module cva6
     input cvxif_resp_t cvxif_resp_i,
     // memory side
     output noc_req_t noc_req_o,
-    input noc_resp_t noc_resp_i
+    input noc_resp_t noc_resp_i,
+		input logic [1:0] re_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
+		input logic [1:0] we_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
+		input logic [63:0] addr_MISR_i,
+		input logic [63:0] wdata_MISR_i,
+		output logic [63:0] rdata_MISR_o,
+		
 );
 
   // ------------------------------------------
@@ -454,9 +460,10 @@ module cva6
 	// ------------------------------------------
   // MISR
   // ------------------------------------------
-	logic re_MISR1, re_MISR2;
-	logic we_MISR1, we_MISR2;
-	logic [63:0] data_o_MISR1, data_o_MISR1;
+	localparam MISR_PRIPH_1_START_ADDR = 2**25;
+	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (64*4);
+	logic [63:0] data_o_MISR1, data_o_MISR2;
+
 	wrapper_MISR #(
 		.NBIT_DATA(64),
 		.NBIT_ADDR(64),
@@ -465,27 +472,40 @@ module cva6
 	) MISR1 (
 		.clk_i(clk_i), 
 		.rst_ni(rst_ni),
-		.re_i(re_MISR1),
-		.we_i(we_MISR1),
-		.data_i(),
-		.addr_i(),
-		.data_o()
-	)
+		.re_i(re_MISR_i[0]),
+		.we_i(we_MISR_i[0]),
+		.data_CSR_i(wdata_MISR_i),
+		.data_MISR_i(),
+		.addr_i(addr_MISR_i),
+		.data_o(data_o_MISR1)
+	);
 
-module wrapper_MISR #( 
-	parameter int unsigned NBIT_DATA = 64,
-	parameter int unsigned NBIT_ADDR = 64,
-	parameter int unsigned NBIT_REGS = 64, 
-	parameter int unsigned START_ADDR = 2**25
-	)(
-	input 	logic 					clk_i,   
-	input 	logic 					rst_ni, 
-	input	logic 					re_i,
-	input	logic					we_i,
-	input 	logic [NBIT_DATA-1:0]	data_i,
-	input 	logic [NBIT_ADDR-1:0]	addr_i,
-	output 	logic [NBIT_DATA-1:0]	data_o	
-);
+	wrapper_MISR #(
+		.NBIT_DATA(64),
+		.NBIT_ADDR(64),
+		.NBIT_REGS(64),
+		.START_ADDR(MISR_PRIPH_2_START_ADDR)
+	) MISR2 (
+		.clk_i(clk_i), 
+		.rst_ni(rst_ni),
+		.re_i(re_MISR_i[1]),
+		.we_i(we_MISR_i[1]),
+		.data_CSR_i(wdata_MISR_i),
+		.data_MISR_i(),
+		.addr_i(addr_MISR_i),
+		.data_o(data_o_MISR2)
+	);
+
+	always_comb begin
+		if(re_MISR_i[0] == 1'b1) begin
+			rdata_MISR_o = data_o_MISR1;
+		end
+		else if (re_MISR_i[1] == 1'b1) begin
+			rdata_MISR_o = data_o_MISR2;
+		end
+		else rdata_MISR_o = '0;
+	end
+
   // --------------
   // Frontend
   // --------------
