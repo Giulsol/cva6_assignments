@@ -40,7 +40,9 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   parameter type rvfi_instr_t = logic,
   //
   parameter int unsigned AXI_USER_EN       = 0,
-  parameter int unsigned NUM_WORDS         = 2**25
+  parameter int unsigned NUM_WORDS         = 2**25,
+  parameter int unsigned NBIT_MISR_ADDR    = 32,
+  parameter int unsigned NBIT_MISR_DATA    = 32
 ) (
   input  logic                         clk_i,
   input  logic                         rst_ni,
@@ -79,7 +81,12 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .cvxif_req_o          ( cvxif_req                 ),
     .cvxif_resp_i         ( cvxif_resp                ),
     .noc_req_o            ( axi_ariane_req            ),
-    .noc_resp_i           ( axi_ariane_resp           )
+    .noc_resp_i           ( axi_ariane_resp           ),
+    .re_MISR_i            ( re_misr                   ),
+    .we_MISR_i            ( we_misr                   ),
+    .addr_MISR_i          ( addr_misr                 ),
+    .wdata_MISR_i         ( wdata_misr                ),
+    .rdata_MISR_o         ( rdata_misr                )
   );
 
   //----------------------------------------------------------------------------
@@ -101,7 +108,7 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   ) ;
 
   //----------------------------------------------------------------------------
-  // Memory
+  // Address decoder input
   //----------------------------------------------------------------------------
 
   logic                         req;
@@ -112,6 +119,25 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   logic [CVA6Cfg.AxiUserWidth-1:0]    wuser;
   logic [CVA6Cfg.AxiDataWidth-1:0]    rdata;
   logic [CVA6Cfg.AxiUserWidth-1:0]    ruser;
+
+  //----------------------------------------------------------------------------
+  //misr signals to connect the address_decoder to the misr
+  //----------------------------------------------------------------------------
+  logic re_misr;
+  logic we_misr;
+  logic [NBIT_MISR_ADDR-1:0] addr_misr;
+  logic [NBIT_MISR_DATA-1:0] wdata_misr;
+  logic [NBIT_MISR_DATA-1:0] rdata_misr;
+
+  //----------------------------------------------------------------------------
+  //misr signals to connect the address_decoder to the sram
+  //----------------------------------------------------------------------------
+  logic req_sram;
+  logic we_sram;
+  logic [CVA6Cfg.AxiDataWidth/8-1:0] be_sram;
+  logic [CVA6Cfg.AxiAddrWidth-1:0] addr_sram;
+  logic [CVA6Cfg.AxiDataWidth-1:0] data_sram;
+  logic [CVA6Cfg.AxiUserWidth-1:0] user_sram;
 
   //Response structs
    assign axi_ariane_resp.aw_ready = (axi_switch_vif.active) ? axi_slave.aw_ready : cva6_axi_bus.aw_ready;
@@ -216,6 +242,31 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .data_i ( rdata        )
   );
 
+  address_decoder #(
+    .NBIT_MISR_DATA (NBIT_MISR_DATA),
+    .NBIT_MISR_ADDR (NBIT_MISR_ADDR),
+    .NBIT_AXI_WIDTH (CVA6Cfg.AxiAddrWidth),
+    .USER_AXI_WIDTH (CVA6Cfg.AxiUserWidth),
+    .MISR_PERIPH_START_ADDR (NUM_WORDS)
+  ) address_decoder (
+    .request_i (req),    
+    .wr_en_i (we),     
+    .byte_en_i (be),   
+	  .address_i (addr[$clog2(NUM_WORDS)-1+$clog2(CVA6Cfg.AxiDataWidth/8):$clog2(CVA6Cfg.AxiDataWidth/8)]),    
+    .data_i (wdata),    
+    .user_i (wuser),     
+    .re_misr_o (re_misr),     
+    .we_misr_o (we_misr),     
+	  .addr_misr_o (addr_misr),  
+    .data_misr_o (wdata_misr),   
+    .req_o (req_sram),        
+    .we_o (we_sram),          
+    .be_o (be_sram),         
+	  .addr_o (addr_sram),        
+    .data_o (data_sram),        
+    .user_o (user_sram)
+  );
+
   sram #(
     .USER_WIDTH ( CVA6Cfg.AxiUserWidth ),
     .DATA_WIDTH ( CVA6Cfg.AxiDataWidth ),
@@ -223,16 +274,16 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .SIM_INIT   ( "zeros"        ),
     .NUM_WORDS  ( NUM_WORDS      )
   ) i_sram (
-    .clk_i      ( clk_i                                                                       ),
-    .rst_ni     ( rst_ni                                                                      ),
-    .req_i      ( req                                                                         ),
-    .we_i       ( we                                                                          ),
-    .addr_i     ( addr[$clog2(NUM_WORDS)-1+$clog2(CVA6Cfg.AxiDataWidth/8):$clog2(CVA6Cfg.AxiDataWidth/8)] ),
-    .wuser_i    ( wuser                                                                       ),
-    .wdata_i    ( wdata                                                                       ),
-    .be_i       ( be                                                                          ),
-    .ruser_o    ( ruser                                                                       ),
-    .rdata_o    ( rdata                                                                       )
+    .clk_i      ( clk_i      ),
+    .rst_ni     ( rst_ni     ),
+    .req_i      ( req_sram   ),
+    .we_i       ( we_sram    ),
+    .addr_i     ( addr_sram  ),
+    .wuser_i    ( user_sram  ),
+    .wdata_i    ( data_sram  ),
+    .be_i       ( be_sram    ),
+    .ruser_o    ( ruser      ),
+    .rdata_o    ( rdata      )
   );
 
     initial begin

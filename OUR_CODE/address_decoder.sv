@@ -1,6 +1,6 @@
 module address_decoder #( 
-	parameter int unsigned NBIT_DATA = 32,
-	parameter int unsigned NBIT_ADDR = 32,
+	parameter int unsigned NBIT_MISR_DATA = 32,
+	parameter int unsigned NBIT_MISR_ADDR = 32,
 	parameter int unsigned NBIT_AXI_WIDTH = 64, 
 	parameter int unsigned USER_AXI_WIDTH = 10,
     parameter int unsigned MISR_PERIPH_START_ADDR = 2**25
@@ -13,8 +13,8 @@ module address_decoder #(
     input 	logic [USER_AXI_WIDTH-1:0]	 user_i,        //user coming from the axi bus
     output  logic                        re_misr_o,     //request coming from the micro
     output  logic                        we_misr_o,     //write enable going to misr
-	output 	logic [NBIT_ADDR-1:0]	     addr_misr_o,   //address coming from the axi bus
-    output 	logic [NBIT_DATA-1:0]	     data_misr_o,   //data coming from the axi bus
+	output 	logic [NBIT_MISR_ADDR-1:0]	 addr_misr_o,   //address coming from the axi bus
+    output 	logic [NBIT_MISR_DATA-1:0]	 data_misr_o,   //data coming from the axi bus
     output  logic                        req_o,         //request coming from the micro
     output  logic                        we_o,          //write enable going to misr
     output  logic [NBIT_AXI_WIDTH/8-1:0] be_o,          //byte enable going to misr
