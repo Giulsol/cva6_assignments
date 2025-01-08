@@ -42,7 +42,7 @@ architecture structural of generic_MISR is
             xor_out : out std_logic
         );  
     end component;
-    signal counter : integer range 0 to 32 := 0;
+    signal counter : integer range 0 to N := 0;
 begin  
 
     coefficients: for i in 0 to N-1 generate 
@@ -82,7 +82,7 @@ begin
                 q_i(i) <= d_i(i); 
             end loop;
             counter <= counter + 1;
-            if (counter = 31) then
+            if (counter = (N-1)) then
                 counter <= 0;
                 done <= '1';
                 out_sig <= q_i;
