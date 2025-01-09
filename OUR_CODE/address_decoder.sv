@@ -60,8 +60,7 @@ module address_decoder #(
                         re_misr_o = 2'b00;
                         we_misr_o = 2'b00;
                     end
-                end
-                default: 
+                end 
             endcase
         end
         else begin  //micro and sram speaking

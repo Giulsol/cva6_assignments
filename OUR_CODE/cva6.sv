@@ -140,7 +140,7 @@ module cva6
 		input logic [1:0] we_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
 		input logic [63:0] addr_MISR_i,
 		input logic [31:0] wdata_MISR_i,
-		output logic [31:0] rdata_MISR_o,
+		output logic [31:0] rdata_MISR_o
 		
 );
 
