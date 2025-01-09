@@ -40,9 +40,7 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   parameter type rvfi_instr_t = logic,
   //
   parameter int unsigned AXI_USER_EN       = 0,
-  parameter int unsigned NUM_WORDS         = 2**25,
-  parameter int unsigned NBIT_MISR_ADDR    = 32,
-  parameter int unsigned NBIT_MISR_DATA    = 32
+  parameter int unsigned NUM_WORDS         = 2**25
 ) (
   input  logic                         clk_i,
   input  logic                         rst_ni,
@@ -106,38 +104,53 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .rvfi_i(rvfi),
     .end_of_test_o(tb_exit_o)
   ) ;
+  
+  //----------------------------------------------------------------------------
+  // Constants for MISR
+  //----------------------------------------------------------------------------
+  localparam NBIT_MISR_ADDR   = 64;
+  localparam NBIT_MISR_DATA   = 32;
+  localparam START_ADDR_MISR  = NUM_WORDS;
 
   //----------------------------------------------------------------------------
-  // Address decoder input
+  // Address decoder inputs 
   //----------------------------------------------------------------------------
-
-  logic                         req;
-  logic                         we;
-  logic [CVA6Cfg.AxiAddrWidth-1:0] addr;
+  logic                             req;
+  logic                             we;
+  logic [CVA6Cfg.AxiAddrWidth-1:0]  addr;
   logic [CVA6Cfg.AxiDataWidth/8-1:0]  be;
   logic [CVA6Cfg.AxiDataWidth-1:0]    wdata;
   logic [CVA6Cfg.AxiUserWidth-1:0]    wuser;
+
+  //----------------------------------------------------------------------------
+  // axi2mem inputs 
+  //----------------------------------------------------------------------------
   logic [CVA6Cfg.AxiDataWidth-1:0]    rdata;
   logic [CVA6Cfg.AxiUserWidth-1:0]    ruser;
 
   //----------------------------------------------------------------------------
-  //misr signals to connect the address_decoder to the misr
+  // MISR inputs - outputs
   //----------------------------------------------------------------------------
-  logic re_misr;
-  logic we_misr;
+  // signals to connect the address_decoder to the MISR
+  logic [1:0] re_misr; //READ ENABLE: bit 0 is for MISR #1, bit 1 is for MISR #2
+  logic [1:0] we_misr; //WRITE ENABLE: bit 0 is for MISR #1, bit 1 is for MISR #2
   logic [NBIT_MISR_ADDR-1:0] addr_misr;
   logic [NBIT_MISR_DATA-1:0] wdata_misr;
+  //signal to connect the MISR output data to axi2mem
   logic [NBIT_MISR_DATA-1:0] rdata_misr;
 
   //----------------------------------------------------------------------------
-  //misr signals to connect the address_decoder to the sram
+  // SRAM inputs - outputs
   //----------------------------------------------------------------------------
+  // signals to connect the address_decoder to the SRAM
   logic req_sram;
   logic we_sram;
   logic [CVA6Cfg.AxiDataWidth/8-1:0] be_sram;
   logic [CVA6Cfg.AxiAddrWidth-1:0] addr_sram;
   logic [CVA6Cfg.AxiDataWidth-1:0] data_sram;
   logic [CVA6Cfg.AxiUserWidth-1:0] user_sram;
+  //signal to connect the SRAM output data to axi2mem
+  logic [CVA6Cfg.AxiDataWidth-1:0] rdata_sram;
 
   //Response structs
    assign axi_ariane_resp.aw_ready = (axi_switch_vif.active) ? axi_slave.aw_ready : cva6_axi_bus.aw_ready;
@@ -283,8 +296,11 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .wdata_i    ( data_sram  ),
     .be_i       ( be_sram    ),
     .ruser_o    ( ruser      ),
-    .rdata_o    ( rdata      )
+    .rdata_o    ( rdata_sram )
   );
+
+  //mux to decide if MISR or SRAM are writing into axi2mem
+  assign rdata = (req_sram & ~we_sram) ? rdata_sram : rdata_misr;
 
     initial begin
         wait (
