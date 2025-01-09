@@ -66,12 +66,11 @@ module generic_MISR #(
 			end
 			else begin
 				//keep everything still and output the signature
-				d_i = q_i; 
 				counter_d = counter_q;
 				signature = q_i;
 				done_d = done_q;
 			end
-
+			d_i = q_i; 
 		end
 		
 	end
@@ -83,19 +82,12 @@ module generic_MISR #(
 			counter_q <= '0;
 		end else begin
 			//if the MISR is enabled and the counter has not reached the max, keep going
-			if ((en == 1'b1) & (done_q == 1'b0)) begin
+			if (en == 1'b1) begin
 				q_i <= d_i;
 				counter_q <= counter_d;
 				done_q <= done_d;
 			end
-			else begin
-				
-			end
 		end
 	end
-
-
-	
-
 
 endmodule : generic_MISR
