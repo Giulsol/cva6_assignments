@@ -19,4 +19,6 @@ void MISR_clear_reset(int periph_start_addr);
 
 int MISR_get_signature(int periph_start_addr);
 
+int MISR_get_done(int periph_start_addr);
+
 #endif //MISR_HH

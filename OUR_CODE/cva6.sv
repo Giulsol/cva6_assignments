@@ -135,11 +135,12 @@ module cva6
     // memory side
     output noc_req_t noc_req_o,
     input noc_resp_t noc_resp_i,
+    // MISR
 		input logic [1:0] re_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
 		input logic [1:0] we_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
 		input logic [63:0] addr_MISR_i,
-		input logic [63:0] wdata_MISR_i,
-		output logic [63:0] rdata_MISR_o,
+		input logic [31:0] wdata_MISR_i,
+		output logic [31:0] rdata_MISR_o,
 		
 );
 
@@ -461,13 +462,16 @@ module cva6
   // MISR
   // ------------------------------------------
 	localparam MISR_PRIPH_1_START_ADDR = 2**25;
-	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (64*4);
-	logic [63:0] data_o_MISR1, data_o_MISR2;
-
+	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (32/8)*4;
+  localparam NBIT_DATA_MISR = 32;
+  localparam NBIT_REG_MISR = 32;
+  localparam NBIT_ADDR_MISR = 64;
+	logic [NBIT_DATA_MISR-1:0] data_o_MISR1, data_o_MISR2;
+  //first MISR takes as input the output of the ALU
 	wrapper_MISR #(
-		.NBIT_DATA(64),
-		.NBIT_ADDR(64),
-		.NBIT_REGS(64),
+		.NBIT_DATA(NBIT_DATA_MISR),
+		.NBIT_ADDR(NBIT_ADDR_MISR),
+		.NBIT_REGS(NBIT_REG_MISR),
 		.START_ADDR(MISR_PRIPH_1_START_ADDR)
 	) MISR1 (
 		.clk_i(clk_i), 
@@ -475,15 +479,16 @@ module cva6
 		.re_i(re_MISR_i[0]),
 		.we_i(we_MISR_i[0]),
 		.data_CSR_i(wdata_MISR_i),
-		.data_MISR_i(),
+		.data_MISR_i(flu_result_ex_id),
 		.addr_i(addr_MISR_i),
 		.data_o(data_o_MISR1)
 	);
 
+  //second MISR takes as input the predicted address of the BPU
 	wrapper_MISR #(
-		.NBIT_DATA(64),
-		.NBIT_ADDR(64),
-		.NBIT_REGS(64),
+		.NBIT_DATA(NBIT_DATA_MISR),
+		.NBIT_ADDR(NBIT_ADDR_MISR),
+		.NBIT_REGS(NBIT_REG_MISR),
 		.START_ADDR(MISR_PRIPH_2_START_ADDR)
 	) MISR2 (
 		.clk_i(clk_i), 
@@ -491,11 +496,13 @@ module cva6
 		.re_i(re_MISR_i[1]),
 		.we_i(we_MISR_i[1]),
 		.data_CSR_i(wdata_MISR_i),
-		.data_MISR_i(),
+		.data_MISR_i(branch_predict_id_ex.predict_address), 
 		.addr_i(addr_MISR_i),
 		.data_o(data_o_MISR2)
 	);
 
+  //multiplexer to decide which MISR will write in the output rdata_MISR_o
+  //based on the read enable signals received 
 	always_comb begin
 		if(re_MISR_i[0] == 1'b1) begin
 			rdata_MISR_o = data_o_MISR1;
