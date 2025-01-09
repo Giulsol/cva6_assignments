@@ -12,40 +12,25 @@ module generic_MISR #(
 	logic [N-1:0] 		q_i; 	//outputs of the registers
 	logic [N-1:0] 		and_i; 	//contains the coefficients of the polynomial
 
-	
-	genvar i;
-	generate
-		for(i = 0; i < N; i++) begin
-			assign and_i[i] = coeff[i] & q_i[N-1];
-		end
-	endgenerate
-
-
 	always_comb begin 
 		out_sig = q_i;
-		if ((en == 1'b1)) begin
-			//generate the new input of the FFs
-			for (int k = 0; k < N; k++) begin
-				if (k==0) begin
-					d_i[k] = datain[k] ^ and_i[k];
-				end 
-				else begin
-			 		d_i[k] = (datain[k] ^ and_i[k]) ^ q_i[k-1];
-				end
+		//generate the new input of the FFs
+		for (int k = 0; k < N; k++) begin
+			and_i[k] = coeff[k] & q_i[N-1];
+			if (k==0) begin
+				d_i[k] = datain[k] ^ and_i[k];
+			end 
+			else begin
+				d_i[k] = (datain[k] ^ and_i[k]) ^ q_i[k-1];
 			end
-		end
-		else begin
-			d_i = q_i; 
-		end
-		
+		end		
 	end
 
 	always_ff @(posedge clk or negedge rst_n) begin
 		if(~rst_n) begin
 			q_i <= {{(N-1){1'b0}}, 1'b1};
 		end else begin
-			//if the MISR is enabled and the counter has not reached the max, keep going
-			if (en == 1'b1) begin
+			if (en) begin
 				q_i <= d_i;
 			end
 		end
