@@ -102,10 +102,8 @@ ${CVA6_REPO_DIR}/core/alu.sv
 // Note: depends on fpnew_pkg, above
 ${CVA6_REPO_DIR}/core/fpu_wrap.sv
 ${CVA6_REPO_DIR}/OUR_CODE/wrapper_MISR.sv
-${CVA6_REPO_DIR}/OUR_CODE/control_reg.vhd
-${CVA6_REPO_DIR}/OUR_CODE/MISR.vhd
-${CVA6_REPO_DIR}/OUR_CODE/xor_1bit.vhd
-${CVA6_REPO_DIR}/OUR_CODE/and_1bit.vhd
+${CVA6_REPO_DIR}/OUR_CODE/control_reg.sv
+${CVA6_REPO_DIR}/OUR_CODE/MISR.sv
 ${CVA6_REPO_DIR}/core/branch_unit.sv
 ${CVA6_REPO_DIR}/core/compressed_decoder.sv
 ${CVA6_REPO_DIR}/core/controller.sv
