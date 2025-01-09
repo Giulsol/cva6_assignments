@@ -1,7 +1,7 @@
 module wrapper_MISR #( 
-	parameter int unsigned NBIT_DATA = 32,
+	parameter int unsigned NBIT_DATA = 64,
 	parameter int unsigned NBIT_ADDR = 64, //address coming from AXI is on 64 bits
-	parameter int unsigned NBIT_REGS = 32, 
+	parameter int unsigned NBIT_REGS = 64, 
 	parameter int unsigned START_ADDR = 2**25
 	)(
 	input 	logic 					clk_i,   

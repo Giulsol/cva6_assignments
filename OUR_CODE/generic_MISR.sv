@@ -1,5 +1,5 @@
 module generic_MISR #(
-	parameter int unsigned N = 32
+	parameter int unsigned N = 64
 	)(
 	input 	logic 			clk,   
 	input 	logic 			rst_n,

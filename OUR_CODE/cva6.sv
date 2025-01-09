@@ -139,8 +139,8 @@ module cva6
 		input logic [1:0] re_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
 		input logic [1:0] we_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
 		input logic [63:0] addr_MISR_i,
-		input logic [31:0] wdata_MISR_i,
-		output logic [31:0] rdata_MISR_o
+		input logic [63:0] wdata_MISR_i,
+		output logic [63:0] rdata_MISR_o
 		
 );
 
@@ -463,8 +463,8 @@ module cva6
   // ------------------------------------------
 	localparam MISR_PRIPH_1_START_ADDR = 2**25;
 	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (32/8)*4;
-  localparam int unsigned NBIT_DATA_MISR = 32;
-  localparam int unsigned NBIT_REG_MISR = 32;
+  localparam int unsigned NBIT_DATA_MISR = 64;
+  localparam int unsigned NBIT_REG_MISR = 64;
   localparam int unsigned NBIT_ADDR_MISR = 64;
 	logic [NBIT_DATA_MISR-1:0] data_o_MISR1, data_o_MISR2;
   //first MISR takes as input the output of the ALU

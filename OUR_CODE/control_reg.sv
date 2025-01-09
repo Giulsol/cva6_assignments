@@ -1,5 +1,5 @@
 module control_register #( 
-	parameter int unsigned NBIT = 32
+	parameter int unsigned NBIT = 64
 	)(
 	input 	logic 					clk,   
 	input 	logic 					rst_n, 
