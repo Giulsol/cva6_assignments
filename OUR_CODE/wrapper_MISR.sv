@@ -19,23 +19,18 @@ module wrapper_MISR #(
 	localparam MISR_CONTROL_CONTROL_REG_OFFSET 		= 0;
 	localparam MISR_CONTROL_COEFFICIENTS_REG_OFFSET	= NBIT_REGS/8;
 	localparam MISR_CONTROL_SIGNATURE_REG_OFFSET 	= 2*(NBIT_REGS/8);
-	localparam MISR_CONTROL_DONE_REG_OFFSET			= 3*(NBIT_REGS/8);
 
 	localparam int MISR_CONTROL_ENABLE_BIT 			= 0;
 	localparam int MISR_CONTROL_RESET_BIT 			= 1;
-	localparam int MISR_CONTROL_DONE_BIT 			= 2;
 
 	localparam MISR_CONTROL_CONTROL_REG_ADDR 		= MISR_PERIPH_START_ADDR + MISR_CONTROL_CONTROL_REG_OFFSET;
 	localparam MISR_CONTROL_COEFFICIENTS_REG_ADDR	= MISR_PERIPH_START_ADDR + MISR_CONTROL_COEFFICIENTS_REG_OFFSET;
 	localparam MISR_CONTROL_SIGNATURE_REG_ADDR		= MISR_PERIPH_START_ADDR + MISR_CONTROL_SIGNATURE_REG_OFFSET;
-	localparam MISR_CONTROL_DONE_REG_ADDR			= MISR_PERIPH_START_ADDR + MISR_CONTROL_DONE_REG_OFFSET;
 
 	logic en_MISR, rst_MISR;
-	logic done_bit;
 	logic [NBIT_REGS-1:0] control_reg_in, control_reg_out;
 	logic [NBIT_REGS-1:0] coeff_reg_in, coeff_reg_out;
 	logic [NBIT_REGS-1:0] signature_reg_in, signature_reg_out;
-	logic [NBIT_REGS-1:0] done_reg_in, done_reg_out;
 
 	// control register, contains enable and reset bits    
 	// SW: rw permission
@@ -60,14 +55,6 @@ module wrapper_MISR #(
 		.NBIT(NBIT_REGS)
 	) signature_register (
 		.clk(clk_i), .rst_n(rst_ni), .d(signature_reg_in), .q(signature_reg_out)
-	);
-	// done bit register (32bits register due to byte alignment)
-	// SW: ro permission
-	// HW: rw permission
-	control_reg  #(
-		.NBIT(NBIT_REGS)
-	) done_register (
-		.clk(clk_i), .rst_n(rst_ni), .d(done_reg_in), .q(done_reg_out)
 	); 
 
 	//MISR
@@ -78,10 +65,8 @@ module wrapper_MISR #(
 		.rst_n 		(rst_MISR),
 		.datain 	(data_MISR_i),
 		.en 		(en_MISR),
-		.done_in 	(control_reg_out[MISR_CONTROL_DONE_BIT]),
 		.coeff 		(coeff_reg_out),
-		.out_sig 	(signature_reg_in), //output
-		.done_out 	(done_bit) //output
+		.out_sig 	(signature_reg_in) //output
 	);
 
 	always_comb begin 
@@ -90,7 +75,6 @@ module wrapper_MISR #(
 		en_MISR = control_reg_in[MISR_CONTROL_ENABLE_BIT];
 		control_reg_in = control_reg_out;
 		coeff_reg_in = coeff_reg_out;
-		done_reg_in = {{(NBIT_REGS-1){1'b0}} , done_bit};
 		data_o = '0; //if a read request is not specified, simply put all 0 in output (it will be ignored by the bus anyway)
 
 		// check if the transaction on the AXI bus is towards the MISR registers
@@ -119,14 +103,6 @@ module wrapper_MISR #(
 				//so, if a write request is issued, nothing will happen
 				if (re_i == 1'b1) begin
 					data_o = signature_reg_out;
-				end
-			end
-			//done register
-			MISR_CONTROL_DONE_REG_ADDR : begin
-				//this register can only be written by the MISR
-				//so, if a write request is issued, nothing will happen
-				if (re_i == 1'b1) begin
-					data_o = done_reg_out;
 				end
 			end
 			default : data_o = '0;
