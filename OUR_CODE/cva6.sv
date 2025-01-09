@@ -463,9 +463,9 @@ module cva6
   // ------------------------------------------
 	localparam MISR_PRIPH_1_START_ADDR = 2**25;
 	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (32/8)*4;
-  localparam NBIT_DATA_MISR = 32;
-  localparam NBIT_REG_MISR = 32;
-  localparam NBIT_ADDR_MISR = 64;
+  localparam int unsigned NBIT_DATA_MISR = 32;
+  localparam int unsigned NBIT_REG_MISR = 32;
+  localparam int unsigned NBIT_ADDR_MISR = 64;
 	logic [NBIT_DATA_MISR-1:0] data_o_MISR1, data_o_MISR2;
   //first MISR takes as input the output of the ALU
 	wrapper_MISR #(
