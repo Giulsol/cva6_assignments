@@ -1,0 +1,39 @@
+Using Verilator from cached directory /opt/verilator-cva6.
+Verilator version:
+Verilator 5.008 2023-03-04 rev v5.008
+https://github.com/openhwgroup/cva6.git
+master
+853fb4bee5ca6e36e39dc3c272a97f49d95c3c1d
+
+Using pre-installed Spike from '/opt/toolchain_riscv_13_cva6'.
+rm -rf tmp/riscv-torture/output/test*
+rm -rf work/ work-dpi/ work-ver/ work-vcs/
+rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb
+cd corev_apu/fpga && make clean && cd ../..
+make[1]: Entering directory `/home/s324967/TESTING_LABS/project/cva6_assignments/corev_apu/fpga'
+rm -rf *.log *.jou *.str *.mif *.xpr work-fpga ariane.cache ariane.hw ariane.ip_user_files scripts/vivado*
+make[1]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/corev_apu/fpga'
+make: Entering directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
+rm -rf fcm_tsim_fsdb fdb* fcm.dir vc_fcc.log vc_fdb_report.log
+[VCS] Cleanup (entire vcs_work dir)
+rm -rf /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/ verdiLog/ simv* *.daidir *.vpd *.fsdb *.db csrc ucli.key vc_hdrs.h novas* inter.fsdb uart
+rm -f *.txt
+rm -f trace*.log
+rm -f trace*.dasm
+rm -f *.vpd *.fsdb *.vcd *.fst
+make: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
+
+[Generating configuration ... ]
+Default configuration is cv64a6_imafdc_sv39
+Make sure to compile your code with this ISA : rv64imafdc !
+setting NrLoadPipeRegs to 0
+setting HaltAddress to 2052
+setting ExceptionAddress to 2056
+WARNING: CVA6 configuration parameter 'CVA6ConfigZcbExtEn' not supported yet via cmdline args, 
+	 consider extending script 'config_pkg_generator.py'!
+WARNING: CVA6 configuration parameter 'CVA6ConfigVExtEn' not supported yet via cmdline args, 
+	 consider extending script 'config_pkg_generator.py'!
+WARNING: CVA6 configuration parameter 'CVA6ConfigZiCondExtEn' not supported yet via cmdline args, 
+	 consider extending script 'config_pkg_generator.py'!
+[Generating configuration Done]
+
