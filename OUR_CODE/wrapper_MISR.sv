@@ -77,7 +77,7 @@ module wrapper_MISR #(
 		en_MISR = control_reg_in[MISR_CONTROL_ENABLE_BIT];
 		control_reg_in = control_reg_out;
 		coeff_reg_in = coeff_reg_out;
-		data_o = '0; //if a read request is not specified, simply put all 0 in output (it will be ignored by the bus anyway)
+		data_sw_o = '0; //if a read request is not specified, simply put all 0 in output (it will be ignored by the bus anyway)
 
 		// check if the transaction on the AXI bus is towards the MISR registers
 		case (addr_i)
@@ -87,7 +87,7 @@ module wrapper_MISR #(
 					control_reg_in = data_CSR_i;
 				end
 				else if(re_i == 1'b1) begin
-					data_o = control_reg_out;
+					data_sw_o = control_reg_out;
 				end
 			end
 			//coefficients register
@@ -96,7 +96,7 @@ module wrapper_MISR #(
 					coeff_reg_in = data_CSR_i;
 				end
 				else if(re_i == 1'b1) begin
-					data_o = coeff_reg_out;
+					data_sw_o = coeff_reg_out;
 				end
 			end
 			//signature register
@@ -104,10 +104,10 @@ module wrapper_MISR #(
 				//this register can only be written by the MISR
 				//so, if a write request is issued, nothing will happen
 				if (re_i == 1'b1) begin
-					data_o = signature_reg_out;
+					data_sw_o = signature_reg_out;
 				end
 			end
-			default : data_o = '0;
+			default : data_sw_o = '0;
 		endcase
 		
 	end

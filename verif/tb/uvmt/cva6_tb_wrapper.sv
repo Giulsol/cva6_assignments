@@ -110,7 +110,7 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   // Constants for MISR
   //----------------------------------------------------------------------------
   localparam NBIT_MISR_ADDR   = 64;
-  localparam NBIT_MISR_DATA   = 32;
+  localparam NBIT_MISR_DATA   = 64;
   localparam START_ADDR_MISR  = NUM_WORDS;
 
   //----------------------------------------------------------------------------
@@ -342,13 +342,10 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     // ****** MONITOR ************************************
 	
     initial begin
-      logic pos [63:0];
-
-      pos = rsign_misr;
 
       wait(clk_i);
 
-      $display ("[$display] time=%0t signature=0x%0h", $time, pos);    
+      $monitor ("[$monitor] time=%0t signature=0x%0h", $time, rsign_misr);    
 
     end 
 

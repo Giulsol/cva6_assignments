@@ -485,7 +485,7 @@ module cva6
 		.data_MISR_i(flu_result_ex_id),
 		.addr_i(addr_MISR_i),
     .signature_o(sign_o_MISR1),
-		.data_o(data_o_MISR1)
+		.data_sw_o(data_o_MISR1)
 	);
 
   //second MISR takes as input the predicted address of the BPU
@@ -502,8 +502,8 @@ module cva6
 		.data_CSR_i(wdata_MISR_i),
 		.data_MISR_i(branch_predict_id_ex.predict_address), 
 		.addr_i(addr_MISR_i),
-    .signature_o(sign_o_MISR2);
-		.data_o(data_o_MISR2)
+    .signature_o(sign_o_MISR2),
+		.data_sw_o(data_o_MISR2)
 	);
 
   //multiplexer to decide which MISR will write in the output rdata_MISR_o
