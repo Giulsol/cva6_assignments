@@ -1,5 +1,5 @@
 module address_decoder #( 
-	parameter int unsigned NBIT_MISR_DATA = 32,
+	parameter int unsigned NBIT_MISR_DATA = 64,
 	parameter int unsigned NBIT_MISR_ADDR = 64,
 	parameter int unsigned NBIT_AXI_WIDTH = 64, 
 	parameter int unsigned USER_AXI_WIDTH = 10,
@@ -22,8 +22,9 @@ module address_decoder #(
     output 	logic [NBIT_AXI_WIDTH-1:0]	 data_o,        //data going to SRAM
     output 	logic [USER_AXI_WIDTH-1:0]	 user_o         //user going to SRAM
 );
+    localparam N_MISR_CSR = 3;
     localparam MISR_PRIPH_1_START_ADDR = MISR_PERIPH_START_ADDR;
-    localparam MISR_PRIPH_2_START_ADDR = MISR_PERIPH_START_ADDR + (32/8)*4;
+    localparam MISR_PRIPH_2_START_ADDR = MISR_PERIPH_START_ADDR + (NBIT_MISR_DATA/8)*N_MISR_CSR;
 	always_comb begin 
 		user_o = user_i;
         data_o = data_i;
