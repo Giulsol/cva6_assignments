@@ -1,4 +1,4 @@
-module control_register #( 
+module control_reg #( 
 	parameter int unsigned NBIT = 64
 	)(
 	input 	logic 					clk,   
@@ -14,4 +14,4 @@ module control_register #(
 		q    <= d;
 		end
 	end
-endmodule : control_register
+endmodule : control_reg
