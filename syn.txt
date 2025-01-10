@@ -244,7 +244,7 @@ if {$synopsys_program_name == "dc_shell"}  {
 
 }
 Warning: You requested 16 cores. However, the host po.polito.it only has 8 available cores. The tool will ignore the request and use -max_cores 8. (UIO-230)
-Warning: You requested 16 cores. However, load on host po.polito.it is 12.44. Tool will ignore the request and use 1 cores. (UIO-231)
+Warning: You requested 16 cores. However, load on host po.polito.it is 3.76. Tool will ignore the request and use 5 cores. (UIO-231)
 Information: Variable 'power_cg_designware' is obsolete and is being ignored. (INFO-100)
 Clock gating insertion with compile_ultra -gate_clock automatically inserts clock gates in DesignWare modules
 %s
@@ -331,9 +331,9 @@ analyze -vcs "-sverilog -f Flist.cva6_synth" -library ariane_lib
 ../..//OUR_CODE/cva6.sv
 ../..//core/alu.sv
 ../..//core/fpu_wrap.sv
-../..//OUR_CODE/wrapper_MISR.sv
 ../..//OUR_CODE/control_reg.sv
 ../..//OUR_CODE/generic_MISR.sv
+../..//OUR_CODE/wrapper_MISR.sv
 ../..//core/branch_unit.sv
 ../..//core/compressed_decoder.sv
 ../..//core/controller.sv
@@ -518,10 +518,9 @@ Compiling source file ../../vendor/pulp-platform/common_cells/src/delta_counter.
 Compiling source file ../../OUR_CODE/cva6.sv
 Compiling source file ../../core/alu.sv
 Compiling source file ../../core/fpu_wrap.sv
-Compiling source file ../../OUR_CODE/wrapper_MISR.sv
 Compiling source file ../../OUR_CODE/control_reg.sv
 Compiling source file ../../OUR_CODE/generic_MISR.sv
-Warning:  ../../OUR_CODE/generic_MISR.sv:13: Parameter keyword used in local parameter declaration. (VER-329)
+Compiling source file ../../OUR_CODE/wrapper_MISR.sv
 Compiling source file ../../core/branch_unit.sv
 Compiling source file ../../core/compressed_decoder.sv
 Compiling source file ../../core/controller.sv
@@ -656,13 +655,13 @@ Warning: Can't read link_library file 'yourLib2.db'. (UID-3)
 Running PRESTO HDLC
 Warning:  ../../OUR_CODE/cva6.sv:43: signed to unsigned conversion occurs. (VER-318)
 Warning:  ../../OUR_CODE/cva6.sv:44: signed to unsigned conversion occurs. (VER-318)
-Warning:  ../../OUR_CODE/cva6.sv:152: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../../OUR_CODE/cva6.sv:153: signed to unsigned conversion occurs. (VER-318)
 Warning: Can't read link_library file 'yourLib1.db'. (UID-3)
 Warning: Can't read link_library file 'yourLib2.db'. (UID-3)
-Warning:  ../../OUR_CODE/cva6.sv:1427: signed to unsigned assignment occurs. (VER-318)
-Warning:  ../../OUR_CODE/cva6.sv:1415: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../../OUR_CODE/cva6.sv:1437: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../../OUR_CODE/cva6.sv:1425: signed to unsigned conversion occurs. (VER-318)
 
-Statistics for case statements in always block at line 1414 in file
+Statistics for case statements in always block at line 1424 in file
 	'../../OUR_CODE/cva6.sv'
 ===============================================
 |           Line           |  full/ parallel  |
@@ -677,25 +676,25 @@ Warning: Can't read link_library file 'yourLib2.db'. (UID-3)
 Information: Building the design 'wrapper_MISR' instantiated from design 'cva6' with
 	the parameters "NBIT_DATA=32'h00000040,NBIT_ADDR=32'h00000040,NBIT_REGS=32'h00000040,START_ADDR=33554432". (HDL-193)
 
-Statistics for case statements in always block at line 87 in file
+Statistics for case statements in always block at line 73 in file
 	'../../OUR_CODE/wrapper_MISR.sv'
 ===============================================
 |           Line           |  full/ parallel  |
 ===============================================
-|            97            |    auto/auto     |
+|            83            |    auto/auto     |
 ===============================================
 Presto compilation completed successfully. (wrapper_MISR_00000040_00000040_00000040_33554432)
 Information: Building the design 'wrapper_MISR' instantiated from design 'cva6' with
-	the parameters "NBIT_DATA=32'h00000040,NBIT_ADDR=32'h00000040,NBIT_REGS=32'h00000040,START_ADDR=33554448". (HDL-193)
+	the parameters "NBIT_DATA=32'h00000040,NBIT_ADDR=32'h00000040,NBIT_REGS=32'h00000040,START_ADDR=32'h02000018". (HDL-193)
 
-Statistics for case statements in always block at line 87 in file
+Statistics for case statements in always block at line 73 in file
 	'../../OUR_CODE/wrapper_MISR.sv'
 ===============================================
 |           Line           |  full/ parallel  |
 ===============================================
-|            97            |    auto/auto     |
+|            83            |    auto/auto     |
 ===============================================
-Presto compilation completed successfully. (wrapper_MISR_00000040_00000040_00000040_33554448)
+Presto compilation completed successfully. (wrapper_MISR_00000040_00000040_00000040_02000018)
 Information: Building the design 'frontend' instantiated from design 'cva6' with
 	the parameters "CVA6Cfg=6936'h0000000200000040000000400000000400000040000000028b7c000000800000000040000000ac000000000000200000000000000020200000000800000080000002000000000000000000000000200000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000040000000000000000400000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000001e". (HDL-193)
 Warning:  ../../core/frontend/frontend.sv:145: signed to unsigned conversion occurs. (VER-318)
@@ -942,22 +941,28 @@ Information: Building the design 'wt_cache_subsystem' instantiated from design '
 Presto compilation completed successfully. (wt_cache_subsystem_4_106242)
 Information: Building the design 'control_reg' instantiated from design 'wrapper_MISR_00000040_00000040_00000040_33554432' with
 	the parameters "NBIT=32'h00000040". (HDL-193)
-Warning: Cannot find the design 'control_reg' in the library 'WORK'. (LBR-1)
-Information: Building the design 'generic_MISR' instantiated from design 'wrapper_MISR_00000040_00000040_00000040_33554432' with
-	the parameters "N=32'h00000040". (HDL-193)
-Warning:  ../../OUR_CODE/generic_MISR.sv:25: signed to unsigned conversion occurs. (VER-318)
-Warning:  ../../OUR_CODE/generic_MISR.sv:37: signed to unsigned conversion occurs. (VER-318)
 
 Inferred memory devices in process
-	in routine generic_MISR_00000040 line 78 in file
+	in routine control_reg_00000040 line 10 in file
+		'../../OUR_CODE/control_reg.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|        q_reg        | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (control_reg_00000040)
+Information: Building the design 'generic_MISR' instantiated from design 'wrapper_MISR_00000040_00000040_00000040_33554432' with
+	the parameters "N=32'h00000040". (HDL-193)
+Warning:  ../../OUR_CODE/generic_MISR.sv:18: signed to unsigned conversion occurs. (VER-318)
+
+Inferred memory devices in process
+	in routine generic_MISR_00000040 line 29 in file
 		'../../OUR_CODE/generic_MISR.sv'.
 ===============================================================================
 |    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
 ===============================================================================
-|    counter_q_reg    | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
 |       q_i_reg       | Flip-flop |  63   |  Y  | N  | Y  | N  | N  | N  | N  |
 |       q_i_reg       | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
-|     done_q_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
 ===============================================================================
 Presto compilation completed successfully. (generic_MISR_00000040)
 Information: Building the design 'instr_realign' instantiated from design 'frontend__864949' with
@@ -4474,10 +4479,9 @@ Presto compilation completed successfully. (control_mvp)
 Information: Building the design 'iteration_div_sqrt_mvp' instantiated from design 'control_mvp' with
 	the parameters "58". (HDL-193)
 Presto compilation completed successfully. (iteration_div_sqrt_mvp)
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 uniquify
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Information: Uniquified 6 instances of design 'control_reg_00000040'. (OPT-1056)
 Information: Uniquified 2 instances of design 'generic_MISR_00000040'. (OPT-1056)
 Information: Uniquified 2 instances of design 'instr_scan__864949'. (OPT-1056)
 Information: Uniquified 33 instances of design 'popcount_00000002'. (OPT-1056)
@@ -4516,37 +4520,25 @@ Warning: Can't read link_library file 'yourLib2.db'. (UID-3)
   Linking design 'cva6'
   Using the following designs and libraries:
   --------------------------------------------------------------------------
-  * (356 designs)             /home/s322461/project/cva6_assignments/pd/synth/cva6.db, etc
+  * (362 designs)             /home/s322461/project/cva6_assignments/pd/synth/cva6.db, etc
   dw_foundation.sldb (library) /eda/synopsys/2022-23/RHELx86/SYN_2022.12/libraries/syn/dw_foundation.sldb
 
-Information: Building the design 'control_reg' instantiated from design 'wrapper_MISR_00000040_00000040_00000040_33554432' with
-	the parameters "NBIT=32'h00000040". (HDL-193)
-Warning: Cannot find the design 'control_reg' in the library 'WORK'. (LBR-1)
-Warning: Unable to resolve reference 'control_reg' in 'wrapper_MISR_00000040_00000040_00000040_33554432'. (LINK-5)
-Warning: Unable to resolve reference 'control_reg' in 'wrapper_MISR_00000040_00000040_00000040_33554448'. (LINK-5)
-0
+1
 create_clock [get_ports $clk_port] -name $clk_name -period $clk_period
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 #set_dont_touch to keep sram as black boxes
 set_dont_touch gen_cache_wt.i_cache_subsystem/i_wt_dcache/i_wt_dcache_mem/gen_tag_srams[*].i_tag_sram
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_dont_touch gen_cache_wt.i_cache_subsystem/i_wt_dcache/i_wt_dcache_mem/gen_data_banks[*].i_data_sram
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_dont_touch gen_cache_wt.i_cache_subsystem/i_cva6_icache/gen_sram[*].data_sram
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_dont_touch gen_cache_wt.i_cache_subsystem/i_cva6_icache/gen_sram[*].tag_sram
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 write -hierarchy -format ddc -output ${DCRM_ELABORATED_DESIGN_DDC_OUTPUT_FILE}
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Writing ddc file 'cva6_cv64a6_imafdc_sv39/outputs/10//cva6_yourTechnoName.elab.ddc'.
 1
 change_name -rule verilog -hier
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Warning: The specified replacement character (_) is conflicting with the specified allowed or restricted character.   (UCN-4)
 1
 # Prevent assignment statements in the Verilog netlist.
@@ -4554,28 +4546,20 @@ set_fix_multiple_port_nets -all -buffer_constants
 1
 #constraint the timing to and from the sram black boxes
 set_input_delay -clock main_clk -max $input_delay gen_cache_wt_i_cache_subsystem/i_wt_dcache/i_wt_dcache_mem/gen_tag_srams_*__i_tag_sram/gen_cut_*__i_tc_sram_wrapper/rdata_o[*]
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_input_delay -clock main_clk -max $input_delay gen_cache_wt_i_cache_subsystem/i_wt_dcache/i_wt_dcache_mem/gen_data_banks_*__i_data_sram/gen_cut_*__i_tc_sram_wrapper/rdata_o[*]
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_input_delay -clock main_clk -max $input_delay gen_cache_wt_i_cache_subsystem/i_cva6_icache/gen_sram_*__data_sram/gen_cut_*__i_tc_sram_wrapper/rdata_o[*]
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_input_delay -clock main_clk -max $input_delay gen_cache_wt_i_cache_subsystem/i_cva6_icache/gen_sram_*__tag_sram/gen_cut_*__i_tc_sram_wrapper/rdata_o[*]
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_output_delay $output_delay -max -clock main_clk gen_cache_wt_i_cache_subsystem/i_wt_dcache/i_wt_dcache_mem/gen_tag_srams_*__i_tag_sram/gen_cut_*__i_tc_sram_wrapper/addr_i[*]
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_output_delay $output_delay -max -clock main_clk gen_cache_wt_i_cache_subsystem/i_wt_dcache/i_wt_dcache_mem/gen_data_banks_*__i_data_sram/gen_cut_*__i_tc_sram_wrapper/addr_i[*]
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_output_delay $output_delay -max -clock main_clk gen_cache_wt_i_cache_subsystem/i_cva6_icache/gen_sram_*__data_sram/gen_cut_*__i_tc_sram_wrapper/addr_i[*]
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 set_output_delay $output_delay -max -clock main_clk gen_cache_wt_i_cache_subsystem/i_cva6_icache/gen_sram_*__tag_sram/gen_cut_*__i_tc_sram_wrapper/addr_i[*]
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 # Check the current design for consistency
 check_design -summary > ${DCRM_CHECK_DESIGN_REPORT}
@@ -4585,7 +4569,6 @@ Warning: The value of variable 'compile_preserve_subdesign_interfaces' has been 
 Information: Starting from 2013.12 release, constant propagation is enabled even when boundary optimization is disabled. (OPT-1318)
 Warning: Can't read link_library file 'yourLib1.db'. (UID-3)
 Warning: Can't read link_library file 'yourLib2.db'. (UID-3)
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Warning: Use of power_opto_extra_high_dynamic_power_effort is not recommended. This variable is obsolete and has no impact on optimization. It will be removed in a future release. (PWR-890)
 Warning: Low power placement will not be performed because DCG has not been enabled.  (PWR-891)
 Warning: Low power placement will not be performed because dynamic power optimization has not been enabled. (PWR-892)
@@ -4599,15 +4582,11 @@ yourLib1.db yourLib2.db
 Error: No target library found. (OPT-1312)
 0
 change_names -rules verilog -hierarchy
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 write -format verilog -hierarchy -output ${DCRM_FINAL_VERILOG_OUTPUT_FILE}
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Writing verilog file '/home/s322461/project/cva6_assignments/pd/synth/cva6_cv64a6_imafdc_sv39/outputs/10/cva6_yourTechnoName_synth.v'.
-Warning: Module generic_MISR_00000040_1 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
 Warning: Module wrapper_MISR_00000040_00000040_00000040_33554432 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
-Warning: Module generic_MISR_00000040_0 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
-Warning: Module wrapper_MISR_00000040_00000040_00000040_33554448 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
+Warning: Module wrapper_MISR_00000040_00000040_00000040_02000018 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
 Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
 Warning: Module instr_realign__864949 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
 Warning: Module ras_00000002_864949 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
@@ -5386,12 +5365,9 @@ Warning: Module wt_axi_adapter__106242 contains unmapped components.  The output
 Warning: Module cva6 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
 1
 write -format verilog -hierarchy -output ${DESIGN_NAME}_synth.v
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Writing verilog file '/home/s322461/project/cva6_assignments/pd/synth/cva6_synth.v'.
-Warning: Module generic_MISR_00000040_1 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
 Warning: Module wrapper_MISR_00000040_00000040_00000040_33554432 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
-Warning: Module generic_MISR_00000040_0 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
-Warning: Module wrapper_MISR_00000040_00000040_00000040_33554448 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
+Warning: Module wrapper_MISR_00000040_00000040_00000040_02000018 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
 Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
 Warning: Module instr_realign__864949 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
 Warning: Module ras_00000002_864949 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
@@ -6170,7 +6146,6 @@ Warning: Module wt_axi_adapter__106242 contains unmapped components.  The output
 Warning: Module cva6 contains unmapped components.  The output netlist might not be read back into the system. (VO-12)
 1
 write -format ddc     -hierarchy -output ${DCRM_FINAL_DDC_OUTPUT_FILE}
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Writing ddc file 'cva6_cv64a6_imafdc_sv39/outputs/10//cva6_yourTechnoName_synth.ddc'.
 1
 report_timing -nworst 10  >  ${DCRM_FINAL_TIMING_REPORT}
@@ -6184,24 +6159,21 @@ report_timing -through gen_cache_wt_i_cache_subsystem/i_cva6_icache/gen_sram_*__
 report_timing -through gen_cache_wt_i_cache_subsystem/i_cva6_icache/gen_sram_*__tag_sram/addr_i[*] >>  ${DCRM_FINAL_TIMING_REPORT}
 report_area -hier -nosplit > ${DCRM_FINAL_AREA_REPORT}
 write_parasitics -output ${DCRM_FINAL_SPEF_OUTPUT_FILE}
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Information: Writing parasitics to file '/home/s322461/project/cva6_assignments/pd/synth/cva6_cv64a6_imafdc_sv39/outputs/10/cva6_yourTechnoName_synth.spef'. (WP-3)
 1
 write_sdc ${DCRM_FINAL_SDC_OUTPUT_FILE}
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 1
 write_sdf ${DESIGN_NAME}_synth.v.sdf
-Warning: Design 'cva6' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Warning: Using 'user-specified' sdf time scale of '1.000000 ns'. (WT-9)
 Information: Writing timing information to file '/home/s322461/project/cva6_assignments/pd/synth/cva6_synth.v.sdf'. (WT-3)
 Warning: Design contains black-box components.  These cells will have no timing information. (WT-7)
 1
 exit
 
-Memory usage for this session 1300 Mbytes.
-Memory usage for this session including child processes 1300 Mbytes.
-CPU usage for this session 213 seconds ( 0.06 hours ).
-Elapsed time for this session 249 seconds ( 0.07 hours ).
+Memory usage for this session 1302 Mbytes.
+Memory usage for this session including child processes 1302 Mbytes.
+CPU usage for this session 207 seconds ( 0.06 hours ).
+Elapsed time for this session 214 seconds ( 0.06 hours ).
 
 Thank you...
 python scripts/gate_analysis.py 'cva6_cv64a6_imafdc_sv39/reports/10/cva6_yourTechnoName_synth_area.rpt' 650
@@ -6264,132 +6236,132 @@ id_stage_i                                         0 kg
 issue_stage_i                                      0 kg
 issue_stage_i/i_issue_read_operands                0 kg
 issue_stage_i/i_issue_read_operands/eq_403         0 kg
-issue_stage_i/i_issue_read_operands/eq_403/*cell*4016 0 kg
+issue_stage_i/i_issue_read_operands/eq_403/*cell*4045 0 kg
 issue_stage_i/i_issue_read_operands/eq_403_2       0 kg
-issue_stage_i/i_issue_read_operands/eq_403_2/*cell*4019 0 kg
+issue_stage_i/i_issue_read_operands/eq_403_2/*cell*4048 0 kg
 issue_stage_i/i_issue_read_operands/eq_403_2_i2    0 kg
-issue_stage_i/i_issue_read_operands/eq_403_2_i2/*cell*4025 0 kg
+issue_stage_i/i_issue_read_operands/eq_403_2_i2/*cell*4054 0 kg
 issue_stage_i/i_issue_read_operands/eq_403_i2      0 kg
-issue_stage_i/i_issue_read_operands/eq_403_i2/*cell*4022 0 kg
+issue_stage_i/i_issue_read_operands/eq_403_i2/*cell*4051 0 kg
 issue_stage_i/i_issue_read_operands/float_regfile_gen_gen_asic_fp_regfile_i_ariane_fp_regfile 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_2_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_2_inside_604_c276_rn/*cell*3952 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_2_inside_604_c276_rn/*cell*3981 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_3_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_3_inside_604_c276_rn/*cell*3960 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_3_inside_604_c276_rn/*cell*3989 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_5_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_5_inside_604_c276_rn/*cell*3968 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_5_inside_604_c276_rn/*cell*3997 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_7_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_7_inside_604_c276_rn/*cell*3976 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_7_inside_604_c276_rn/*cell*4005 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_inside_604_c276_rn/*cell*3944 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_gte_inside_604_c276_rn/*cell*3973 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_2_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_2_inside_604_c276_rn/*cell*3956 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_2_inside_604_c276_rn/*cell*3985 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_3_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_3_inside_604_c276_rn/*cell*3964 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_3_inside_604_c276_rn/*cell*3993 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_5_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_5_inside_604_c276_rn/*cell*3972 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_5_inside_604_c276_rn/*cell*4001 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_7_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_7_inside_604_c276_rn/*cell*3980 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_7_inside_604_c276_rn/*cell*4009 0 kg
 issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_inside_604_c276_rn 0 kg
-issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_inside_604_c276_rn/*cell*3948 0 kg
+issue_stage_i/i_issue_read_operands/forwarding_operand_select___pmt208_lte_inside_604_c276_rn/*cell*3977 0 kg
 issue_stage_i/i_issue_read_operands/gen_asic_regfile_i_ariane_regfile 0 kg
 issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_2_inside_633_c394_rn 0 kg
-issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_2_inside_633_c394_rn/*cell*3992 0 kg
+issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_2_inside_633_c394_rn/*cell*4021 0 kg
 issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_7_inside_633_c394_rn 0 kg
-issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_7_inside_633_c394_rn/*cell*4000 0 kg
+issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_7_inside_633_c394_rn/*cell*4029 0 kg
 issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_8_inside_633_c394_rn 0 kg
-issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_8_inside_633_c394_rn/*cell*4008 0 kg
+issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_8_inside_633_c394_rn/*cell*4037 0 kg
 issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_inside_633_c394_rn 0 kg
-issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_inside_633_c394_rn/*cell*3984 0 kg
+issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_gte_inside_633_c394_rn/*cell*4013 0 kg
 issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_2_inside_633_c394_rn 0 kg
-issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_2_inside_633_c394_rn/*cell*3996 0 kg
+issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_2_inside_633_c394_rn/*cell*4025 0 kg
 issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_7_inside_633_c394_rn 0 kg
-issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_7_inside_633_c394_rn/*cell*4004 0 kg
+issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_7_inside_633_c394_rn/*cell*4033 0 kg
 issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_8_inside_633_c394_rn 0 kg
-issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_8_inside_633_c394_rn/*cell*4012 0 kg
+issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_8_inside_633_c394_rn/*cell*4041 0 kg
 issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_inside_633_c394_rn 0 kg
-issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_inside_633_c394_rn/*cell*3988 0 kg
+issue_stage_i/i_issue_read_operands/issue_scoreboard___pmt210_lte_inside_633_c394_rn/*cell*4017 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_8_inside_586_c177_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_8_inside_586_c177_rn/*cell*3832 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_8_inside_586_c177_rn/*cell*3861 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_8_inside_586_c184_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_8_inside_586_c184_rn/*cell*3848 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_8_inside_586_c184_rn/*cell*3877 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_inside_586_c177_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_inside_586_c177_rn/*cell*3824 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_inside_586_c177_rn/*cell*3853 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_inside_586_c184_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_inside_586_c184_rn/*cell*3840 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt207_gte_inside_586_c184_rn/*cell*3869 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_8_inside_586_c177_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_8_inside_586_c177_rn/*cell*3836 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_8_inside_586_c177_rn/*cell*3865 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_8_inside_586_c184_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_8_inside_586_c184_rn/*cell*3852 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_8_inside_586_c184_rn/*cell*3881 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_inside_586_c177_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_inside_586_c177_rn/*cell*3828 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_inside_586_c177_rn/*cell*3857 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_inside_586_c184_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_inside_586_c184_rn/*cell*3844 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt207_lte_inside_586_c184_rn/*cell*3873 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_2_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_2_inside_604_c194_rn/*cell*3864 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_2_inside_604_c194_rn/*cell*3893 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_2_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_2_inside_604_c199_rn/*cell*3904 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_2_inside_604_c199_rn/*cell*3933 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_3_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_3_inside_604_c194_rn/*cell*3872 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_3_inside_604_c194_rn/*cell*3901 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_3_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_3_inside_604_c199_rn/*cell*3912 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_3_inside_604_c199_rn/*cell*3941 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_5_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_5_inside_604_c194_rn/*cell*3880 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_5_inside_604_c194_rn/*cell*3909 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_5_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_5_inside_604_c199_rn/*cell*3920 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_5_inside_604_c199_rn/*cell*3949 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_7_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_7_inside_604_c194_rn/*cell*3888 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_7_inside_604_c194_rn/*cell*3917 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_7_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_7_inside_604_c199_rn/*cell*3928 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_7_inside_604_c199_rn/*cell*3957 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_inside_604_c194_rn/*cell*3856 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_inside_604_c194_rn/*cell*3885 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_inside_604_c199_rn/*cell*3896 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_gte_inside_604_c199_rn/*cell*3925 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_2_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_2_inside_604_c194_rn/*cell*3868 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_2_inside_604_c194_rn/*cell*3897 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_2_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_2_inside_604_c199_rn/*cell*3908 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_2_inside_604_c199_rn/*cell*3937 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_3_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_3_inside_604_c194_rn/*cell*3876 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_3_inside_604_c194_rn/*cell*3905 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_3_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_3_inside_604_c199_rn/*cell*3916 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_3_inside_604_c199_rn/*cell*3945 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_5_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_5_inside_604_c194_rn/*cell*3884 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_5_inside_604_c194_rn/*cell*3913 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_5_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_5_inside_604_c199_rn/*cell*3924 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_5_inside_604_c199_rn/*cell*3953 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_7_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_7_inside_604_c194_rn/*cell*3892 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_7_inside_604_c194_rn/*cell*3921 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_7_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_7_inside_604_c199_rn/*cell*3932 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_7_inside_604_c199_rn/*cell*3961 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_inside_604_c194_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_inside_604_c194_rn/*cell*3860 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_inside_604_c194_rn/*cell*3889 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_inside_604_c199_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_inside_604_c199_rn/*cell*3900 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt208_lte_inside_604_c199_rn/*cell*3929 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt209_gte_3_inside_621_c210_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt209_gte_3_inside_621_c210_rn/*cell*3940 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt209_gte_3_inside_621_c210_rn/*cell*3969 0 kg
 issue_stage_i/i_issue_read_operands/operands_available___pmt209_lte_inside_621_c210_rn 0 kg
-issue_stage_i/i_issue_read_operands/operands_available___pmt209_lte_inside_621_c210_rn/*cell*3936 0 kg
+issue_stage_i/i_issue_read_operands/operands_available___pmt209_lte_inside_621_c210_rn/*cell*3965 0 kg
 issue_stage_i/i_issue_read_operands/u__pmt207_gte_inside_586_c545_rn 0 kg
-issue_stage_i/i_issue_read_operands/u__pmt207_gte_inside_586_c545_rn/*cell*4028 0 kg
+issue_stage_i/i_issue_read_operands/u__pmt207_gte_inside_586_c545_rn/*cell*4057 0 kg
 issue_stage_i/i_scoreboard                         0 kg
 misr1                                              0 kg
 misr2                                              0 kg
-u__pmt210_gte_2_inside_633_c1431_i2_rn             0 kg
-u__pmt210_gte_2_inside_633_c1431_rn                0 kg
-u__pmt210_gte_7_inside_633_c1431_i2_rn             0 kg
-u__pmt210_gte_7_inside_633_c1431_rn                0 kg
-u__pmt210_gte_8_inside_633_c1431_i2_rn             0 kg
-u__pmt210_gte_8_inside_633_c1431_rn                0 kg
-u__pmt210_gte_inside_633_c1431_i2_rn               0 kg
-u__pmt210_gte_inside_633_c1431_rn                  0 kg
-u__pmt210_lte_2_inside_633_c1431_i2_rn             0 kg
-u__pmt210_lte_2_inside_633_c1431_rn                0 kg
-u__pmt210_lte_7_inside_633_c1431_i2_rn             0 kg
-u__pmt210_lte_7_inside_633_c1431_rn                0 kg
-u__pmt210_lte_8_inside_633_c1431_i2_rn             0 kg
-u__pmt210_lte_8_inside_633_c1431_rn                0 kg
-u__pmt210_lte_inside_633_c1431_i2_rn               0 kg
-u__pmt210_lte_inside_633_c1431_rn                  0 kg
+u__pmt210_gte_2_inside_633_c1441_i2_rn             0 kg
+u__pmt210_gte_2_inside_633_c1441_rn                0 kg
+u__pmt210_gte_7_inside_633_c1441_i2_rn             0 kg
+u__pmt210_gte_7_inside_633_c1441_rn                0 kg
+u__pmt210_gte_8_inside_633_c1441_i2_rn             0 kg
+u__pmt210_gte_8_inside_633_c1441_rn                0 kg
+u__pmt210_gte_inside_633_c1441_i2_rn               0 kg
+u__pmt210_gte_inside_633_c1441_rn                  0 kg
+u__pmt210_lte_2_inside_633_c1441_i2_rn             0 kg
+u__pmt210_lte_2_inside_633_c1441_rn                0 kg
+u__pmt210_lte_7_inside_633_c1441_i2_rn             0 kg
+u__pmt210_lte_7_inside_633_c1441_rn                0 kg
+u__pmt210_lte_8_inside_633_c1441_i2_rn             0 kg
+u__pmt210_lte_8_inside_633_c1441_rn                0 kg
+u__pmt210_lte_inside_633_c1441_i2_rn               0 kg
+u__pmt210_lte_inside_633_c1441_rn                  0 kg
 mv cva6_synth.v cva6_cv64a6_imafdc_sv39_synth.v
 mv cva6_synth.v.sdf cva6_cv64a6_imafdc_sv39_synth.v.sdf
 sed -n -e '/module tc_sram_wrapper_256_64_00000008_00000001_00000001_none_0/,/endmodule/!p' cva6_cv64a6_imafdc_sv39_synth.v > cva6_cv64a6_imafdc_sv39_synth_modified.v
