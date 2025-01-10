@@ -60,13 +60,6 @@ $unit
   See the SystemVerilog LRM(1800-2005), section 19.2.1.
 
 
-Error-[IND] Identifier not declared
-/home/s324967/TESTING_LABS/project/cva6_assignments/OUR_CODE/cva6.sv, 466
-  Identifier 'NBIT_REG_MISR' has not been declared yet. If this error is not 
-  expected, please check if you have set `default_nettype to none.
-  
-
-
 Note-[SV-LCM-PPWI] Package previously wildcard imported
 /home/s324967/TESTING_LABS/project/cva6_assignments/core/cache_subsystem/std_nbdcache.sv, 45
 std_nbdcache
@@ -114,8 +107,79 @@ Warning-[IPDW] Identifier previously declared
   [/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv,
   87]
 
+
+Error-[CFCILFBI] Cannot find cell in liblist
+/home/s324967/TESTING_LABS/project/cva6_assignments/OUR_CODE/wrapper_MISR.sv, 40
+  Cell 'control_reg' cannot be found in liblist for binding instance 
+  'uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.MISR1.control_register'.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: control_reg #(.NBIT(NBIT_REGS)) control_register( .clk (clk_i),
+  .rst_n (rst_ni),  .d (control_reg_in),  .q (control_reg_out));
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+/home/s324967/TESTING_LABS/project/cva6_assignments/OUR_CODE/wrapper_MISR.sv, 48
+  Cell 'control_reg' cannot be found in liblist for binding instance 
+  'uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.MISR1.coefficient_register'.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: control_reg #(.NBIT(NBIT_REGS)) coefficient_register( .clk 
+  (clk_i),  .rst_n (rst_ni),  .d (coeff_reg_in),  .q (coeff_reg_out));
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+/home/s324967/TESTING_LABS/project/cva6_assignments/OUR_CODE/wrapper_MISR.sv, 56
+  Cell 'control_reg' cannot be found in liblist for binding instance 
+  'uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.MISR1.signature_register'.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: control_reg #(.NBIT(NBIT_REGS)) signature_register( .clk 
+  (clk_i),  .rst_n (rst_ni),  .d (signature_reg_in),  .q (signature_reg_out));
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+/home/s324967/TESTING_LABS/project/cva6_assignments/OUR_CODE/wrapper_MISR.sv, 40
+  Cell 'control_reg' cannot be found in liblist for binding instance 
+  'uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.MISR2.control_register'.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: control_reg #(.NBIT(NBIT_REGS)) control_register( .clk (clk_i),
+  .rst_n (rst_ni),  .d (control_reg_in),  .q (control_reg_out));
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+/home/s324967/TESTING_LABS/project/cva6_assignments/OUR_CODE/wrapper_MISR.sv, 48
+  Cell 'control_reg' cannot be found in liblist for binding instance 
+  'uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.MISR2.coefficient_register'.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: control_reg #(.NBIT(NBIT_REGS)) coefficient_register( .clk 
+  (clk_i),  .rst_n (rst_ni),  .d (coeff_reg_in),  .q (coeff_reg_out));
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+/home/s324967/TESTING_LABS/project/cva6_assignments/OUR_CODE/wrapper_MISR.sv, 56
+  Cell 'control_reg' cannot be found in liblist for binding instance 
+  'uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.MISR2.signature_register'.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: control_reg #(.NBIT(NBIT_REGS)) signature_register( .clk 
+  (clk_i),  .rst_n (rst_ni),  .d (signature_reg_in),  .q (signature_reg_out));
+
+
+Error-[CFCILFBI] Cannot find cell in liblist
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 264
+  Cell 'address_decoder' cannot be found in liblist for binding instance 
+  'uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.address_decoder'.
+  Liblist: work
+  Config rule: global default liblist
+  Source Info: address_decoder #(.NBIT_MISR_DATA(NBIT_MISR_DATA), 
+  .NBIT_MISR_ADDR(NBIT_MISR_ADDR), .NBIT_AXI_WIDTH(CVA6Cfg.AxiAddrWidth), 
+  .USER_AXI_WIDTH(CVA6Cfg.AxiUserWidt ...
+
 8 warnings
-1 error
+7 errors
 make[1]: *** [vcs_uvm_comp] Error 255
 make[1]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
 make: *** [vcs-uvm] Error 2

@@ -462,11 +462,12 @@ module cva6
   // MISR
   // ------------------------------------------
 	localparam MISR_PRIPH_1_START_ADDR = 2**25;
-  localparam N_CSR_MISR = 3; //number of control status register of the MISR
-	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (NBIT_REG_MISR/8)*N_CSR_MISR;
   localparam int unsigned NBIT_DATA_MISR = 64;
   localparam int unsigned NBIT_REG_MISR = 64;
   localparam int unsigned NBIT_ADDR_MISR = 64;
+  localparam N_CSR_MISR = 3; //number of control status register of the MISR
+	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (NBIT_REG_MISR/8)*N_CSR_MISR;
+
 	logic [NBIT_DATA_MISR-1:0] data_o_MISR1, data_o_MISR2;
   //first MISR takes as input the output of the ALU
 	wrapper_MISR #(
