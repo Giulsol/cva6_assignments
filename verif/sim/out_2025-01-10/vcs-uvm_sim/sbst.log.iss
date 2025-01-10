@@ -69,7 +69,7 @@ std_nbdcache
 
 
 Warning-[IPDW] Identifier previously declared
-/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 136
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 137
   Second declaration for identifier 're_misr' ignored
   Identifier 're_misr' previously declared as wire. 
   [/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv,
@@ -77,7 +77,7 @@ Warning-[IPDW] Identifier previously declared
 
 
 Warning-[IPDW] Identifier previously declared
-/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 137
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 138
   Second declaration for identifier 'we_misr' ignored
   Identifier 'we_misr' previously declared as wire. 
   [/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv,
@@ -85,7 +85,7 @@ Warning-[IPDW] Identifier previously declared
 
 
 Warning-[IPDW] Identifier previously declared
-/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 138
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 139
   Second declaration for identifier 'addr_misr' ignored
   Identifier 'addr_misr' previously declared as wire. 
   [/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv,
@@ -93,7 +93,7 @@ Warning-[IPDW] Identifier previously declared
 
 
 Warning-[IPDW] Identifier previously declared
-/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 139
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 140
   Second declaration for identifier 'wdata_misr' ignored
   Identifier 'wdata_misr' previously declared as wire. 
   [/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv,
@@ -101,7 +101,7 @@ Warning-[IPDW] Identifier previously declared
 
 
 Warning-[IPDW] Identifier previously declared
-/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 141
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 142
   Second declaration for identifier 'rdata_misr' ignored
   Identifier 'rdata_misr' previously declared as wire. 
   [/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv,
@@ -109,11 +109,19 @@ Warning-[IPDW] Identifier previously declared
 
 
 Warning-[IPDW] Identifier previously declared
-/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 141
-  Second declaration for identifier 'rsign_misr' ignored
-  Identifier 'rsign_misr' previously declared as wire. 
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 142
+  Second declaration for identifier 'rsign_misr1' ignored
+  Identifier 'rsign_misr1' previously declared as wire. 
   [/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv,
   88]
+
+
+Warning-[IPDW] Identifier previously declared
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv, 142
+  Second declaration for identifier 'rsign_misr2' ignored
+  Identifier 'rsign_misr2' previously declared as wire. 
+  [/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/cva6_tb_wrapper.sv,
+  89]
 
 
 Warning-[OSVF-NPVIUFPI] Obsolete SystemVerilog feature
@@ -716,7 +724,7 @@ Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detec
 Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
 Chronologic VCS simulator copyright 1991-2024
 Contains Synopsys proprietary information.
-Compiler version W-2024.09-SP1_Full64; Runtime version W-2024.09-SP1_Full64;  Jan 10 11:36 2025
+Compiler version W-2024.09-SP1_Full64; Runtime version W-2024.09-SP1_Full64;  Jan 10 15:49 2025
 UVM_INFO /opt/synopsys/vcs/W-2024.09-SP1/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
 ----------------------------------------------------------------
 UVM-1.2.Synopsys
@@ -1680,7 +1688,7 @@ UVM_INFO @ 0.002 ns : uvma_clknrst_drv.sv(161) uvm_test_top.env.clknrst_agent.dr
 UVM_INFO @ 0.002 ns : uvma_axi_r_mon.sv(133) uvm_test_top.env.axi_agent.r_agent.monitor [uvma_axi_r_mon_c] RESET_STATE_IN_RESET
 "/home/s324967/TESTING_LABS/project/cva6_assignments/core/pmp/src/pmp.sv", 89: uvmt_cva6_tb.cva6_dut_wrap.cva6_tb_wrapper_i.i_cva6.ex_stage_i.lsu_i.gen_mmu_sv39.i_cva6_mmu.i_pmp_data.unnamed$$_0.unnamed$$_2: started at 2ps failed at 2ps
 	Offending '(allow_o == 1'b1)'
-[$monitor] time=1.502 ns signature=0x0
+[$monitor] time=1.502 ns: signature_misr1=0x0, signature_misr2=0x0
 UVM_INFO @ 7.402 ns : uvma_clknrst_drv.sv(164) uvm_test_top.env.clknrst_agent.driver [CLKNRST] De-asserting reset
 UVM_INFO @ 7.402 ns : uvma_axi_r_mon.sv(136) uvm_test_top.env.axi_agent.r_agent.monitor [uvma_axi_r_mon_c] RESET_STATE_POST_RESET
 UVM_INFO @ 7.402 ns : uvmt_cva6_base_test.sv(253) uvm_test_top [BASE TEST] Finished reset virtual sequence:
@@ -1701,6 +1709,7 @@ reset_vseq                     uvme_cva6_reset_vseq_c  -     @410
   rsp                          object                  -     <null>                     
 ----------------------------------------------------------------------------------------
 
+[$monitor] time=7.502 ns: signature_misr1=0x1, signature_misr2=0x1
 [TRACER] Output filename is: trace_hart_0.log
 UVM_INFO @ 103.502 ns : uvmt_cva6_firmware_test.sv(159) uvm_test_top [TEST] Started RUN
 UVM_INFO @ 27019.502 ns : uvmt_cva6_firmware_test.sv(165) uvm_test_top [TEST] Test FINISHED
@@ -1834,6 +1843,6 @@ $finish at simulation time 27022.502 ns
 "/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim//../core-v-verif/lib/uvm_agents/uvma_cvxif/src/uvma_cvxif_assert.sv", 172: uvmt_cva6_tb.cva6_dut_wrap.cvxif_assert.c_result_dualwrite, 9007 attempts, 0 match
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 27022502 ps
-CPU Time:     16.680 seconds;       Data structure size: 291.6Mb
-Fri Jan 10 11:36:59 2025
+CPU Time:     18.610 seconds;       Data structure size: 291.6Mb
+Fri Jan 10 15:50:28 2025
 make[1]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'

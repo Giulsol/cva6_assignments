@@ -3,48 +3,56 @@
 
 //Set the coefficients of the MISR's polynomial
 //Attributes: start address of the peripheral and coefficients to set
-void MISR_set_coefficients(int periph_start_addr, int coeff) {
-	*(volatile int *)(periph_start_addr + MISR_CONTROL_COEFFICIENTS_REG_OFFSET) = coeff;
+void MISR_set_coefficients(long long periph_start_addr, long long coeff) {
+	*(volatile long long *)(periph_start_addr + MISR_CONTROL_COEFFICIENTS_REG_OFFSET) = coeff;
 }
 
 //Get the values of the coefficients of the MISR's polynomial
-int MISR_get_coefficients(int periph_start_addr) {
-	return *(volatile int *)(periph_start_addr + MISR_CONTROL_COEFFICIENTS_REG_OFFSET);
+long long MISR_get_coefficients(long long periph_start_addr) {
+	return *(volatile long long *)(periph_start_addr + MISR_CONTROL_COEFFICIENTS_REG_OFFSET);
 }
 
 //Start the execution of the MISR by setting the ENABLE bit to 1
-void MISR_start(int periph_start_addr) {
-	*(volatile int *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET) |= (1 << MISR_CONTROL_CONTROL_ENABLE_BIT);
+void MISR_start(long long periph_start_addr) {
+	*(volatile long long *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET) |= (1 << MISR_CONTROL_CONTROL_ENABLE_BIT);
 }
 
 //Get the value of the ENABLE bit of the MISR, to check if it was set or cleared properly
-int MISR_get_enable_value(int periph_start_addr) {
-	return (*(volatile int *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET)) & (1 << MISR_CONTROL_CONTROL_ENABLE_BIT);
+long long MISR_get_enable_value(long long periph_start_addr) {
+	return (*(volatile long long *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET)) & (1 << MISR_CONTROL_CONTROL_ENABLE_BIT);
 }
 
 //Stop the execution of the MISR by setting the ENABLE bit to 0
-void MISR_stop(int periph_start_addr) {
-	*(volatile int *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET) &= ~(1 << MISR_CONTROL_CONTROL_ENABLE_BIT);
+void MISR_stop(long long periph_start_addr) {
+	*(volatile long long *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET) &= ~(1 << MISR_CONTROL_CONTROL_ENABLE_BIT);
 }
 
 //Reset the MISR by setting the RESET bit to 0
-void MISR_reset(int periph_start_addr) {
-	*(volatile int *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET) &= ~(1 << MISR_CONTROL_CONTROL_RESET_BIT);
+void MISR_reset(long long periph_start_addr) {
+	*(volatile long long *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET) &= ~(1 << MISR_CONTROL_CONTROL_RESET_BIT);
 }
 
 //Get the value of the RESET bit of the MISR, to make sure it was set properly
-int MISR_get_reset_value(int periph_start_addr) {
-	return (*(volatile int *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET)) & (1 << MISR_CONTROL_CONTROL_RESET_BIT);
+long long MISR_get_reset_value(long long periph_start_addr) {
+	return (*(volatile long long *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET)) & (1 << MISR_CONTROL_CONTROL_RESET_BIT);
 }
 
 //Clear the RESET bit (set it back to 1)
-void MISR_clear_reset(int periph_start_addr) {
-	*(volatile int *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET) |= (1 << MISR_CONTROL_CONTROL_RESET_BIT);
+void MISR_clear_reset(long long periph_start_addr) {
+	*(volatile long long *)(periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET) |= (1 << MISR_CONTROL_CONTROL_RESET_BIT);
 }
 
 //Get the current value of the MISR's signature
-int MISR_get_signature(int periph_start_addr) {
-	return *(volatile int *)(periph_start_addr + MISR_CONTROL_SIGNATURE_REG_OFFSET);
+long long MISR_get_signature(long long periph_start_addr) {
+	return *(volatile long long *)(periph_start_addr + MISR_CONTROL_SIGNATURE_REG_OFFSET);
+}
+
+//Initialize the MISR with the given coefficients and make it begin the computation
+//The reset must be done beforehand
+void MISR_init(long long periph_start_addr, long long coeff) {
+	MISR_clear_reset(periph_start_addr);
+	MISR_set_coefficients(periph_start_addr, coeff);
+	MISR_start(periph_start_addr);
 }
 
 /*
