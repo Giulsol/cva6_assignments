@@ -342,32 +342,17 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     // ****** MONITOR ************************************
 	
     initial begin
-      logic pos [63:0]    ;
-      file  outfile  : text open WRITE_MODE is "monitor.txt";
-      logic outline  : line;
+      logic pos [63:0];
 
-      function vec2str( input : std_logic_vector ) return string is
-        variable rline : line;
-      begin
-        write( rline, input );
-        return rline.all;
-      end vec2str;
+      pos = rsign_misr;
 
-    begin
-      wait for strobe_offset;
-
-      for(i;i<counter;i++) begin
-        pis := A & B;
-        pos := S & C;
-        write(outline, "pattern:" & integer'image(counter) & " PIs:" &  vec2str(pis) & " POs:" &  vec2str(pos));
-        tee(outfile, outline);
-        counter := counter + 1;
-        wait for strobe_period;
-      end
+      $display ("[$display] time=%0t signature=0x%0h", $time, pos);
+      
+      wait(clk_i);
 
     end 
 
-// ****************************************************
+    // ****************************************************
 
 endmodule
 //initial begin
