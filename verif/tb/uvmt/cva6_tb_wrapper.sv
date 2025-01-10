@@ -85,7 +85,8 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .addr_MISR_i          ( addr_misr                 ),
     .wdata_MISR_i         ( wdata_misr                ),
     .rdata_MISR_o         ( rdata_misr                ),
-    .rsign_MISR_o         ( rsign_misr                )
+    .rsign_MISR1_o        ( rsign_misr1                ),
+    .rsign_MISR2_o        ( rsign_misr2                )
   );
 
   //----------------------------------------------------------------------------
@@ -138,7 +139,7 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   logic [NBIT_MISR_ADDR-1:0] addr_misr;
   logic [NBIT_MISR_DATA-1:0] wdata_misr;
   //signal to connect the MISR output data to axi2mem
-  logic [NBIT_MISR_DATA-1:0] rdata_misr, rsign_misr;
+  logic [NBIT_MISR_DATA-1:0] rdata_misr, rsign_misr1, rsign_misr2;
 
   //----------------------------------------------------------------------------
   // SRAM inputs - outputs
@@ -345,12 +346,10 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
 
       wait(clk_i);
 
-      $monitor ("[$monitor] time=%0t signature=0x%0h", $time, rsign_misr);    
+      $monitor ("[$monitor] time=%0t signature_misr1=0x%0h", $time, rsign_misr1);
+      $monitor ("[$monitor] time=%0t signature_misr2=0x%0h", $time, rsign_misr2);    
 
     end 
-
     // ****************************************************
 
 endmodule
-//initial begin
-// $monitor(segnale)

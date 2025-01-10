@@ -141,7 +141,8 @@ module cva6
 		input logic [63:0] addr_MISR_i,
 		input logic [63:0] wdata_MISR_i,
 		output logic [63:0] rdata_MISR_o,
-    output logic [63:0] rsign_MISR_o
+    output logic [63:0] rsign_MISR1_o,
+    output logic [63:0] rsign_MISR2_o
 		
 );
 
@@ -469,7 +470,7 @@ module cva6
   localparam N_CSR_MISR = 3; //number of control status register of the MISR
 	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (NBIT_REG_MISR/8)*N_CSR_MISR;
 
-	logic [NBIT_DATA_MISR-1:0] data_o_MISR1, data_o_MISR2, sign_o_MISR1, sign_o_MISR2;
+	logic [NBIT_DATA_MISR-1:0] data_o_MISR1, data_o_MISR2;
   //first MISR takes as input the output of the ALU
 	wrapper_MISR #(
 		.NBIT_DATA(NBIT_DATA_MISR),
@@ -484,7 +485,7 @@ module cva6
 		.data_CSR_i(wdata_MISR_i),
 		.data_MISR_i(flu_result_ex_id),
 		.addr_i(addr_MISR_i),
-    .signature_o(sign_o_MISR1),
+    .signature_o(rsign_MISR1_o),
 		.data_sw_o(data_o_MISR1)
 	);
 
@@ -502,7 +503,7 @@ module cva6
 		.data_CSR_i(wdata_MISR_i),
 		.data_MISR_i(branch_predict_id_ex.predict_address), 
 		.addr_i(addr_MISR_i),
-    .signature_o(sign_o_MISR2),
+    .signature_o(rsign_MISR2_o),
 		.data_sw_o(data_o_MISR2)
 	);
 
@@ -511,15 +512,12 @@ module cva6
 	always_comb begin
 		if(re_MISR_i[0] == 1'b1) begin
 			rdata_MISR_o = data_o_MISR1;
-      rsign_MISR_o = sign_o_MISR1;
 		end
 		else if (re_MISR_i[1] == 1'b1) begin
 			rdata_MISR_o = data_o_MISR2;
-      rsign_MISR_o = sign_o_MISR2;
 		end
 		else begin
       rdata_MISR_o = '0;
-      rsign_MISR_o = '0;
     end
 	end
 
