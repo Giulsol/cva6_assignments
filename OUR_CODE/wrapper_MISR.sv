@@ -11,7 +11,8 @@ module wrapper_MISR #(
 	input 	logic [NBIT_DATA-1:0]	data_CSR_i, //input data for the status registers
 	input 	logic [NBIT_DATA-1:0]	data_MISR_i, //input data for the MISR
 	input 	logic [NBIT_ADDR-1:0]	addr_i, //input address for the status registers
-	output 	logic [NBIT_DATA-1:0]	data_o
+	output  logic [NBIT_DATA-1:0]   signature_o,
+	output 	logic [NBIT_DATA-1:0]	data_sw_o
 );
 
 	//ADDRESSES OF THE CONTROL REGISTERS
@@ -71,6 +72,7 @@ module wrapper_MISR #(
 
 	always_comb begin 
 		//initialize all register input signals
+		signature_o = signature_reg_out;
 		rst_MISR = rst_ni & control_reg_in[MISR_CONTROL_RESET_BIT];
 		en_MISR = control_reg_in[MISR_CONTROL_ENABLE_BIT];
 		control_reg_in = control_reg_out;

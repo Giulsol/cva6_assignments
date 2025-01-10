@@ -84,7 +84,8 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .we_MISR_i            ( we_misr                   ),
     .addr_MISR_i          ( addr_misr                 ),
     .wdata_MISR_i         ( wdata_misr                ),
-    .rdata_MISR_o         ( rdata_misr                )
+    .rdata_MISR_o         ( rdata_misr                ),
+    .rsign_MISR_o         ( rsign_misr                )
   );
 
   //----------------------------------------------------------------------------
@@ -137,7 +138,7 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   logic [NBIT_MISR_ADDR-1:0] addr_misr;
   logic [NBIT_MISR_DATA-1:0] wdata_misr;
   //signal to connect the MISR output data to axi2mem
-  logic [NBIT_MISR_DATA-1:0] rdata_misr;
+  logic [NBIT_MISR_DATA-1:0] rdata_misr, rsign_misr;
 
   //----------------------------------------------------------------------------
   // SRAM inputs - outputs
@@ -337,6 +338,36 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
            end
         end
     end
+
+    // ****** MONITOR ************************************
+	
+    initial begin
+      logic pos [63:0]    ;
+      file  outfile  : text open WRITE_MODE is "monitor.txt";
+      logic outline  : line;
+
+      function vec2str( input : std_logic_vector ) return string is
+        variable rline : line;
+      begin
+        write( rline, input );
+        return rline.all;
+      end vec2str;
+
+    begin
+      wait for strobe_offset;
+
+      for(i;i<counter;i++) begin
+        pis := A & B;
+        pos := S & C;
+        write(outline, "pattern:" & integer'image(counter) & " PIs:" &  vec2str(pis) & " POs:" &  vec2str(pos));
+        tee(outfile, outline);
+        counter := counter + 1;
+        wait for strobe_period;
+      end
+
+    end 
+
+// ****************************************************
 
 endmodule
 //initial begin
