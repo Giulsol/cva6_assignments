@@ -339,3 +339,5 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     end
 
 endmodule
+//initial begin
+// $monitor(segnale)

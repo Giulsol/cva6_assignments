@@ -47,7 +47,6 @@ int MISR_get_signature(int periph_start_addr) {
 	return *(volatile int *)(periph_start_addr + MISR_CONTROL_SIGNATURE_REG_OFFSET);
 }
 
-
 /*
 ASSUMPTIONS:
 - 	the name of the start address of the peripheral is MISR_x_PERIPH_START_ADDRESS, where x is the number of the MISR;

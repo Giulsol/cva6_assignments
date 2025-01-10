@@ -462,7 +462,8 @@ module cva6
   // MISR
   // ------------------------------------------
 	localparam MISR_PRIPH_1_START_ADDR = 2**25;
-	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (32/8)*4;
+  localparam N_CSR_MISR = 3; //number of control status register of the MISR
+	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (NBIT_REG_MISR/8)*N_CSR_MISR;
   localparam int unsigned NBIT_DATA_MISR = 64;
   localparam int unsigned NBIT_REG_MISR = 64;
   localparam int unsigned NBIT_ADDR_MISR = 64;
