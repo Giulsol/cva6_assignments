@@ -346,9 +346,9 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
 
       pos = rsign_misr;
 
-      $display ("[$display] time=%0t signature=0x%0h", $time, pos);
-      
       wait(clk_i);
+
+      $display ("[$display] time=%0t signature=0x%0h", $time, pos);    
 
     end 
 
