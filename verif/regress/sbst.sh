@@ -20,9 +20,13 @@ make -C verif/sim clean_all
 cd verif/sim
 
 # src0=../tests/custom/sbst/sbst_main.c
-src0=../tests/custom/sbst/sbst.S
+# src0=../tests/custom/sbst/sbst.S
+#src0=../tests/custom/sbst/MISR_test.S
+src0=../tests/custom/sbst/Fibonacci_test_MISR.c
 srcA=(
         ../tests/custom/common/syscalls.c
+        ../tests/custom/sbst/drivers_misr.c
+        #../tests/custom/sbst/main.c
         # ../tests/custom/sbst/sbst.S
         ../tests/custom/common/crt.S
 )
@@ -40,6 +44,7 @@ cflags=(
         -I../tests/custom/sbst/
         -DNOPRINT
 )
+#--asm_tests "$src0" \
 
 set -x
 python3 cva6.py \
@@ -47,7 +52,7 @@ python3 cva6.py \
         --hwconfig_opts="--default_config=cv64a6_imafdc_sv39 --isa=rv64imafdc --NrLoadPipeRegs=0" \
         --iss="$DV_SIMULATORS" \
         --iss_yaml=cva6.yaml \
-        --asm_tests "$src0" \
+        --c_tests "$src0" \
         --gcc_opts "${srcA[*]} ${cflags[*]}" \
         --linker ../tests/custom/common/test.ld 
 

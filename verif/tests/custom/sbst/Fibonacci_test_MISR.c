@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-int main(int argc, char const *argv[])
+int Fibonacci_test_MISR()
 {	
 	long long rst1 = 1, en1 = 0, coeff_test1 = 0x0, sign1 = 0;
 	long long coeff = 0xDDBAF555FFAAF000;
@@ -15,6 +15,7 @@ int main(int argc, char const *argv[])
 
 
 	/*		MISR1 reset		*/
+	printf("STAAAAART");
 	MISR_reset(start_address_misr1);
 	printf("Reset bit of MISR #1 is being set to 0\n");
 	//polling in reading mode
