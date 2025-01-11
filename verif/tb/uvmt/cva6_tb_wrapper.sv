@@ -101,8 +101,14 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   ) ;
 
   //----------------------------------------------------------------------------
-  // axi2mem inputs 
+  // Memory 
   //----------------------------------------------------------------------------
+  logic                               req;
+  logic                               we;
+  logic [CVA6Cfg.AxiAddrWidth-1:0]    addr;
+  logic [CVA6Cfg.AxiDataWidth/8-1:0]  be;
+  logic [CVA6Cfg.AxiDataWidth-1:0]    wdata;
+  logic [CVA6Cfg.AxiUserWidth-1:0]    wuser;
   logic [CVA6Cfg.AxiDataWidth-1:0]    rdata;
   logic [CVA6Cfg.AxiUserWidth-1:0]    ruser;
 
@@ -220,7 +226,7 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .rst_ni     ( rst_ni     ),
     .req_i      ( req        ),
     .we_i       ( we         ),
-    .addr_i     ( addr       ),
+    .addr_i     ( addr[$clog2(NUM_WORDS)-1+$clog2(CVA6Cfg.AxiDataWidth/8):$clog2(CVA6Cfg.AxiDataWidth/8)] ),
     .wuser_i    ( wuser      ),
     .wdata_i    ( wdata      ),
     .be_i       ( be         ),
