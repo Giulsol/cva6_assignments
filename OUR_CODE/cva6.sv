@@ -136,13 +136,14 @@ module cva6
     output noc_req_t noc_req_o,
     input noc_resp_t noc_resp_i,
     // MISR
-		input logic [1:0] re_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
-		input logic [1:0] we_MISR_i, //bit 0 is for MISR 1, bit 1 for MISR 2
-		input logic [63:0] addr_MISR_i,
-		input logic [63:0] wdata_MISR_i,
-		output logic [63:0] rdata_MISR_o,
-    output logic [63:0] rsign_MISR1_o,
-    output logic [63:0] rsign_MISR2_o
+		input logic [1:0] re_misr_i, //bit 0 is for MISR 1, bit 1 for MISR 2
+		input logic [1:0] we_misr_i, //bit 0 is for MISR 1, bit 1 for MISR 2
+		input logic [63:0] addr_misr_i,
+		input logic [63:0] wdata_misr_i,
+		output logic [63:0] rdata_misr_o,
+    //outputs to monitor the signatures of MISR1 and MISR2 from the tb
+    output logic [63:0] rsign_misr1_o, 
+    output logic [63:0] rsign_misr2_o
 		
 );
 
@@ -470,7 +471,7 @@ module cva6
   localparam N_CSR_MISR = 3; //number of control status register of the MISR
 	localparam MISR_PRIPH_2_START_ADDR = MISR_PRIPH_1_START_ADDR + (NBIT_REG_MISR/8)*N_CSR_MISR;
 
-	logic [NBIT_DATA_MISR-1:0] data_o_MISR1, data_o_MISR2;
+	logic [NBIT_DATA_MISR-1:0] data_o_misr1, data_o_misr2;
   //first MISR takes as input the output of the ALU
 	wrapper_MISR #(
 		.NBIT_DATA(NBIT_DATA_MISR),
@@ -480,13 +481,13 @@ module cva6
 	) MISR1 (
 		.clk_i(clk_i), 
 		.rst_ni(rst_ni),
-		.re_i(re_MISR_i[0]),
-		.we_i(we_MISR_i[0]),
-		.data_CSR_i(wdata_MISR_i),
+		.re_i(re_misr_i[0]),
+		.we_i(we_misr_i[0]),
+		.data_CSR_i(wdata_misr_i),
 		.data_MISR_i(flu_result_ex_id),
-		.addr_i(addr_MISR_i),
-    .signature_o(rsign_MISR1_o),
-		.data_sw_o(data_o_MISR1)
+		.addr_i(addr_misr_i),
+    .signature_o(rsign_misr_o),
+		.data_sw_o(data_o_misr1)
 	);
 
   //second MISR takes as input the predicted address of the BPU
@@ -498,26 +499,26 @@ module cva6
 	) MISR2 (
 		.clk_i(clk_i), 
 		.rst_ni(rst_ni),
-		.re_i(re_MISR_i[1]),
-		.we_i(we_MISR_i[1]),
-		.data_CSR_i(wdata_MISR_i),
+		.re_i(re_misr_i[1]),
+		.we_i(we_misr_i[1]),
+		.data_CSR_i(wdata_misr_i),
 		.data_MISR_i(branch_predict_id_ex.predict_address), 
-		.addr_i(addr_MISR_i),
-    .signature_o(rsign_MISR2_o),
-		.data_sw_o(data_o_MISR2)
+		.addr_i(addr_misr_i),
+    .signature_o(rsign_misr2_o),
+		.data_sw_o(data_o_misr2)
 	);
 
   //multiplexer to decide which MISR will write in the output rdata_MISR_o
   //based on the read enable signals received 
 	always_comb begin
-		if(re_MISR_i[0] == 1'b1) begin
-			rdata_MISR_o = data_o_MISR1;
+		if(re_misr_i[0] == 1'b1) begin
+			rdata_misr_o = data_o_misr1;
 		end
-		else if (re_MISR_i[1] == 1'b1) begin
-			rdata_MISR_o = data_o_MISR2;
+		else if (re_misr_i[1] == 1'b1) begin
+			rdata_misr_o = data_o_misr2;
 		end
 		else begin
-      rdata_MISR_o = '0;
+      rdata_misr_o = '0;
     end
 	end
 

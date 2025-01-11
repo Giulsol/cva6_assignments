@@ -80,13 +80,13 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .cvxif_resp_i         ( cvxif_resp                ),
     .noc_req_o            ( axi_ariane_req            ),
     .noc_resp_i           ( axi_ariane_resp           ),
-    .re_MISR_i            ( re_misr                   ),
-    .we_MISR_i            ( we_misr                   ),
-    .addr_MISR_i          ( addr_misr                 ),
-    .wdata_MISR_i         ( wdata_misr                ),
-    .rdata_MISR_o         ( rdata_misr                ),
-    .rsign_MISR1_o        ( rsign_misr1                ),
-    .rsign_MISR2_o        ( rsign_misr2                )
+    .re_misr_i            ( re_misr                   ),
+    .we_misr_i            ( we_misr                   ),
+    .addr_misr_i          ( addr_misr                 ),
+    .wdata_misr_i         ( wdata_misr                ),
+    .rdata_misr_o         ( rdata_misr                ),
+    .rsign_misr1_o        ( rsign_misr1                ),
+    .rsign_misr2_o        ( rsign_misr2                )
   );
 
   //----------------------------------------------------------------------------
@@ -112,7 +112,8 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   //----------------------------------------------------------------------------
   localparam NBIT_MISR_ADDR   = 64;
   localparam NBIT_MISR_DATA   = 64;
-  localparam START_ADDR_MISR  = NUM_WORDS;
+  //localparam START_ADDR_MISR  = NUM_WORDS;
+  localparam START_ADDR_MISR  = 2**25;
 
   //----------------------------------------------------------------------------
   // Address decoder inputs 
@@ -262,12 +263,13 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     .NBIT_MISR_ADDR (NBIT_MISR_ADDR),
     .NBIT_AXI_WIDTH (CVA6Cfg.AxiAddrWidth),
     .USER_AXI_WIDTH (CVA6Cfg.AxiUserWidth),
-    .MISR_PERIPH_START_ADDR (NUM_WORDS)
+    .MISR_PERIPH_START_ADDR (START_ADDR_MISR)
   ) address_decoder (
     .request_i (req),    
     .wr_en_i (we),     
     .byte_en_i (be),   
-	  .address_i (addr[$clog2(NUM_WORDS)-1+$clog2(CVA6Cfg.AxiDataWidth/8):$clog2(CVA6Cfg.AxiDataWidth/8)]),    
+	  //.address_i (addr[$clog2(NUM_WORDS)-1+$clog2(CVA6Cfg.AxiDataWidth/8):$clog2(CVA6Cfg.AxiDataWidth/8)]),    
+    .address_i (addr),
     .data_i (wdata),    
     .user_i (wuser),     
     .re_misr_o (re_misr),     
