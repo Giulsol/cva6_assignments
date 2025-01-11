@@ -20,12 +20,12 @@ make -C verif/sim clean_all
 cd verif/sim
 
 # src0=../tests/custom/sbst/sbst_main.c
-# src0=../tests/custom/sbst/sbst.S
+ src0=../tests/custom/sbst/sbst.S
 #src0=../tests/custom/sbst/Fibonacci_test_MISR.c
-src0=../tests/custom/sbst/fibonacci.S
+#src0=../tests/custom/sbst/fibonacci.S
 srcA=(
         ../tests/custom/common/syscalls.c
-        ../tests/custom/sbst/drivers_misr.c
+        #../tests/custom/sbst/drivers_misr.c
         # ../tests/custom/sbst/sbst.S
         ../tests/custom/common/crt.S
 )
