@@ -13,7 +13,7 @@
 MISR_set_coefficients:
     mv t0, a0                       # t0 = periph_start_addr
     mv t1, a1                       # t1 = coeff
-    li t2, MISR_CONTROL_COEFFICIENTS_REG_OFFSET
+    li t2, 8
     add t2, t0, t2                  # t2 = periph_start_addr + offset
     sd t1, 0(t2)                    # scrive coeff nel registro
     ret
@@ -21,7 +21,7 @@ MISR_set_coefficients:
 # Funzione per ottenere i coefficienti di MISR
 MISR_get_coefficients:
     mv t0, a0                       # t0 = periph_start_addr
-    li t1, MISR_CONTROL_COEFFICIENTS_REG_OFFSET
+    li t1, 8
     add t1, t0, t1                  # t1 = periph_start_addr + offset
     ld t2, 0(t1)                    # t2 = valore dei coefficienti
     ret
@@ -29,33 +29,33 @@ MISR_get_coefficients:
 # Funzione per abilitare MISR
 MISR_start:
     mv t0, a0                        # t0 = periph_start_addr
-    li t1, MISR_CONTROL_CONTROL_REG_OFFSET
+    li t1, 0
     add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET
     ld t3, 0(t2)                     # t3 = valore del registro di controllo
-    li t4, 1                          # t4 = 1
-    li t5, MISR_CONTROL_CONTROL_ENABLE_BIT  # t5 = 0 (posizione del bit ENABLE)
-    slli t4, t4, t5                   # t4 = 1 << 0
-    or t3, t3, t4                     # t3 |= (1 << 0) per abilitare MISR
+    li t4, 1                         # t4 = 1
+    li t5, 0                         # t5 = 0 (posizione del bit ENABLE)
+    slli t4, t4, t5                  # t4 = 1 << 0
+    or t3, t3, t4                    # t3 |= (1 << 0) per abilitare MISR
     sd t3, 0(t2)                     # memorizza il nuovo valore
     ret
 
 # Funzione per ottenere il valore di ENABLE
 MISR_get_enable_value:
     mv t0, a0                        # t0 = periph_start_addr
-    li t1, MISR_CONTROL_CONTROL_REG_OFFSET
+    li t1, 0
     add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET
     ld t3, 0(t2)                     # t3 = valore del registro di controllo
-    li t4, (1 << MISR_CONTROL_CONTROL_ENABLE_BIT)
+    li t4, (1 << 0)
     and t3, t3, t4                   # t3 &= (1 << 0) per ottenere il valore del bit ENABLE
     ret
 
 # Funzione per disabilitare MISR
 MISR_stop:
     mv t0, a0                        # t0 = periph_start_addr
-    li t1, MISR_CONTROL_CONTROL_REG_OFFSET
+    li t1, 0
     add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET
     ld t3, 0(t2)                     # t3 = valore del registro di controllo
-    li t4, ~(1 << MISR_CONTROL_CONTROL_ENABLE_BIT)  # Maschera per azzerare il bit ENABLE
+    li t4, ~(1 << 0)                 # Maschera per azzerare il bit ENABLE
     and t3, t3, t4                   # t3 &= ~(1 << 0)
     sd t3, 0(t2)                     # memorizza il nuovo valore
     ret
@@ -63,10 +63,10 @@ MISR_stop:
 # Funzione per resettare MISR
 MISR_reset:
     mv t0, a0                        # t0 = periph_start_addr
-    li t1, MISR_CONTROL_CONTROL_REG_OFFSET
+    li t1, 0
     add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET
     ld t3, 0(t2)                     # t3 = valore del registro di controllo
-    li t4, ~(1 << MISR_CONTROL_CONTROL_RESET_BIT)  # Maschera per azzerare il bit RESET
+    li t4, ~(1 << 1)                 # Maschera per azzerare il bit RESET
     and t3, t3, t4                   # t3 &= ~(1 << 1)
     sd t3, 0(t2)                     # memorizza il nuovo valore
     ret
@@ -74,20 +74,20 @@ MISR_reset:
 # Funzione per ottenere il valore del RESET
 MISR_get_reset_value:
     mv t0, a0                        # t0 = periph_start_addr
-    li t1, MISR_CONTROL_CONTROL_REG_OFFSET
+    li t1, 0
     add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET
     ld t3, 0(t2)                     # t3 = valore del registro di controllo
-    li t4, (1 << MISR_CONTROL_CONTROL_RESET_BIT)
+    li t4, (1 << 1)
     and t3, t3, t4                   # t3 &= (1 << 1) per ottenere il valore del bit RESET
     ret
 
 # Funzione per cancellare il RESET
 MISR_clear_reset:
     mv t0, a0                        # t0 = periph_start_addr
-    li t1, MISR_CONTROL_CONTROL_REG_OFFSET
+    li t1, 0
     add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET
     ld t3, 0(t2)                     # t3 = valore del registro di controllo
-    li t4, (1 << MISR_CONTROL_CONTROL_RESET_BIT)  # Maschera per impostare il bit RESET
+    li t4, (1 << 1)                  # Maschera per impostare il bit RESET
     or t3, t3, t4                    # t3 |= (1 << 1)
     sd t3, 0(t2)                     # memorizza il nuovo valore
     ret
@@ -95,7 +95,7 @@ MISR_clear_reset:
 # Funzione per ottenere la firma da MISR
 MISR_get_signature:
     mv t0, a0                        # t0 = periph_start_addr
-    li t1, MISR_CONTROL_SIGNATURE_REG_OFFSET
+    li t1, 16
     add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_SIGNATURE_REG_OFFSET
     ld t3, 0(t2)                     # t3 = valore della firma
     ret
@@ -105,7 +105,7 @@ MISR_init:
     jal ra, MISR_clear_reset
     poll_clear_reset1:
         lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << MISR_CONTROL_CONTROL_RESET_BIT)   # Maschera per ottenere il bit RESET
+        andi t6, t5, (1 << 1)   # Maschera per ottenere il bit RESET
         bnez t6, poll_clear_reset1          # Se il bit RESET è 1, continua il polling
     jal ra, MISR_set_coefficients
     poll_coefficients_set1:
@@ -115,29 +115,29 @@ MISR_init:
     jal ra, MISR_start
     poll_start_misr1:
         lw t5, 0(t0)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << MISR_CONTROL_CONTROL_RESET_BIT)   # Maschera per ottenere il bit RESET
+        andi t6, t5, (1 << 1)   # Maschera per ottenere il bit RESET
         bnez t6, poll_start_misr1          # Se il bit RESET è 1, continua il polling
     ret
 
 # Funzione principale (main)
 main:
-    li a0, MISR_1_PERIPH_START_ADDRESS
+    li a0, 0x2000000
     li a1, 0xDDBAF555FFAAF000        # coeff
     jal ra, MISR_reset
     li t4, 1
     poll_reset1:
         lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << MISR_CONTROL_CONTROL_RESET_BIT)   # Maschera per ottenere il bit RESET
+        andi t6, t5, (1 << 1)               # Maschera per ottenere il bit RESET
         beqz t6, poll_reset1                # Se il bit RESET è 0, continua il polling
     jal ra, MISR_init
 
     # MISR2
-    li a0, MISR_2_PERIPH_START_ADDRESS
+    li a0, 0x2000018
     jal ra, MISR_reset
     li t4, 1
     poll_reset2:
         lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << MISR_CONTROL_CONTROL_RESET_BIT)   # Maschera per ottenere il bit RESET
+        andi t6, t5, (1 << 1)               # Maschera per ottenere il bit RESET
         beqz t6, poll_reset2                # Se il bit RESET è 0, continua il polling
     jal ra, MISR_init
 
@@ -160,8 +160,8 @@ continue_loop:
 
 end_loop:
     # Inizializzazione delle variabili per MISR
-    li t0, MISR_1_PERIPH_START_ADDRESS   # t0 = start_address_misr1
-    li t1, MISR_2_PERIPH_START_ADDRESS   # t1 = start_address_misr2
+    li t0, 0x2000000                     # t0 = start_address_misr1
+    li t1, 0x2000018                     # t1 = start_address_misr2
     li t2, 0                             # sign1 = 0
     li t3, 0                             # sign2 = 0
     li t4, 1                             # en1 = 1
@@ -182,7 +182,7 @@ skip_poll_misr1:
     jal ra, MISR_stop                    # chiamata a MISR_stop(start_address_misr2)
 
 polling_misr2:
-    beq t5, zero, skip_poll_misr2       # Se en2 != 1, salta il polling
+    beq t5, zero, skip_poll_misr2        # Se en2 != 1, salta il polling
     jal ra, MISR_get_enable_value        # Chiamata a MISR_get_enable_value(start_address_misr2)
     mv t5, a0                            # en2 = valore ottenuto
     beq t5, zero, skip_poll_misr2        # Se en2 == 0, esci dal loop
