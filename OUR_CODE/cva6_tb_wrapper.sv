@@ -63,49 +63,7 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   rvfi_instr_t [CVA6Cfg.NrCommitPorts-1:0]  rvfi;
   assign rvfi_o = rvfi;
 
-  cva6 #(
-     .CVA6Cfg ( CVA6Cfg ),
-     .IsRVFI ( IsRVFI )
-  ) i_cva6 (
-    .clk_i                ( clk_i                     ),
-    .rst_ni               ( rst_ni                    ),
-    .boot_addr_i          ( boot_addr_i               ),//Driving the boot_addr value from the core control agent
-    .hart_id_i            ( default_inputs_vif.hart_id   ),
-    .irq_i                ( default_inputs_vif.irq       ),
-    .ipi_i                ( default_inputs_vif.ipi       ),
-    .time_irq_i           ( default_inputs_vif.time_irq  ),
-    .debug_req_i          ( default_inputs_vif.debug_req ),
-    .rvfi_o               ( rvfi                      ),
-    .cvxif_req_o          ( cvxif_req                 ),
-    .cvxif_resp_i         ( cvxif_resp                ),
-    .noc_req_o            ( axi_ariane_req            ),
-    .noc_resp_i           ( axi_ariane_resp           ),
-    .re_misr_i            ( re_misr                   ),
-    .we_misr_i            ( we_misr                   ),
-    .addr_misr_i          ( addr_misr                 ),
-    .wdata_misr_i         ( wdata_misr                ),
-    .rdata_misr_o         ( rdata_misr                ),
-    .rsign_misr1_o        ( rsign_misr1                ),
-    .rsign_misr2_o        ( rsign_misr2                )
-  );
-
-  //----------------------------------------------------------------------------
-  // RVFI
-  //----------------------------------------------------------------------------
-
-  rvfi_tracer  #(
-    .CVA6Cfg(CVA6Cfg),
-    .rvfi_instr_t(rvfi_instr_t),
-    //
-    .HART_ID(8'h0),
-    .DEBUG_START(0),
-    .DEBUG_STOP(0)
-  ) rvfi_tracer_i (
-    .clk_i(clk_i),
-    .rst_ni(rst_ni),
-    .rvfi_i(rvfi),
-    .end_of_test_o(tb_exit_o)
-  ) ;
+  
   
   //----------------------------------------------------------------------------
   // Constants for MISR
@@ -224,6 +182,49 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
    assign axi_slave.ar_region = axi_ariane_req.ar.region;
    assign axi_slave.ar_user   = 0;
 
+  cva6 #(
+     .CVA6Cfg ( CVA6Cfg ),
+     .IsRVFI ( IsRVFI )
+  ) i_cva6 (
+    .clk_i                ( clk_i                     ),
+    .rst_ni               ( rst_ni                    ),
+    .boot_addr_i          ( boot_addr_i               ),//Driving the boot_addr value from the core control agent
+    .hart_id_i            ( default_inputs_vif.hart_id   ),
+    .irq_i                ( default_inputs_vif.irq       ),
+    .ipi_i                ( default_inputs_vif.ipi       ),
+    .time_irq_i           ( default_inputs_vif.time_irq  ),
+    .debug_req_i          ( default_inputs_vif.debug_req ),
+    .rvfi_o               ( rvfi                      ),
+    .cvxif_req_o          ( cvxif_req                 ),
+    .cvxif_resp_i         ( cvxif_resp                ),
+    .noc_req_o            ( axi_ariane_req            ),
+    .noc_resp_i           ( axi_ariane_resp           ),
+    .re_misr_i            ( re_misr                   ),
+    .we_misr_i            ( we_misr                   ),
+    .addr_misr_i          ( addr_misr                 ),
+    .wdata_misr_i         ( wdata_misr                ),
+    .rdata_misr_o         ( rdata_misr                ),
+    .rsign_misr1_o        ( rsign_misr1                ),
+    .rsign_misr2_o        ( rsign_misr2                )
+  );
+
+  //----------------------------------------------------------------------------
+  // RVFI
+  //----------------------------------------------------------------------------
+
+  rvfi_tracer  #(
+    .CVA6Cfg(CVA6Cfg),
+    .rvfi_instr_t(rvfi_instr_t),
+    //
+    .HART_ID(8'h0),
+    .DEBUG_START(0),
+    .DEBUG_STOP(0)
+  ) rvfi_tracer_i (
+    .clk_i(clk_i),
+    .rst_ni(rst_ni),
+    .rvfi_i(rvfi),
+    .end_of_test_o(tb_exit_o)
+  ) ;
 
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( CVA6Cfg.AxiAddrWidth         ),
@@ -347,9 +348,9 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
     always begin
 
       @(posedge clk_i);
-      $display ("[$display] time=%0t: signature_misr1=0x%0h, signature_misr2=0x%0h", $time, rsign_misr1, rsign_misr2);
+      //$display ("[$display] time=%0t: signature_misr1=0x%0h, signature_misr2=0x%0h", $time, rsign_misr1, rsign_misr2);
 
-     // $monitor ("[$monitor] time=%0t: signature_misr1=0x%0h, signature_misr2=0x%0h", $time, rsign_misr1, rsign_misr2);  
+      $monitor ("[$monitor] time=%0t: signature_misr1=0x%0h, signature_misr2=0x%0h", $time, rsign_misr1, rsign_misr2);  
 
     end 
     // ****************************************************

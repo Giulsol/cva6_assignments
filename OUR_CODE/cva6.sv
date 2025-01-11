@@ -486,7 +486,7 @@ module cva6
 		.data_CSR_i(wdata_misr_i),
 		.data_MISR_i(flu_result_ex_id),
 		.addr_i(addr_misr_i),
-    .signature_o(rsign_misr_o),
+    .signature_o(rsign_misr1_o),
 		.data_sw_o(data_o_misr1)
 	);
 
