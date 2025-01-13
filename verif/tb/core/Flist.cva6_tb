@@ -38,6 +38,3 @@ ${CVA6_REPO_DIR}/corev_apu/tb/rvfi_tracer.sv
 
 // AXI master connect
 ${CVA6_TB_DIR}/tb_components/axi_master_connect.sv
-
-// Address decoder
-${CVA6_REPO_DIR}/OUR_CODE/address_decoder.sv
