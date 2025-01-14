@@ -236,7 +236,7 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
   axi_master_connect #(
   ) i_axi_master_connect_cva6_to_mem (
     .axi_req_i  (axi_ariane_req),
-    .dis_mem    (axi_switch_vif.active),
+    .dis_mem    (0),
     .master     (cva6_axi_bus)
   );
 
