@@ -1,38 +1,30 @@
-# Definizioni degli offset e indirizzi dai tuoi file .h
-#define MISR_CONTROL_REG_WIDTH 64
-#define MISR_CONTROL_CONTROL_REG_OFFSET 0
-#define MISR_CONTROL_CONTROL_ENABLE_BIT 0
-#define MISR_CONTROL_CONTROL_RESET_BIT 1
-#define MISR_CONTROL_CONTROL_DONE_BIT 2
-#define MISR_CONTROL_COEFFICIENTS_REG_OFFSET (MISR_CONTROL_REG_WIDTH/8)
-#define MISR_CONTROL_SIGNATURE_REG_OFFSET (MISR_CONTROL_REG_WIDTH/8)*2
-#define MISR_1_PERIPH_START_ADDRESS 0x2000000
-#define MISR_2_PERIPH_START_ADDRESS (MISR_1_PERIPH_START_ADDRESS + (MISR_CONTROL_REG_WIDTH/8)*3)
-
+  .align
+  .section .text
+SIGN: .dword 0
   .align
   .section .text
   .globl main
   
 # Funzione principale (main)
 main:
-    li a0, 0x2000000
-    li a1, 0xDDBAF555FFAAF000        # coeff
+    li a0, 0x2000000                  # indirizzo per MISR #1
+    li a1, 0xDDBAF555FFAAF000         # coeff
     jal ra, MISR_reset
     li t4, 1
-    poll_reset1:
-        lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << 1)               # Maschera per ottenere il bit RESET
-        beqz t6, poll_reset1                # Se il bit RESET è 0, continua il polling
+poll_reset1:
+    ld t5, 0(t2)                      # Leggi il valore del registro di reset
+    andi t6, t5, (1 << 1)             # Maschera per ottenere il bit RESET
+    beqz t6, poll_reset1              # Se il bit RESET è 0, continua il polling
     jal ra, MISR_init
 
     # MISR2
     li a0, 0x2000018
     jal ra, MISR_reset
     li t4, 1
-    poll_reset2:
-        lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << 1)               # Maschera per ottenere il bit RESET
-        beqz t6, poll_reset2                # Se il bit RESET è 0, continua il polling
+poll_reset2:
+    ld t5, 0(t2)                      # Leggi il valore del registro di reset
+    andi t6, t5, (1 << 1)             # Maschera per ottenere il bit RESET
+    beqz t6, poll_reset2              # Se il bit RESET è 0, continua il polling
     jal ra, MISR_init
 
     # Fibonacci setup
@@ -196,20 +188,18 @@ MISR_get_signature:
 # Funzione per inizializzare MISR
 MISR_init:
     jal ra, MISR_clear_reset
-    poll_clear_reset1:
-        lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << 1)   # Maschera per ottenere il bit RESET
-        bnez t6, poll_clear_reset1          # Se il bit RESET è 1, continua il polling
+poll_clear_reset1:
+    ld t5, 0(t2)                      # Leggi il valore del registro di reset
+    andi t6, t5, (1 << 1)             # Maschera per ottenere il bit RESET
+    bnez t6, poll_clear_reset1        # Se il bit RESET è 1, continua il polling
     jal ra, MISR_set_coefficients
-    poll_coefficients_set1:
-        lw t5, 0(t2)                        # Leggi il valore del registro dei coeficients
-        xor t6, t5, a1
-        bnez t6, poll_coefficients_set1          # Se il bit è 1, continua il polling
+poll_coefficients_set1:
+    ld t5, 0(t2)                      # Leggi il valore del registro dei coeficients
+    xor t6, t5, a1
+    bnez t6, poll_coefficients_set1   # Se il bit è 1, continua il polling
     jal ra, MISR_start
-    poll_start_misr1:
-        lw t5, 0(t0)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << 1)   # Maschera per ottenere il bit RESET
-        bnez t6, poll_start_misr1          # Se il bit RESET è 1, continua il polling
+poll_start_misr1:
+    ld t5, 0(t0)                      # Leggi il valore del registro di reset
+    andi t6, t5, (1 << 1)             # Maschera per ottenere il bit RESET
+    bnez t6, poll_start_misr1         # Se il bit RESET è 1, continua il polling
     ret
-
-
