@@ -91,6 +91,7 @@ polling_sign_misr2:
     beq t3, zero, polling_sign_misr2     # Continua a fare polling finché sign2 == 0
     # Stampa "The obtained signature of misr2"
 
+    li a0, 0x0;
     jal exit;
 
 
