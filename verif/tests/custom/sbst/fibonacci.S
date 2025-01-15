@@ -15,7 +15,29 @@ main:
 	jal ra, MISR_set_coefficients
 	jal ra, MISR_start
 
-	li a0, 0x2000018                  # indirizzo per MISR #2
+    # Fibonacci setup
+    li t0, 0           # a = 0
+    li t1, 1           # b = 1
+    li t2, 0           # nextTerm = 0
+    li t3, 17711       # stopTerm
+    add t2, t0, t1     # nextTerm = a + b (t2 = 0 + 1)
+
+fibonacci_loop:
+    ble t2, t3, continue_loop  # Se nextTerm <= n, continua il loop
+    j end_loop
+
+continue_loop:
+    mv t0, t1           # a = b
+    mv t1, t2           # b = nextTerm
+    add t2, t0, t1      # nextTerm = a + b
+    j fibonacci_loop
+
+end_loop:
+	li a0, 0x2000000
+	jal ra, MISR_stop
+	jal ra, MISR_get_signature
+
+    li a0, 0x2000018                  # indirizzo per MISR #2
 	jal ra, MISR_reset
     li t4, 1
     jal ra, MISR_clear_reset
@@ -23,31 +45,27 @@ main:
 	jal ra, MISR_start
 
     # Fibonacci setup
-    li t0, 0           # t1 = 0
-    li t1, 1           # t2 = 1
+    li t0, 17711       # a = 17711
+    li t1, 10946       # b = 10946
     li t2, 0           # nextTerm = 0
-    li t3, 17711       # n = 75
-    add t2, t0, t1     # nextTerm = t1 + t2 (t2 = 0 + 1)
+    li t3, 701408733   # stopTerm
+    add t2, t0, t1     # nextTerm = a + b (t2 = 0 + 1)
 
 fibonacci_loop:
     ble t2, t3, continue_loop  # Se nextTerm <= n, continua il loop
     j end_loop
 
 continue_loop:
-    mv t0, t1           # t1 = t2
-    mv t1, t2           # t2 = nextTerm
-    add t2, t0, t1      # nextTerm = t1 + t2
+    mv t0, t1           # a = b
+    mv t1, t2           # b = nextTerm
+    add t2, t0, t1      # nextTerm = a + b
     j fibonacci_loop
 
-	li a0, 0x2000000
-	jal ra, MISR_stop
-	jal ra, MISR_get_signature
-
+end_loop:
 	li a0, 0x2000018
 	jal ra, MISR_stop
 	jal ra, MISR_get_signature
 
-end_loop:
     li a0, 0x0;
     jal exit;
 
