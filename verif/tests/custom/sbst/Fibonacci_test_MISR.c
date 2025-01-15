@@ -15,16 +15,16 @@ int Fibonacci_test_MISR()
 
 
 	/*		MISR1 reset		*/
-	printf("STAAAAART");
+	//printf("STAAAAART");
 	MISR_reset(start_address_misr1);
-	printf("Reset bit of MISR #1 is being set to 0\n");
+	//printf("Reset bit of MISR #1 is being set to 0\n");
 	//polling in reading mode
 	while (rst1 == 1) {
 		rst1 = MISR_get_reset_value(start_address_misr1);
 	}
 
 	MISR_clear_reset(start_address_misr1);
-	printf("Reset bit of MISR #1 is begin cleared\n");
+	//printf("Reset bit of MISR #1 is begin cleared\n");
 	//polling
 	while (rst1 == 0) {
 		rst1 = MISR_get_reset_value(start_address_misr1);
@@ -32,14 +32,14 @@ int Fibonacci_test_MISR()
 
 	/*		MISR2 reset		*/
 	MISR_reset(start_address_misr2);
-	printf("Reset bit of MISR #2 is being set to 0\n");
+	//printf("Reset bit of MISR #2 is being set to 0\n");
 	//polling in reading mode
 	while (rst2 == 1) {
 		rst2 = MISR_get_reset_value(start_address_misr1);
 	}
 
 	MISR_clear_reset(start_address_misr2);
-	printf("Reset bit of MISR #2 is begin cleared\n");
+	//printf("Reset bit of MISR #2 is begin cleared\n");
 	//polling
 	while (rst2 == 0) {
 		rst2 = MISR_get_reset_value(start_address_misr2);
@@ -48,7 +48,7 @@ int Fibonacci_test_MISR()
 	/*		MISR coefficients setting		*/
 	MISR_set_coefficients(start_address_misr1, coeff);
 	MISR_set_coefficients(start_address_misr2, coeff);
-	printf("Setting coefficients of MISR #1 and #2\n");
+	//printf("Setting coefficients of MISR #1 and #2\n");
 	//polling
 	while (coeff_test1 != coeff) {
 		coeff_test1 = MISR_get_coefficients(start_address_misr1);
@@ -60,13 +60,13 @@ int Fibonacci_test_MISR()
 
 	/*		MISR enabling		*/
 	MISR_start(start_address_misr1);
-	printf("Enabling MISR #1\n");
+	//printf("Enabling MISR #1\n");
 	//polling
 	while (en1 == 0) {
 		en1 = MISR_get_enable_value(start_address_misr1);
 	}
 	MISR_start(start_address_misr2);
-	printf("Enabling MISR #2\n");
+	//printf("Enabling MISR #2\n");
 	//polling
 	while (en2 == 0) {
 		en2 = MISR_get_enable_value(start_address_misr2);
@@ -84,13 +84,13 @@ int Fibonacci_test_MISR()
 
 	//MISR stopping
 	MISR_stop(start_address_misr1);
-	printf("Disabling MISR #1\n");
+	//printf("Disabling MISR #1\n");
 	//polling
 	while(en1 == 1) {
 		en1 = MISR_get_enable_value(start_address_misr1);
 	}
 	MISR_stop(start_address_misr2);
-	printf("Disabling MISR #2\n");
+	//printf("Disabling MISR #2\n");
 	//polling
 	while(en2 == 1) {
 		en2 = MISR_get_enable_value(start_address_misr2);
@@ -101,12 +101,12 @@ int Fibonacci_test_MISR()
 	while(sign1 == 0) {
 		sign1 = MISR_get_signature(start_address_misr1);
 	}
-	printf("The obtained signature of misr1 is: %lld\n", sign1);
+	//printf("The obtained signature of misr1 is: %lld\n", sign1);
 	//polling
 	while(sign2 == 0) {
 		sign2 = MISR_get_signature(start_address_misr2);
 	}
-	printf("The obtained signature of misr2 is: %lld\n", sign2);
+	//printf("The obtained signature of misr2 is: %lld\n", sign2);
 
 	return 0;
 }
