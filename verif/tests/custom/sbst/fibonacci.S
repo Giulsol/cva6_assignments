@@ -7,6 +7,42 @@ SIGN: .dword 0
   
 # Funzione principale (main)
 main:
+    li a0, 0x2000018                  # indirizzo per MISR #2
+    li a1, 0xDDBAF555FFAAF000         # coeff
+	jal ra, MISR_reset
+    li t4, 1
+    jal ra, MISR_clear_reset
+	jal ra, MISR_set_coefficients
+	jal ra, MISR_start
+
+    # Fibonacci setup
+    li t0, 17711       # a = 17711
+    li t1, 10946       # b = 10946
+    li t2, 0           # nextTerm = 0
+    li t3, 701408733   # stopTerm
+    add t2, t0, t1     # nextTerm = a + b (t2 = 0 + 1)
+
+fibonacci_loop2:
+    ble t2, t3, continue_loop2  # Se nextTerm <= n, continua il loop
+    j end_loop2
+
+continue_loop2:
+    mv t0, t1           # a = b
+    mv t1, t2           # b = nextTerm
+    add t2, t0, t1      # nextTerm = a + b
+    j fibonacci_loop2
+
+end_loop2:
+	li a0, 0x2000018
+	jal ra, MISR_stop
+	jal ra, MISR_get_signature
+    #jal ra, MISR_reset
+    #jal ra, MISR_clear_reset
+
+    nop 
+    nop 
+    nop 
+
     li a0, 0x2000000                  # indirizzo per MISR #1
     li a1, 0xDDBAF555FFAAF000         # coeff
     jal ra, MISR_reset
@@ -36,35 +72,9 @@ end_loop:
 	li a0, 0x2000000
 	jal ra, MISR_stop
 	jal ra, MISR_get_signature
+    #jal ra, MISR_reset
+    #jal ra, MISR_clear_reset
 
-    li a0, 0x2000018                  # indirizzo per MISR #2
-	jal ra, MISR_reset
-    li t4, 1
-    jal ra, MISR_clear_reset
-	jal ra, MISR_set_coefficients
-	jal ra, MISR_start
-
-    # Fibonacci setup
-    li t0, 17711       # a = 17711
-    li t1, 10946       # b = 10946
-    li t2, 0           # nextTerm = 0
-    li t3, 701408733   # stopTerm
-    add t2, t0, t1     # nextTerm = a + b (t2 = 0 + 1)
-
-fibonacci_loop:
-    ble t2, t3, continue_loop  # Se nextTerm <= n, continua il loop
-    j end_loop
-
-continue_loop:
-    mv t0, t1           # a = b
-    mv t1, t2           # b = nextTerm
-    add t2, t0, t1      # nextTerm = a + b
-    j fibonacci_loop
-
-end_loop:
-	li a0, 0x2000018
-	jal ra, MISR_stop
-	jal ra, MISR_get_signature
 
     li a0, 0x0;
     jal exit;

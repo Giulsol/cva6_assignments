@@ -345,12 +345,12 @@ module cva6_tb_wrapper import uvmt_cva6_pkg::*; #(
 
     // ****** MONITOR ************************************
 
-    always @(posedge clk_i) begin
-      $display("[$display] time=%0t: signature_misr2=0x%0h", $time, rsign_misr2);
-    end
+    //always @(posedge clk_i) begin
+      //$display("[$display] time=%0t: signature_misr2=0x%0h", $time, rsign_misr2);
+    //end
 	
     initial begin
-      $monitor ("[$monitor] time=%0t: signature_misr1=0x%0h", $time, rsign_misr1);  
+      $monitor ("[$monitor] time=%0t: signature_misr1=0x%0h, signature_misr2=0x%0h", $time, rsign_misr1, rsign_misr2);  
     end 
     // ****************************************************
 
