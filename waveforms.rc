@@ -2,11 +2,11 @@ Magic 271485
 Revision Verdi_W-2024.09-SP1
 
 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
-viewPort 0 25 1280 552 224 105
+viewPort 0 24 1280 700 224 182
 
 ; File list:
 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
-openDirFile -d / "" "/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/inter.fsdb"
+openDirFile -d / -i 0 "" "/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/inter.fsdb"
 
 ; file time scale:
 ; fileTimeScale ### s|ms|us|ns|ps
@@ -16,22 +16,14 @@ signalSpacing 5
 
 ; windowTimeUnit is used for zoom, cursor & marker
 ; waveform viewport range
-zoom 1467941.842209 1542182.473373
-cursor 1486502.000000
+zoom 2654010.322142 2684147.525995
+cursor 2671502.000000
 marker 0.000000
 
-; user define markers
-; userMarker time_pos marker_name color linestyle
-userMarker 778502 M1 ID_GREEN5 long_dashed
-
-; set reference marker 
-; refMarker marker_name
-refMarker M1
-
 ; visible top row signal index
-top 164
+top 0
 ; marker line index
-markerPos 206
+markerPos 252
 
 ; rename signal list
 ; addRenameSig new_name org_name
@@ -53,6 +45,91 @@ addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/CVA6" "/uvmt_
 ; addRenameSig new_name org_name
 
 addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/clk" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/CVA6" keep
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/control_register/control_reg_d[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/control_register/d[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/control_register/control_reg_q[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/control_register/q[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register/signature_reg_d[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register/d[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register/signature_regq[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register/q[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register/signature_reg_q[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register/signature_regq[63:0]" keep
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coefficient_register/coeff_reg_d[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coefficient_register/d[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coefficient_register/coeff_reg_q[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coefficient_register/q[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coeff_reg_q[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_reg_out[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/control_reg_d[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/d[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/control_reg_q[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/q[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_register/signature_reg_d[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_register/d[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/signature_reg_d[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/control_reg_d[63:0]" keep
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_register/signature_reg_q[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_register/q[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coefficient_register/coeff_reg_d[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coefficient_register/d[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coefficient_register/coeff_reg_q[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coefficient_register/q[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coeff_reg_q[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_reg_out[63:0]"
+
+; rename signal list
+; addRenameSig new_name org_name
+
+addRenameSig "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/control_r_d[63:0]" "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/signature_reg_d[63:0]" keep
 
 ; event list
 ; addEvent event_name event_expression
@@ -107,7 +184,40 @@ addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/we
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/we_misr[1:0]
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/we_sram
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/wuser[63:0]
-addGroup "ADDR_DECODER" -e FALSE
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/addr[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/addr_misr[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/addr_sram[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_ariane_req
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_ariane_resp
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/be[7:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/be_sram[7:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/binary
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/boot_addr_i[31:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/clk_i
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/cvxif_req
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/cvxif_resp
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/data_sram[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/rdata[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/rdata_misr[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/rdata_sram[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/re_misr[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/req
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/req_sram
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/rsign_misr1[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/rsign_misr2[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/rst_ni
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/ruser[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/rvfi[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/rvfi_o[1:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/tb_exit_o[31:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/user_sram[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/wdata[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/wdata_misr[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/we
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/we_misr[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/we_sram
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/wuser[63:0]
+addGroup "ADDR_DECODER"
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/address_decoder/ADDR_DECODER
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/address_decoder/addr_o[63:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/address_decoder/address_i[63:0]
@@ -147,7 +257,44 @@ addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_c
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/user_o[63:0]
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/we_o
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/wrap_boundary[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/addr_o[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/aligned_address[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/ax_req_d
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/ax_req_q
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/be_o[7:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/axi2mem
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/cnt_d[7:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/cnt_q[7:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/cons_addr[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/data_i[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/data_o[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/req_addr_d[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/req_addr_q[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/req_o
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/rst_ni
+addSignal -h 15 -UNSIGNED /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/state_d[2:0]
+addSignal -h 15 -UNSIGNED /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/state_q[2:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/upper_wrap_boundary[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/user_i[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/user_o[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/we_o
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6_axi2mem/wrap_boundary[63:0]
 addGroup "SRAM" -e FALSE
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/addr_i[23:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/be_aligned[7:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/be_i[7:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/clk_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/rdata_aligned[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/rdata_o[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/req_i
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/rst_ni
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/ruser_aligned[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/ruser_o[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/wdata_aligned[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/wdata_i[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/we_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/wuser_aligned[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/wuser_i[63:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/addr_i[23:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/be_aligned[7:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_sram/be_i[7:0]
@@ -198,7 +345,41 @@ addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/rvfi_o[1:0]
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/time_irq_i
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/wdata_misr_i[63:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/we_misr_i[1:0]
-addGroup "MISR1" -e FALSE
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/addr_misr_i[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/addr_misr_i[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/boot_addr_i[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/clk
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/cvxif_resp_i
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/debug_req_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/hart_id_i[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/ipi_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/irq_i[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/noc_resp_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/re_misr_i[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/rst_ni
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/time_irq_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/wdata_misr_i[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/we_misr_i[1:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/boot_addr_i[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/clk_i
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/cvxif_req_o
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/cvxif_resp_i
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/debug_req_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/hart_id_i[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/ipi_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/irq_i[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/noc_req_o
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/noc_resp_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/rdata_misr_o[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/re_misr_i[1:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/rsign_misr1_o[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/rsign_misr2_o[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/rst_ni
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/rvfi_o[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/time_irq_i
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/wdata_misr_i[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/we_misr_i[1:0]
+addGroup "MISR1"
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/addr_i[63:0]
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/clk_i
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coeff_reg_in[63:0]
@@ -214,8 +395,14 @@ addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/rst_M
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/rst_ni
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_o[63:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_reg_in[63:0]
-addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_reg_out[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coeff_reg_q[63:0]
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/we_i
+addSignal -h 15 -UNSIGNED -BIN /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/control_r_d[63:0]
+addSignal -h 15 -UNSIGNED -BIN /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register/control_reg_q[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_register/signature_reg_d[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_register/signature_reg_q[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coefficient_register/coeff_reg_d[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coefficient_register/coeff_reg_q[63:0]
 addGroup "MISR2"
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/addr_i[63:0]
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/clk_i
@@ -232,9 +419,60 @@ addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/rst_M
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/rst_ni
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_o[63:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_reg_in[63:0]
-addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_reg_out[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coeff_reg_q[63:0]
 addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/we_i
-addGroup "axi_slave"
+addSignal -h 15 -UNSIGNED -BIN /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/control_register/control_reg_d[63:0]
+addSignal -h 15 -UNSIGNED -BIN /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/control_register/control_reg_q[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register/signature_reg_d[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register/signature_reg_q[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coefficient_register/coeff_reg_d[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coefficient_register/coeff_reg_q[63:0]
+addGroup "axi_slave" -e FALSE
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_addr[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_burst[1:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_cache[3:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_id[4:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_len[7:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_lock
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_prot[2:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_qos[3:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_ready
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_region[3:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_size[2:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_user[0:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_valid
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_addr[63:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_atop[5:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_burst[1:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_id[4:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_len[7:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_lock
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_prot[2:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_qos[3:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_ready
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_region[3:0]
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_size[2:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_user[0:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/aw_valid
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/b_id[4:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/b_ready
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/b_resp[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/b_user[0:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/b_valid
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/clk
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/r_id[4:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/r_last
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/r_ready
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/r_resp[1:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/r_user[0:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/r_valid
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/rst_n
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/w_data[63:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/w_last
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/w_ready
+addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/w_strb[7:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/w_user[0:0]
+addSignal -h 15 /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/w_valid
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_addr[63:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_burst[1:0]
 addSignal -h 15 -UNSIGNED -HEX /uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_slave/ar_cache[3:0]
@@ -293,6 +531,8 @@ getSignalForm close
 "/uvmt_cva6_tb/axi_switch_vif"
 "/uvmt_cva6_tb/cva6_dut_wrap"
 "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1"
 
 SCOPE_LIST_BEGIN
 "/uvmt_cva6_tb"
@@ -316,6 +556,14 @@ SCOPE_LIST_BEGIN
 "/uvmt_cva6_tb/clknrst_if"
 "/uvmt_cva6_tb/axi_switch_vif"
 "/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/axi_switch_vif"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/coefficient_register"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/MISR"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/control_register"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR2/signature_register"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/MISR"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/coefficient_register"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/control_register"
+"/uvmt_cva6_tb/cva6_dut_wrap/cva6_tb_wrapper_i/i_cva6/MISR1/signature_register"
 SCOPE_LIST_END
 
 GETSIGNALFORM_SCOPE_HIERARCHY_END

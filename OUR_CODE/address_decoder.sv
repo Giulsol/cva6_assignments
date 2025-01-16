@@ -40,10 +40,9 @@ module address_decoder #(
             //disable req and we bits going to the memory
             req_o = 1'b0;
             we_o = 1'b0;
-
-            case (address_i)
-                MISR_PRIPH_1_START_ADDR : begin
-                    if (request_i == 1'b1) begin
+            //address belongs to MISR1
+            if(address_i < MISR_PRIPH_2_START_ADDR) begin
+                if (request_i == 1'b1) begin
                         re_misr_o = {1'b0, ~wr_en_i};
                         we_misr_o = {1'b0, wr_en_i};
                     end
@@ -51,9 +50,10 @@ module address_decoder #(
                         re_misr_o = 2'b00;
                         we_misr_o = 2'b00;
                     end
-                end 
-                MISR_PRIPH_2_START_ADDR : begin
-                    if (request_i == 1'b1) begin
+            end
+            //address belongs to MISR2
+            else begin 
+                  if (request_i == 1'b1) begin
                         re_misr_o = {~wr_en_i, 1'b0};
                         we_misr_o = {wr_en_i, 1'b0};
                     end
@@ -61,8 +61,7 @@ module address_decoder #(
                         re_misr_o = 2'b00;
                         we_misr_o = 2'b00;
                     end
-                end 
-            endcase
+            end 
         end
         else begin  //micro and sram speaking
             //enable we and req signals going to the SRAM
