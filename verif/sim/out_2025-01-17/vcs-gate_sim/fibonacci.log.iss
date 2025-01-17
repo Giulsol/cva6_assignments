@@ -59,7 +59,7 @@ uvmt_rvfi_if
   (/home/s324967/TESTING_LABS/project/cva6_assignments/verif/tb/uvmt/uvmt_cva6_tb_ifs.sv,24).
 
 Notice: Ports coerced to inout, use -notice for details
-503 modules and 5 UDPs read.
+492 modules and 4 UDPs read.
 make[2]: Entering directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/csrc'
 g++ -w  -pipe -DVCSMX -DUVM_DPI_DO_TYPE_CHECK -fPIC -O -I/opt/synopsys/vcs/W-2024.09-SP1/include    -c /opt/synopsys/vcs/W-2024.09-SP1/etc/uvm-1.2/dpi/uvm_dpi.cc
 g++ -w  -pipe -DVCSMX -DUVM_DPI_DO_TYPE_CHECK -fPIC -O -I/opt/synopsys/vcs/W-2024.09-SP1/include    -c /opt/synopsys/vcs/W-2024.09-SP1/etc/uvm-1.2/verdi/dpi/uvm_verdi_dpi.cpp
@@ -100,10 +100,10 @@ vc_fcc -full64 -daidir /home/s324967/TESTING_LABS/project/cva6_assignments/verif
 Command: vc_fcc -full64 -daidir /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/simv.daidir -sff /home/s324967/TESTING_LABS/project/cva6_assignments/fmeda/fsim/collateral/sff/config.sff,/home/s324967/TESTING_LABS/project/cva6_assignments/fmeda/fsim/collateral/sff/faults.sff -campaign cva6 -overwrite 
 
 [fdb_start] Creating the database storage in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fdb, may take time
-[fdb_start] Started server po.polito.it:64751 pid=26718 fdb_path /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fdb
+[fdb_start] Started server po.polito.it:49599 pid=17599 fdb_path /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fdb
 Info: Connected to started server
 Loading design information...
-Done (CPU time: 0s, elapsed time: 0s, memory increased by 61Mb, peak: 81Mb).
+Done (CPU time: 0s, elapsed time: 0s, memory increased by 59Mb, peak: 80Mb).
 
 Warning-[FCC-PROMOTION-TABLE-MISSING-BUILT-IN-STATUSES] Missing noted built-in fault status interactions.
 /home/s324967/TESTING_LABS/project/cva6_assignments/fmeda/fsim/collateral/sff/config.sff, 48
@@ -141,31 +141,31 @@ Warning-[FCC-PROMOTION-TABLE-MISSING-BUILT-IN-STATUSES] Missing noted built-in f
   
 
 Generating faults...
-Done (64758 faults generated, CPU time: 0s, elapsed time: 0s, memory increased by 36Mb, peak: 119Mb).
+Done (64688 faults generated, CPU time: 0s, elapsed time: 0s, memory increased by 36Mb, peak: 119Mb).
 Collecting design strobes...
 Done (CPU time: 0s, elapsed time: 0s, memory increased by 0Mb, peak: 121Mb).
 Loading design details...
-Done (CPU time: 2s, elapsed time: 3s, memory increased by 262Mb, peak: 384Mb).
+Done (CPU time: 2s, elapsed time: 2s, memory increased by 262Mb, peak: 383Mb).
 Constant propagation...
-Done (CPU time: 1s, elapsed time: 1s, memory increased by 8Mb, peak: 393Mb).
+Done (CPU time: 2s, elapsed time: 1s, memory increased by 8Mb, peak: 391Mb).
 Static testability analysis...
-Done (CPU time: 0s, elapsed time: 0s, memory increased by 2Mb, peak: 395Mb).
+Done (CPU time: 0s, elapsed time: 0s, memory increased by 2Mb, peak: 393Mb).
 Reconvergence check...
-Done (CPU time: 0s, elapsed time: 0s, memory increased by 0Mb, peak: 395Mb).
+Done (CPU time: 0s, elapsed time: 0s, memory increased by 0Mb, peak: 393Mb).
 Pruning...
-Done (CPU time: 1s, elapsed time: 0s, memory increased by 4Mb, peak: 398Mb).
+Done (CPU time: 0s, elapsed time: 1s, memory increased by 4Mb, peak: 397Mb).
 Collapsing...
-Done (CPU time: 3s, elapsed time: 4s, memory increased by 39Mb, peak: 437Mb).
+Done (CPU time: 3s, elapsed time: 3s, memory increased by 39Mb, peak: 436Mb).
 Preparing to write to FDB...
-Done (CPU time: 1s, elapsed time: 0s, memory increased by 1Mb, peak: 439Mb).
+Done (CPU time: 0s, elapsed time: 0s, memory increased by 2Mb, peak: 438Mb).
 Writing fault campaign to FDB...
-Done (CPU time: 0s, elapsed time: 1s, memory increased by 12Mb, peak: 450Mb).
-Total faults generated: 64758.
-Collapsed faults:       30165.
+Done (CPU time: 0s, elapsed time: 1s, memory increased by 11Mb, peak: 449Mb).
+Total faults generated: 64688.
+Collapsed faults:       30123.
 Untestable faults:      144.
 Fault reduction:        46%.
 1 warning
-CPU time: 11s, elapsed time: 16s, peak memory: 450MB.
+CPU time: 11s, elapsed time: 18s, peak memory: 449MB.
 make[2]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
 make[2]: Entering directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
 vc_fcm -connect -campaign cva6 \
@@ -194,45 +194,45 @@ vc_fcm -connect -campaign cva6 \
                             (TCL Interactive Shell)                             
         Designed using: eltclsh 1.17 - Copyright (C) 2001-2018 LAAS-CNRS        
 
-po.polito.it:64751 (cva6) vc_fcm> set_config -global_max_jobs 1 
-po.polito.it:64751 (cva6) vc_fcm> ### Create test campaign based on UVM testbench and runtime-compiled ELF binary
-po.polito.it:64751 (cva6) vc_fcm> ## DYNAMIC RUNTIME
-po.polito.it:64751 (cva6) vc_fcm> create_testcases -name {"test1"} \
-po.polito.it:64751 (cva6) vc_fcm>     -exec ${::env(VCS_WORK_DIR)}/simv \
-po.polito.it:64751 (cva6) vc_fcm>     -args "-sv_lib ${::env(SPIKE_INSTALL_DIR)}/lib/libriscv \
-po.polito.it:64751 (cva6) vc_fcm> 	-sv_lib ${::env(SPIKE_INSTALL_DIR)}/lib/libfesvr \
-po.polito.it:64751 (cva6) vc_fcm> 	${::env(ALL_SIMV_UVM_FLAGS)} \
-po.polito.it:64751 (cva6) vc_fcm> 	++${::env(elf)} \
-po.polito.it:64751 (cva6) vc_fcm> 	+elf_file=${::env(elf)} \
-po.polito.it:64751 (cva6) vc_fcm> 	+tohost_addr=${::env(to_host_address)} \
-po.polito.it:64751 (cva6) vc_fcm> 	${::env(cov-run-opt)} ${::env(issrun_opts)}"
-po.polito.it:64751 (cva6) vc_fcm> ### Start fault simulation
-po.polito.it:64751 (cva6) vc_fcm> fsim -verbose
+po.polito.it:49599 (cva6) vc_fcm> set_config -global_max_jobs 1 
+po.polito.it:49599 (cva6) vc_fcm> ### Create test campaign based on UVM testbench and runtime-compiled ELF binary
+po.polito.it:49599 (cva6) vc_fcm> ## DYNAMIC RUNTIME
+po.polito.it:49599 (cva6) vc_fcm> create_testcases -name {"test1"} \
+po.polito.it:49599 (cva6) vc_fcm>     -exec ${::env(VCS_WORK_DIR)}/simv \
+po.polito.it:49599 (cva6) vc_fcm>     -args "-sv_lib ${::env(SPIKE_INSTALL_DIR)}/lib/libriscv \
+po.polito.it:49599 (cva6) vc_fcm> 	-sv_lib ${::env(SPIKE_INSTALL_DIR)}/lib/libfesvr \
+po.polito.it:49599 (cva6) vc_fcm> 	${::env(ALL_SIMV_UVM_FLAGS)} \
+po.polito.it:49599 (cva6) vc_fcm> 	++${::env(elf)} \
+po.polito.it:49599 (cva6) vc_fcm> 	+elf_file=${::env(elf)} \
+po.polito.it:49599 (cva6) vc_fcm> 	+tohost_addr=${::env(to_host_address)} \
+po.polito.it:49599 (cva6) vc_fcm> 	${::env(cov-run-opt)} ${::env(issrun_opts)}"
+po.polito.it:49599 (cva6) vc_fcm> ### Start fault simulation
+po.polito.it:49599 (cva6) vc_fcm> fsim -verbose
 ------------------------------------------------------------------------
 Testability Analysis
 
 Scanning database for testcases and previous results from testability analysis ...
    Task 1 (tsim) created for testcase 'test1'
    Task 2 (coats) created for testcase 'test1'
-Preparation took 1s
+Preparation took 0s
 
 
 Starting execution of 1 tsim and 1 coats tasks using 1 worker 
 Will store resulting fsdb files in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm_tsim_fsdb/cva6
 
-Check progress of tasks by their output files stored in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm.dir/session0001_2025-01-17-17:12:44_po.polito.it_PID28796/tasks/*/out.log
-and by section 1 in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm.dir/session0001_2025-01-17-17:12:44_po.polito.it_PID28796/tasks/summary.csv
+Check progress of tasks by their output files stored in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm.dir/session0001_2025-01-17-18:23:01_po.polito.it_PID19321/tasks/*/out.log
+and by section 1 in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm.dir/session0001_2025-01-17-18:23:01_po.polito.it_PID19321/tasks/summary.csv
 
   Time  | Workers |     Tasks        |  Time   Mem | results from completed task(s)
         |act./req.|active    done    |   [s]   [MB]|                               
 --------+---------+------------------+-------------+-------------------------------
-17:12:45|   -/   1|    2     - (  0%)|     -      -|<START>
-17:12:46|   1/   1|    2     0 (  0%)|             |Worker1 started on host po.polito.it
-17:12:46|   1/   1|    2     0 (  0%)|             |Task1(test1) started on worker1
-17:13:02|   1/   1|    2     0 (  0%)|             |Task2(test1) started on worker1
-17:13:02|   1/   1|    1     1 ( 50%)|    17    509|Task1(tsim,test1) done
-17:13:13|   0/   0|    0     2 (100%)|    11    450|Task2(coats,test1) done, NC:2596 NO:21021 
-17:13:13|   -/   -|    -     2 (100%)|     -      -|<FINISH>
+18:23:01|   -/   1|    2     - (  0%)|     -      -|<START>
+18:23:02|   1/   1|    2     0 (  0%)|             |Worker1 started on host po.polito.it
+18:23:02|   1/   1|    2     0 (  0%)|             |Task1(test1) started on worker1
+18:23:17|   1/   1|    2     0 (  0%)|             |Task2(test1) started on worker1
+18:23:17|   1/   1|    1     1 ( 50%)|    16    507|Task1(tsim,test1) done
+18:23:27|   0/   0|    0     2 (100%)|     9    451|Task2(coats,test1) done, NC:2578 NO:21024 
+18:23:27|   -/   -|    -     2 (100%)|     -      -|<FINISH>
 
 Testability analysis completed: 2 task(s) were run, all succeeded
 
@@ -247,38 +247,38 @@ Selected fault status: NA NN AN
 Failure modes: DEFAULT
 
 Scanning database for faults and results, keep only faults with selected status ...
-FM 'DEFAULT' has 34593 prime faults (64758 total faults), 10832 selected for fault simulation
-   Testcase 'test1' (tsim: 17s): 10832 testable prime faults that have no previous results
-Workload: 10832 combinations of FM x testcase x prime FID
+FM 'DEFAULT' has 34565 prime faults (64688 total faults), 10819 selected for fault simulation
+   Testcase 'test1' (tsim: 15s): 10819 testable prime faults that have no previous results
+Workload: 10819 combinations of FM x testcase x prime FID
 
 
 Create initial set of tasks
    Task 3 created with 2046 prime faults for faultsim of FM 'DEFAULT' with testcase 'test1'
-Preparation took 1s
+Preparation took 0s
 
 
 Starting execution of task3 using 1 worker 
-Check progress of tasks by their output files stored in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm.dir/session0001_2025-01-17-17:12:44_po.polito.it_PID28796/tasks/*/out.log
-and by section 1 in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm.dir/session0001_2025-01-17-17:12:44_po.polito.it_PID28796/tasks/summary.csv
+Check progress of tasks by their output files stored in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm.dir/session0001_2025-01-17-18:23:01_po.polito.it_PID19321/tasks/*/out.log
+and by section 1 in /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fcm.dir/session0001_2025-01-17-18:23:01_po.polito.it_PID19321/tasks/summary.csv
 
   Time  | Workers |          Workload               |  Time   Mem | results from completed task(s)
         |act./req.|  queued   active     done       |   [s]   [MB]| (testable prime faults)       
 --------+---------+---------------------------------+-------------+-------------------------------
-17:13:14|   -/   1|    8786     2046        0 (  0%)|     -      -|<START>
-17:13:15|   1/   1|    8786     2046        0 (  0%)|             |Worker1 started on host po.polito.it
-17:13:15|   1/   1|    8786     2046        0 (  0%)|             |Task3(test1) started on worker1
-17:13:38|   1/   1|    6740     2046     2046 ( 18%)|    24    739|Task3(test1) done, 2046, NN:369 ON:1677
-17:13:39|   1/   1|    6740     2046     2046 ( 18%)|             |Task4(test1) started on worker1
-17:14:02|   1/   1|    4694     2046     4092 ( 37%)|    23    701|Task4(test1) done, 2046, NN:752 ON:1294
-17:14:03|   1/   1|    4694     2046     4092 ( 37%)|             |Task5(test1) started on worker1
-17:14:29|   1/   1|    2648     2046     6138 ( 56%)|    27    737|Task5(test1) done, 2046, NN:931 ON:1115
-17:14:30|   1/   1|    2648     2046     6138 ( 56%)|             |Task6(test1) started on worker1
-17:14:53|   1/   1|     602     2046     8184 ( 75%)|    24    712|Task6(test1) done, 2046, NN:859 ON:1187
-17:14:54|   1/   1|     602     2046     8184 ( 75%)|             |Task7(test1) started on worker1
-17:15:19|   1/   1|       0      602    10230 ( 94%)|    25    709|Task7(test1) done, 2046, NN:625 ON:1421
-17:15:20|   1/   1|       0      602    10230 ( 94%)|             |Task8(test1) started on worker1
-17:15:42|   0/   0|       0        0    10832 (100%)|    22    702|Task8(test1) done, 602, NN:138 ON:464
-17:15:42|   -/   -|       -        -    10832 (100%)|     -      -|<FINISH> total results: 10832
+18:23:27|   -/   1|    8773     2046        0 (  0%)|     -      -|<START>
+18:23:28|   1/   1|    8773     2046        0 (  0%)|             |Worker1 started on host po.polito.it
+18:23:28|   1/   1|    8773     2046        0 (  0%)|             |Task3(test1) started on worker1
+18:23:51|   1/   1|    6727     2046     2046 ( 18%)|    23    734|Task3(test1) done, 2046, NN:402 ON:1644
+18:23:52|   1/   1|    6727     2046     2046 ( 18%)|             |Task4(test1) started on worker1
+18:24:14|   1/   1|    4681     2046     4092 ( 37%)|    23    701|Task4(test1) done, 2046, NN:791 ON:1255
+18:24:15|   1/   1|    4681     2046     4092 ( 37%)|             |Task5(test1) started on worker1
+18:24:43|   1/   1|    2635     2046     6138 ( 56%)|    28    724|Task5(test1) done, 2046, NN:881 ON:1165
+18:24:44|   1/   1|    2635     2046     6138 ( 56%)|             |Task6(test1) started on worker1
+18:25:07|   1/   1|     589     2046     8184 ( 75%)|    24    703|Task6(test1) done, 2046, NN:901 ON:1145
+18:25:08|   1/   1|     589     2046     8184 ( 75%)|             |Task7(test1) started on worker1
+18:25:30|   1/   1|       0      589    10230 ( 94%)|    22    695|Task7(test1) done, 2046, NN:605 ON:1441
+18:25:31|   1/   1|       0      589    10230 ( 94%)|             |Task8(test1) started on worker1
+18:25:51|   0/   0|       0        0    10819 (100%)|    20    693|Task8(test1) done, 589, NN:93 ON:496
+18:25:51|   -/   -|       -        -    10819 (100%)|     -      -|<FINISH> total results: 10819
 
 Fault simulation completed: 6 task(s) were run, all succeeded
 
@@ -294,26 +294,26 @@ Task               |Wall clock(hh:mm:ss)|Time in s              |Peak mem in MB
 ===================+====================+=============+=========+========+=======
 Fault Gen   (  0%) |                  - |           - |       - |      - |      -
 ===================+====================+=============+=========+========+=======
-Combined    ( 16%) |           00:00:29 |          28 |      24 |    509 |    966
+Combined    ( 15%) |           00:00:26 |          23 |      22 |    507 |    966
 -------------------+--------------------+-------------+---------+--------+-------
-Toggle Sim         |                  - |          18 |      15 |    509 |    966
-  setup            |       po.polito.it |           1 |       - |      - |      -
+Toggle Sim         |                  - |          15 |      14 |    507 |    966
+  setup            |       po.polito.it |           0 |       - |      - |      -
   Total Queued     |                  - |           0 |       - |      - |      -
-  test1            |       po.polito.it |          17 |      15 |    509 |    966
+  test1            |       po.polito.it |          15 |      14 |    507 |    966
 -------------------+--------------------+-------------+---------+--------+-------
-Testability        |                  - |          10 |       9 |    450 |      -
-  test1            |       po.polito.it |          10 |       9 |    450 |      -
+Testability        |                  - |           8 |       8 |    451 |      -
+  test1            |       po.polito.it |           8 |       8 |    451 |      -
 ===================+====================+=============+=========+========+=======
-Fault Sim   ( 84%) |           00:02:29 |         147 |     155 |    739 |   1235
-  setup (FDB)      |       po.polito.it |           1 |       - |      - |      -
+Fault Sim   ( 85%) |           00:02:24 |         144 |     152 |    734 |   1219
+  setup            |       po.polito.it |           0 |       - |      - |      -
   Total Queued     |                  - |           0 |       - |      - |      -
-  test1            |             6 jobs |         146 |     155 |    739 |   1235
+  test1            |             6 jobs |         144 |     152 |    734 |   1219
 ===================+====================+=============+=========+========+=======
-Total       (100%) |           00:02:58 |         175 |     179 |    739 |   1235
+Total       (100%) |           00:02:50 |         167 |     174 |    734 |   1219
 =================================================================================
 
-po.polito.it:64751 (cva6) vc_fcm> ### Write results' report
-po.polito.it:64751 (cva6) vc_fcm> report -campaign cva6 -report fsim_v.txt -overwrite
+po.polito.it:49599 (cva6) vc_fcm> ### Write results' report
+po.polito.it:49599 (cva6) vc_fcm> report -campaign cva6 -report fsim_v.txt -overwrite
 starting VC FDB Reporting
 
 will invoke: "/opt/synopsys/vcs/W-2024.09-SP1/bin/vc_fdb_report  -report 'fsim_v.txt' -overwrite -campaign cva6 -xhidden "nobanner" -fdb_path /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/fdb -fdb_project default 2>&1"
@@ -322,7 +322,7 @@ Info: Connected to existing server
 Loading fault campaign: 'cva6'...
 Done (CPU time: 0s, elapsed time: 0s, memory increased by 0Mb, peak: 12Mb).
 Loading fault results...
-Done (CPU time: 0s, elapsed time: 1s, memory increased by 38Mb, peak: 51Mb).
+Done (CPU time: 0s, elapsed time: 0s, memory increased by 38Mb, peak: 51Mb).
 Writing report...
 Done (CPU time: 0s, elapsed time: 0s, memory increased by 1Mb, peak: 52Mb).
 Info:	Wrote Standard Fault Format report to fsim_v.txt
@@ -332,6 +332,6 @@ command completed with exit code 0
 
 Exit:0
 
-CPU time: 2s, elapsed time: 179s, peak memory: 79MB.
+CPU time: 2s, elapsed time: 172s, peak memory: 80MB.
 make[2]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
 make[1]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
