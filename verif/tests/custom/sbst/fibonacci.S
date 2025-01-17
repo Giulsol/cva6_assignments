@@ -7,13 +7,28 @@ SIGN: .dword 0
   
 # Funzione principale (main)
 main:
+    nop
+    nop
+    nop
+    nop 
+    nop
     li a0, 0x2000018                  # indirizzo per MISR #2
     li a1, 0xDDBAF555FFAAF000         # coeff
-	jal ra, MISR_reset
+	jal ra, MISR_reset  
     li t4, 1
-    jal ra, MISR_clear_reset
-	jal ra, MISR_set_coefficients
-	jal ra, MISR_start
+    nop
+    jal ra, MISR_clear_reset  
+    nop 
+	jal ra, MISR_set_coefficients 
+    nop
+	jal ra, MISR_start 
+
+    nop
+    nop  
+
+    li a0, 0x2000000                  # indirizzo per MISR #1
+    jal ra, MISR_reset  
+    li t4, 1
 
     # Fibonacci setup
     li t0, 17711       # a = 17711
@@ -34,22 +49,23 @@ continue_loop2:
 
 end_loop2:
 	li a0, 0x2000018
-	jal ra, MISR_stop
+	jal ra, MISR_stop   
 	jal ra, MISR_get_signature
-    #jal ra, MISR_reset
-    #jal ra, MISR_clear_reset
 
     nop 
     nop 
     nop 
 
     li a0, 0x2000000                  # indirizzo per MISR #1
-    li a1, 0xDDBAF555FFAAF000         # coeff
-    jal ra, MISR_reset
-    li t4, 1
     jal ra, MISR_clear_reset
-	jal ra, MISR_set_coefficients
-	jal ra, MISR_start
+    nop
+    jal ra, MISR_set_coefficients 
+
+    nop
+    nop
+
+    li a0, 0x2000000
+	jal ra, MISR_start  
 
     # Fibonacci setup
     li t0, 0           # a = 0
@@ -70,10 +86,9 @@ continue_loop:
 
 end_loop:
 	li a0, 0x2000000
-	jal ra, MISR_stop
-	jal ra, MISR_get_signature
-    #jal ra, MISR_reset
-    #jal ra, MISR_clear_reset
+	jal ra, MISR_stop  
+    nop
+	jal ra, MISR_get_signature  
 
 
     li a0, 0x0;
