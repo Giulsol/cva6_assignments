@@ -642,3 +642,56 @@ Warning-[CPBRM] Precision or Sign Mismatch
   
 
 Notice: Ports coerced to inout, use -notice for details
+111 modules and 0 UDP read.
+make[2]: Entering directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/csrc'
+make[2]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/csrc'
+make[2]: Entering directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/csrc'
+g++ -w  -pipe -DVCSMX -DUVM_DPI_DO_TYPE_CHECK -fPIC -O -I/opt/synopsys/vcs/W-2024.09-SP1/include    -c /opt/synopsys/vcs/W-2024.09-SP1/etc/uvm-1.2/dpi/uvm_dpi.cc
+g++ -w  -pipe -DVCSMX -DUVM_DPI_DO_TYPE_CHECK -fPIC -O -I/opt/synopsys/vcs/W-2024.09-SP1/include    -c /opt/synopsys/vcs/W-2024.09-SP1/etc/uvm-1.2/verdi/dpi/uvm_verdi_dpi.cpp
+../simv up to date
+make[2]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/csrc'
+Verdi KDB elaboration done and the database successfully generated
+make[1]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
+make vcs_uvm_run && /opt/toolchain_riscv_13_cva6/bin/spike-dasm --isa=rv64imafdc_zicsr_zifencei < /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/trace_rvfi_hart_00.dasm > /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/out_2025-01-16/vcs-uvm_sim/Fibonacci_test_MISR.log
+make[1]: Entering directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
+\
+cd /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/ && \
+/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/simv \
+-sv_lib /opt/toolchain_riscv_13_cva6/lib/libriscv \
+-sv_lib /opt/toolchain_riscv_13_cva6/lib/libfesvr \
++vcs+lic+wait +debug_disable=1 +ntb_random_seed=1 -sv_lib /opt/toolchain_riscv_13_cva6/lib/libdisasm +signature=I-ADD-01.signature_output  +UVM_TESTNAME=uvmt_cva6_firmware_test_c -gui -do /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/init_uvm.do +scoreboard_enabled=0 \
+++/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/out_2025-01-16/directed_c_tests/Fibonacci_test_MISR.o \
++elf_file=/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/out_2025-01-16/directed_c_tests/Fibonacci_test_MISR.o \
++tohost_addr=0000000080001000 \
+ +debug_disable=1 +ntb_random_seed=1
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+logDir = /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/verdiLog
+
+
+                                   Verdi (R)
+
+               Version W-2024.09-SP1 for linux64 - Dec 01, 2024 
+
+                    Copyright (c) 1999 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+rcfile = /opt/synopsys/verdi/W-2024.09-SP1/etc/novas.rc
+*WARN* Cannot open /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/novas.conf for read access. No such file or directory
+*WARN* Cannot open /home/s324967/novas.conf for read access. No such file or directory
+guiConfFile (read)= N/A (default)
+guiConfFile (write)= /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/novas.conf (working directory)
+*WARN* Verdi-Elite (Verdi) license is not available. Try to check out Verdi-Apex (Verdi-Ultra) license.
+make[1]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'

@@ -13,8 +13,6 @@ int main()
 
 	//Test Fibonacci code
 
-	
-
 	/*		MISR1 reset		*/
 	MISR_reset(start_address_misr1);
 	rst1 = MISR_get_reset_value(start_address_misr1); 
@@ -64,8 +62,6 @@ int main()
 	//MISR signature retrieving
 	sign1 = MISR_get_signature(start_address_misr1);
 	sign2 = MISR_get_signature(start_address_misr2);
-
-	*/
 
 	return 0;
 }
