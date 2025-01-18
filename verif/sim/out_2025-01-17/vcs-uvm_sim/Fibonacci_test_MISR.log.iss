@@ -694,3 +694,8 @@ rcfile = /opt/synopsys/verdi/W-2024.09-SP1/etc/novas.rc
 guiConfFile (read)= N/A (default)
 guiConfFile (write)= /home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim/vcs_results/default/vcs.d/novas.conf (working directory)
 *WARN* Verdi-Elite (Verdi) license is not available. Try to check out Verdi-Apex (Verdi-Ultra) license.
+XIO:  fatal IO error 2 (No such file or directory) on X server ":365.0"
+      after 3073 requests (3073 known processed) with 0 events remaining.
+make[1]: *** [vcs_uvm_run] Error 1
+make[1]: Leaving directory `/home/s324967/TESTING_LABS/project/cva6_assignments/verif/sim'
+make: *** [vcs-uvm] Error 2
