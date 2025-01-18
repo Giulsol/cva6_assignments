@@ -15,18 +15,15 @@ int main()
 
 	/*		MISR1 reset		*/
 	MISR_reset(start_address_misr1);
-	rst1 = MISR_get_reset_value(start_address_misr1); 
 	
 	MISR_clear_reset(start_address_misr1);
-	rst1 = MISR_get_reset_value(start_address_misr1);
 
 	/*		MISR1 coefficients setting		*/
-	MISR_set_coefficients(start_address_misr1, coeff); //okay
-	coeff_test1 = MISR_get_coefficients(start_address_misr1); //questo non lo fa
+	MISR_set_coefficients(start_address_misr1, coeff);
 
 	/*		MISR1 enabling		*/
-	MISR_start(start_address_misr1); //lo scrive nei coefficienti
-	en1 = MISR_get_enable_value(start_address_misr1); //poi legge tre volte
+	MISR_start(start_address_misr1); 
+	en1 = MISR_get_enable_value(start_address_misr1); 
 
 	/*		MISR2 reset		*/
 	MISR_reset(start_address_misr2);
@@ -36,12 +33,12 @@ int main()
 	rst2 = MISR_get_reset_value(start_address_misr2);
 
 	/*		MISR2 coefficients setting		*/
-	MISR_set_coefficients(start_address_misr2, coeff); //okay
-	coeff_test2 = MISR_get_coefficients(start_address_misr2); //okay
+	MISR_set_coefficients(start_address_misr2, coeff); 
+	coeff_test2 = MISR_get_coefficients(start_address_misr2); 
 
 	/*		MISR2 enabling		*/
 	MISR_start(start_address_misr2);
-	en2 = MISR_get_enable_value(start_address_misr2); //questo lo fa prima di settare l'enable
+	en2 = MISR_get_enable_value(start_address_misr2); 
 
 	/*		Fibonacci code		*/
 	int t1 = 0, t2 = 1, nextTerm = 0, n = 1597; //n = 75025;
@@ -56,11 +53,14 @@ int main()
 	//MISR stopping
 	MISR_stop(start_address_misr1);
 	en1 = MISR_get_enable_value(start_address_misr1);
-	MISR_stop(start_address_misr2);
+	sign1 = MISR_get_signature(start_address_misr1);
+
 	en2 = MISR_get_enable_value(start_address_misr2);
+	MISR_stop(start_address_misr2);
 
 	//MISR signature retrieving
-	sign1 = MISR_get_signature(start_address_misr1);
+	en2 = MISR_get_enable_value(start_address_misr2);
+	MISR_reset(start_address_misr1);
 	sign2 = MISR_get_signature(start_address_misr2);
 
 	return 0;
