@@ -1,13 +1,99 @@
-# Definizioni degli offset e indirizzi dai tuoi file .h
-#define MISR_CONTROL_REG_WIDTH 64
-#define MISR_CONTROL_CONTROL_REG_OFFSET 0
-#define MISR_CONTROL_CONTROL_ENABLE_BIT 0
-#define MISR_CONTROL_CONTROL_RESET_BIT 1
-#define MISR_CONTROL_CONTROL_DONE_BIT 2
-#define MISR_CONTROL_COEFFICIENTS_REG_OFFSET (MISR_CONTROL_REG_WIDTH/8)
-#define MISR_CONTROL_SIGNATURE_REG_OFFSET (MISR_CONTROL_REG_WIDTH/8)*2
-#define MISR_1_PERIPH_START_ADDRESS 0x2000000
-#define MISR_2_PERIPH_START_ADDRESS (MISR_1_PERIPH_START_ADDRESS + (MISR_CONTROL_REG_WIDTH/8)*3)
+  .align
+  .section .text
+SIGN: .dword 0
+  .align
+  .section .text
+  .globl main
+  
+# Funzione principale (main)
+main:
+    nop
+    nop
+    nop
+    nop 
+    nop
+    li a0, 0x2000018                  # indirizzo per MISR #2
+    li a1, 0xDDBAF555FFAAF000         # coeff
+	jal ra, MISR_reset  
+    li t4, 1
+    nop
+    jal ra, MISR_clear_reset  
+    nop 
+	jal ra, MISR_set_coefficients 
+    nop
+	jal ra, MISR_start 
+
+    nop
+    nop  
+
+    li a0, 0x2000000                  # indirizzo per MISR #1
+    jal ra, MISR_reset  
+    li t4, 1
+
+    # Fibonacci setup
+    li t0, 17711       # a = 17711
+    li t1, 10946       # b = 10946
+    li t2, 0           # nextTerm = 0
+    li t3, 701408733   # stopTerm
+    add t2, t0, t1     # nextTerm = a + b (t2 = 0 + 1)
+
+fibonacci_loop2:
+    ble t2, t3, continue_loop2  # Se nextTerm <= n, continua il loop
+    j end_loop2
+
+continue_loop2:
+    mv t0, t1           # a = b
+    mv t1, t2           # b = nextTerm
+    add t2, t0, t1      # nextTerm = a + b
+    j fibonacci_loop2
+
+end_loop2:
+	li a0, 0x2000018
+	jal ra, MISR_stop   
+	jal ra, MISR_get_signature
+
+    nop 
+    nop 
+    nop 
+
+    li a0, 0x2000000                  # indirizzo per MISR #1
+    jal ra, MISR_clear_reset
+    nop
+    jal ra, MISR_set_coefficients 
+
+    nop
+    nop
+
+    li a0, 0x2000000
+	jal ra, MISR_start  
+
+    # Fibonacci setup
+    li t0, 0           # a = 0
+    li t1, 1           # b = 1
+    li t2, 0           # nextTerm = 0
+    li t3, 17711       # stopTerm
+    add t2, t0, t1     # nextTerm = a + b (t2 = 0 + 1)
+
+fibonacci_loop:
+    ble t2, t3, continue_loop  # Se nextTerm <= n, continua il loop
+    j end_loop
+
+continue_loop:
+    mv t0, t1           # a = b
+    mv t1, t2           # b = nextTerm
+    add t2, t0, t1      # nextTerm = a + b
+    j fibonacci_loop
+
+end_loop:
+	li a0, 0x2000000
+	jal ra, MISR_stop  
+    nop
+	jal ra, MISR_get_signature  
+
+
+    li a0, 0x0;
+    jal exit;
+
 
 # Funzione per impostare i coefficienti di MISR
 MISR_set_coefficients:
@@ -34,19 +120,9 @@ MISR_start:
     ld t3, 0(t2)                     # t3 = valore del registro di controllo
     li t4, 1                         # t4 = 1
     li t5, 0                         # t5 = 0 (posizione del bit ENABLE)
-    slli t4, t4, t5                  # t4 = 1 << 0
+    sll t4, t4, t5                  # t4 = 1 << 0
     or t3, t3, t4                    # t3 |= (1 << 0) per abilitare MISR
     sd t3, 0(t2)                     # memorizza il nuovo valore
-    ret
-
-# Funzione per ottenere il valore di ENABLE
-MISR_get_enable_value:
-    mv t0, a0                        # t0 = periph_start_addr
-    li t1, 0
-    add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET
-    ld t3, 0(t2)                     # t3 = valore del registro di controllo
-    li t4, (1 << 0)
-    and t3, t3, t4                   # t3 &= (1 << 0) per ottenere il valore del bit ENABLE
     ret
 
 # Funzione per disabilitare MISR
@@ -71,16 +147,6 @@ MISR_reset:
     sd t3, 0(t2)                     # memorizza il nuovo valore
     ret
 
-# Funzione per ottenere il valore del RESET
-MISR_get_reset_value:
-    mv t0, a0                        # t0 = periph_start_addr
-    li t1, 0
-    add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_CONTROL_REG_OFFSET
-    ld t3, 0(t2)                     # t3 = valore del registro di controllo
-    li t4, (1 << 1)
-    and t3, t3, t4                   # t3 &= (1 << 1) per ottenere il valore del bit RESET
-    ret
-
 # Funzione per cancellare il RESET
 MISR_clear_reset:
     mv t0, a0                        # t0 = periph_start_addr
@@ -98,111 +164,4 @@ MISR_get_signature:
     li t1, 16
     add t2, t0, t1                   # t2 = periph_start_addr + MISR_CONTROL_SIGNATURE_REG_OFFSET
     ld t3, 0(t2)                     # t3 = valore della firma
-    ret
-
-# Funzione per inizializzare MISR
-MISR_init:
-    jal ra, MISR_clear_reset
-    poll_clear_reset1:
-        lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << 1)   # Maschera per ottenere il bit RESET
-        bnez t6, poll_clear_reset1          # Se il bit RESET è 1, continua il polling
-    jal ra, MISR_set_coefficients
-    poll_coefficients_set1:
-        lw t5, 0(t2)                        # Leggi il valore del registro dei coeficients
-        xori t6, t5, a1
-        bnez t6, poll_coefficients_set1          # Se il bit è 1, continua il polling
-    jal ra, MISR_start
-    poll_start_misr1:
-        lw t5, 0(t0)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << 1)   # Maschera per ottenere il bit RESET
-        bnez t6, poll_start_misr1          # Se il bit RESET è 1, continua il polling
-    ret
-
-# Funzione principale (main)
-main:
-    li a0, 0x2000000
-    li a1, 0xDDBAF555FFAAF000        # coeff
-    jal ra, MISR_reset
-    li t4, 1
-    poll_reset1:
-        lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << 1)               # Maschera per ottenere il bit RESET
-        beqz t6, poll_reset1                # Se il bit RESET è 0, continua il polling
-    jal ra, MISR_init
-
-    # MISR2
-    li a0, 0x2000018
-    jal ra, MISR_reset
-    li t4, 1
-    poll_reset2:
-        lw t5, 0(t2)                        # Leggi il valore del registro di reset
-        andi t6, t5, (1 << 1)               # Maschera per ottenere il bit RESET
-        beqz t6, poll_reset2                # Se il bit RESET è 0, continua il polling
-    jal ra, MISR_init
-
-    # Fibonacci setup
-    li t0, 0           # t1 = 0
-    li t1, 1           # t2 = 1
-    li t2, 0           # nextTerm = 0
-    li t3, 75025       # n = 75025
-    add t2, t0, t1     # nextTerm = t1 + t2 (t2 = 0 + 1)
-
-fibonacci_loop:
-    ble t2, t3, continue_loop  # Se nextTerm <= n, continua il loop
-    j end_loop
-
-continue_loop:
-    mv t0, t1           # t1 = t2
-    mv t1, t2           # t2 = nextTerm
-    add t2, t0, t1      # nextTerm = t1 + t2
-    j fibonacci_loop
-
-end_loop:
-    # Inizializzazione delle variabili per MISR
-    li t0, 0x2000000                     # t0 = start_address_misr1
-    li t1, 0x2000018                     # t1 = start_address_misr2
-    li t2, 0                             # sign1 = 0
-    li t3, 0                             # sign2 = 0
-    li t4, 1                             # en1 = 1
-    li t5, 1                             # en2 = 1
-
-    # MISR_stop per MISR #1
-    jal ra, MISR_stop                    # chiamata a MISR_stop(start_address_misr1)
-
-polling_misr1:
-    beq t4, zero, skip_poll_misr1        # Se en1 != 1, salta il polling
-    jal ra, MISR_get_enable_value        # Chiamata a MISR_get_enable_value(start_address_misr1)
-    mv t4, a0                            # en1 = valore ottenuto
-    beq t4, zero, skip_poll_misr1        # Se en1 == 0, esci dal loop
-    j polling_misr1                      # Ripeti il polling
-
-skip_poll_misr1:
-    # MISR_stop per MISR #2
-    jal ra, MISR_stop                    # chiamata a MISR_stop(start_address_misr2)
-
-polling_misr2:
-    beq t5, zero, skip_poll_misr2        # Se en2 != 1, salta il polling
-    jal ra, MISR_get_enable_value        # Chiamata a MISR_get_enable_value(start_address_misr2)
-    mv t5, a0                            # en2 = valore ottenuto
-    beq t5, zero, skip_poll_misr2        # Se en2 == 0, esci dal loop
-    j polling_misr2                      # Ripeti il polling
-
-skip_poll_misr2:
-    # MISR_get_signature per MISR #1
-    jal ra, MISR_get_signature           # Chiamata a MISR_get_signature(start_address_misr1)
-    mv t2, a0                            # sign1 = valore ottenuto
-
-polling_sign_misr1:
-    beq t2, zero, polling_sign_misr1     # Continua a fare polling finché sign1 == 0
-    # Stampa "The obtained signature of misr1"
-
-    # MISR_get_signature per MISR #2
-    jal ra, MISR_get_signature           # Chiamata a MISR_get_signature(start_address_misr2)
-    mv t3, a0                            # sign2 = valore ottenuto
-
-polling_sign_misr2:
-    beq t3, zero, polling_sign_misr2     # Continua a fare polling finché sign2 == 0
-    # Stampa "The obtained signature of misr2"
-
     ret
